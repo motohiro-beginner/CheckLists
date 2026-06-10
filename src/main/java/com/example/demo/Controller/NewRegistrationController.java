@@ -13,5 +13,8 @@ public class NewRegistrationController {
     @PostMapping("/newRegistration")
     public String newRegistration(
             @RequestBody Map<String,Object> data
-    ){}
+    ){
+        String userName = (String)data.get("userName");
+        String password = (String)data.get("password");
+    }
 }
