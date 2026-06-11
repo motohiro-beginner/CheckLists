@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.BindingResult;
+import jakarta.validation.Valid;
 
 import java.util.Map;
 
@@ -12,7 +14,7 @@ import java.util.Map;
 public class NewRegistrationController {
     @PostMapping("/newRegistration")
     public String newRegistration(
-            @RequestBody Map<String,Object> data
+            @Valid @RequestBody Map<String,Object> data
     ){
         String userName = (String)data.get("userName");
         String password = (String)data.get("password");
