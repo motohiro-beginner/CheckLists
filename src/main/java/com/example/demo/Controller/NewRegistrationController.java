@@ -15,7 +15,6 @@ public class NewRegistrationController {
     public String newRegistration(
             @Valid @RequestBody NewRegistrationDTO dto
     ){
-        String userName = (String)data.get("userName");
-        String password = (String)data.get("password");
+
     }
 }
