@@ -1,20 +1,19 @@
 package com.example.demo.Controller;
 
+import com.example.demo.DTO.NewRegistrationDTO;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.validation.BindingResult;
 import jakarta.validation.Valid;
-
-import java.util.Map;
 
 @RestController
 public class NewRegistrationController {
     @PostMapping("/newRegistration")
     public String newRegistration(
-            @Valid @RequestBody Map<String,Object> data
+            @Valid @RequestBody NewRegistrationDTO dto
     ){
         String userName = (String)data.get("userName");
         String password = (String)data.get("password");
