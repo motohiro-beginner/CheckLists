@@ -14,7 +14,7 @@ public class NewRegistrationService {
     @Autowired
     private NewRegistrationRepository repository;
     public boolean existsByName(String userName){
-        return repository.existsByName(userName);
+        return repository.existsByUserName(userName);
     }
     public void save(NewRegistrationDTO dto){
         NewRegistrationEntity registration = new NewRegistrationEntity();
