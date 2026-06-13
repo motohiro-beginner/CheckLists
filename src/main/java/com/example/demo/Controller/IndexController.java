@@ -11,7 +11,7 @@ public class IndexController {
         if(userName != null){
             return "redirect:/home";
         }else{
-            return "redirect:/newRegistration";
+            return "redirect:/loginScreen";
         }
     }
 }

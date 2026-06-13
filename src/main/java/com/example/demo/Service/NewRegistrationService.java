@@ -13,7 +13,7 @@ public class NewRegistrationService {
     /*NewRegistrationServiceはアカウント新規作成の際の業務ルールをチェックする。*/
     @Autowired
     private NewRegistrationRepository repository;
-    public boolean existsByName(String userName){
+    public boolean existsByUserName(String userName){
         return repository.existsByUserName(userName);
     }
     public void save(NewRegistrationDTO dto){
