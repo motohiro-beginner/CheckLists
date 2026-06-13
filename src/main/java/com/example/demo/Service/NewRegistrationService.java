@@ -13,10 +13,15 @@ public class NewRegistrationService {
     /*NewRegistrationServiceはアカウント新規作成の際の業務ルールをチェックする。*/
     @Autowired
     private NewRegistrationRepository repository;
-    public boolean findByName(String name){
-        return repository.existsByName(name);
+    public boolean existsByName(String userName){
+        return repository.existsByName(userName);
     }
-    public NewRegistrationEntity save(NewRegistrationDTO dto)
+    public void save(NewRegistrationDTO dto){
+        NewRegistrationEntity registration = new NewRegistrationEntity();
+        registration.setUserName(dto.getUserName());
+        registration.setPassword(dto.getPassword());
+        repository.save(registration);
+    }
 }
 /*Serviceクラス　例
 @Service
