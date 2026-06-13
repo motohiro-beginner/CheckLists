@@ -22,7 +22,7 @@ public class NewRegistrationController {
             HttpSession session
     ){
         NewRegistrationService service = new NewRegistrationService();
-        boolean registrationResult = service.existsByName(dto.getUserName());
+        boolean registrationResult = service.existsByUserName(dto.getUserName());
         if(registrationResult){
             return Map.of("registrationResult",registrationResult);
         }else {
