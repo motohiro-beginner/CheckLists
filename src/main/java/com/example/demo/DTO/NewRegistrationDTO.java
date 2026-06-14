@@ -5,12 +5,18 @@ import jakarta.validation.constraints.Pattern;
 
 public class NewRegistrationDTO {
     /*半角英文字または英数字のみで構成されていることをチェック*/
-    @NotBlank
-    @Pattern(regexp = "^(?=.*[A-Za-z])[A-Za-z\\d]+$")
+    @NotBlank(message = "ユーザーIDを入力してください。")
+    @Pattern(
+            regexp = "^(?=.*[A-Za-z])[A-Za-z]+$",
+            message = "ユーザーIDは半角英数字のみです。"
+    )
     private String userName;
     /*半角英文字または英数字で構成されていることをチェックするかつ8文字以上20字以下であることをチェック*/
-    @NotBlank
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}+$")
+    @NotBlank(message = "パスワードを入力してください。")
+    @Pattern(
+            regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}+$",
+            message = "パスワードは8～20文字の半角英数字で、英字と数字をそれぞれ１文字以上含んでください。"
+    )
     private String password;
     public String getUserName(){
         return userName;

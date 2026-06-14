@@ -17,18 +17,21 @@ import java.util.Map;
 @RestController
 public class NewRegistrationController {
     @PostMapping("/newRegistration")
-    public Map<String,Boolean> newRegistration(
+    public Map<String,Object> newRegistration(
             @Valid @RequestBody NewRegistrationDTO dto,
             HttpSession session
     ){
         NewRegistrationService service = new NewRegistrationService();
         boolean registrationResult = service.existsByUserName(dto.getUserName());
         if(registrationResult){
-            return Map.of("registrationResult",registrationResult);
+            return Map.of("registrationResult",!registrationResult);
         }else {
             service.save(dto);
+            //新しいユーザー名およびパスワードを挿入
             session.setAttribute("loginUserName",dto.getUserName());
-            return Map.of("registrationResult", registrationResult);
-        }//同じuserNameが既に登録されている場合はfalseとをjavaScriptに返し他にないuserNameの場合はDBに挿入し、trueを返す。
+            //セッション管理
+            return Map.of("registrationResult",!registrationResult);
+        }/*同じuserNameが既に登録されている場合はfalseをjavaScriptに返し
+        他にないuserNameの場合はDBに挿入し、trueを返す。*/
     }
 }
