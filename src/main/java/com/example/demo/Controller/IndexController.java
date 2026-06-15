@@ -14,4 +14,8 @@ public class IndexController {
             return "redirect:/loginScreen";
         }
     }
+    @GetMapping("/test")
+    public String test(){
+        return "newRegistration";
+    }//テスト用　後で消す。
 }
