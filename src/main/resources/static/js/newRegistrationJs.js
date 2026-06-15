@@ -1,5 +1,5 @@
 const userNameText = document.getElementById("userNameText");
-const passwordText = document.getElementBYId("passwordText");
+const passwordText = document.getElementById("passwordText");
 const btn = document.getElementById("btn");
 async function checkInput() {
     if(userNameText.value.trim() !== "" && passwordText.value.trim() !== ""){
