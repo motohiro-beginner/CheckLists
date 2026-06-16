@@ -6,10 +6,42 @@
     justify-content: center;
     }
     #box {
-        margin-left: 10px;
         width: 100vw;
         height: 100vh;
         background-color: white;
+    }
+    #title {
+        margin-left: 10px;
+    }
+    .text {
+        width: 100%;
+        margin-left: 10px;
+    }
+    .formGroup {
+        margin: 0 auto;
+        width: 300px;
+    }
+    #userNameText {
+        width: 75%;
+        height: 5%;
+        padding: 8px 30px;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    #passwordText {
+        width: 75%;
+        height: 5%;
+        padding: 8px 30px;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    #btn {
+        display: block;
+        margin: 0 auto;
+        margin-top: 10px;
+        width: 200px;
+        height: 100px;
+        height: 5%;
     }
 }
 @media(max-width: 1023px){
@@ -23,6 +55,39 @@
         height: 100vh;
         background-color: white;
     }
+    #title {
+        margin-left: 10px;
+    }
+    .text {
+        width: 100%;
+        margin-left: 10px;
+    }
+    .formGroup {
+        margin: 0 auto;
+        width: 300px;
+    }
+    #userNameText {
+        width: 75%;
+        height: 5%;
+        padding: 8px 30px;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    #passwordText {
+        width: 75%;
+        height: 5%;
+        padding: 8px 30px;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    #btn {
+        display: block;
+        margin: 0 auto;
+        margin-top: 10px;
+        width: 200px;
+        height: 100px;
+        height: 5%;
+    }
 }
 @media(min-width: 1024px){
     body {
@@ -35,10 +100,37 @@
         height: 100vh;
         background-color: white;
     }
-    .text {
+    #title {
         margin-left: 10px;
     }
+    .text {
+        width: 100%;
+        margin-left: 10px;
+    }
+    .formGroup {
+        margin: 0 auto;
+        width: 300px;
+    }
     #userNameText {
-        padding: 10px 30px;
+        width: 75%;
+        height: 5%;
+        padding: 8px 30px;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    #passwordText {
+        width: 75%;
+        height: 5%;
+        padding: 8px 30px;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    #btn {
+        display: block;
+        margin: 0 auto;
+        margin-top: 10px;
+        width: 200px;
+        height: 100px;
+        height: 5%;
     }
 }
