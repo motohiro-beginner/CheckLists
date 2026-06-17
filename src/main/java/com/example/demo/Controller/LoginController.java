@@ -17,6 +17,6 @@ public class LoginController {
     そのユーザー名とパスワードがあった場合ホーム画面に遷移する。*/
     @PostMapping("/login")
     public ResponseEntity<?> login(
-            @Valid @RequestBody　
+            @Valid @RequestBody
     )
 }
