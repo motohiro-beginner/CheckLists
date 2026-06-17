@@ -16,7 +16,6 @@
     }
     .text {
         width: 100%;
-        margin-left: 10px;
     }
     .formGroup {
         margin: 0 auto;
@@ -37,6 +36,10 @@
        
         border-radius: 5px;
     }
+    .supplement {
+        font-size: 0.75rem;
+        color: gray;
+    }
     #btn {
         display: block;
         margin: 0 auto;
@@ -46,7 +49,7 @@
         height: 5%;
     }
 }
-@media(min-width: 770px)and(max-width: 1023px){
+@media(min-width: 770px) and (max-width: 1023px){
     body {
     background-color: #f5f5f5;
     display: flex;
@@ -63,7 +66,6 @@
     }
     .text {
         width: 100%;
-        margin-left: 10px;
     }
     .formGroup {
         margin: 0 auto;
@@ -75,14 +77,19 @@
         padding: 8px 30px;
         margin: 5px;
         border-radius: 5px;
+        box-sizing: border-box;
     }
     #passwordText {
-       width: 75%;
+        width: 75%;
         height: 5%;
         padding: 8px 30px;
         margin: 5px;
-       
         border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .supplement {
+        font-size: 0.75rem;
+        color: gray;
     }
     #btn {
         display: block;
@@ -110,7 +117,6 @@
     }
     .text {
         width: 100%;
-        margin-left: 10px;
     }
     .formGroup {
         margin: 0 auto;
@@ -130,6 +136,11 @@
         margin: 5px;
        
         border-radius: 5px;
+    }
+    .supplement {
+        font-size: 0.75rem;
+        color: gray;
+        margin: 5px;
     }
     #btn {
         display: block;

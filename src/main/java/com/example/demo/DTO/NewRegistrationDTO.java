@@ -4,10 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 public class NewRegistrationDTO {
-    /*半角英文字または英数字のみで構成されていることをチェック*/
+    /*半角英文字または半角数字のみで構成されていることをチェック*/
     @NotBlank(message = "ユーザーIDを入力してください。")
     @Pattern(
-            regexp = "^(?=.*[A-Za-z])[A-Za-z]+$",
+            regexp = "^[A-Za-z\\d]+$",
             message = "ユーザーIDは半角英数字のみです。"
     )
     private String userName;
