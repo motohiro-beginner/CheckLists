@@ -46,7 +46,6 @@
         margin-top: 10px;
         width: 200px;
         height: 100px;
-        height: 5%;
     }
 }
 @media(min-width: 770px) and (max-width: 1023px){
@@ -97,7 +96,6 @@
         margin-top: 10px;
         width: 200px;
         height: 100px;
-        height: 5%;
     }
 }
 @media(min-width: 1024px){
@@ -148,6 +146,5 @@
         margin-top: 10px;
         width: 200px;
         height: 100px;
-        height: 5%;
     }
 }
