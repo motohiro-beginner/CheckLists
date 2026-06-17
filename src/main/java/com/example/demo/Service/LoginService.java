@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 public class LoginService {
     @Autowired//自動で必要なインスタンスを生成してくれる。
      private LoginRepository repository;
-    public boolean existByUserName(String userName){
-        return repository.existsByUserName(userName);
-    }
-    public boolean existByPassword(String password){
-        return repository.existsByPassword(password);
+    public boolean existByUserNameAndPassword(String userName,String password){
+        return repository.existsByUserNameAndPassword(userName,password);
     }
 }
