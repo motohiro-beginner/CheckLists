@@ -27,11 +27,19 @@ public class LoginController {
     ){
         LoginService service = new LoginService();
         boolean loginResult = service.existByUserNameAndPassword(dto.getUserName(),dto.getPassword());
+        //ユーザー名及びパスワードがあっているかを判定する
         if(result.hasErrors()){
             List<String> errors = result.getFieldErrors()
                     .stream()
                     .map(FieldError::getDefaultMessage)
                     .toList();
+            /*エラー文をjavascriptに返すためにFieldErrorからgetDefaultMessage型に変換する。*/
+            return ResponseEntity.badRequest().body(errors);
         }
+        if(loginResult){
+            return ResponseEntity.ok("");
+        }else{
+            return ResponseEntity.badRequest().body("ユーザー名またはパスワードが違います。");
+        }//ユーザー名及びパスワードがあっていた場合ok,違っていた場合badRequestを返す。
     }
 }
