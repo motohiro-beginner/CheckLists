@@ -6,8 +6,8 @@ const passwordText =
 /** @type {HTMLInputElement} */
 (document.querySelector("#passwordText"));
 const btn =
-/** @type {HTMLInputElement} */
-(document.getElementById("btn"));
+/** @type {HTMLButtonElement} */
+(document.querySelector("#btn"));
 //@type {HTMLInputElement}は値がHTMLInputElementであると宣言している。javaでいうキャストに近い。
 if(!(userNameText instanceof HTMLInputElement)){
     throw new Error("userNameTextが見つかりません。");
@@ -22,13 +22,15 @@ if(!(btn instanceof HTMLButtonElement)){
 function checkInput() {
     const userName = userNameText.value;
     const password = passwordText.value;
-    if(userName.trim()===""&&password.trim()===""){
-        btn.disabled = true;
-    }else{
+    if(userName.trim() !== "" && password.trim() !== ""){
         btn.disabled = false;
+    }else{
+        btn.disabled = true;
     }
 }
-btn.addEventListener("input",checkInput);
+//ユーザー名欄とパスワード欄がそれぞれ入力されていたらボタンを押せるようにする。
+userNameText.addEventListener("input",checkInput);
+passwordText.addEventListener("input",checkInput);
 async function login() {
     const userName = userNameText.value;
     const password = passwordText.value;
@@ -49,4 +51,4 @@ async function login() {
         alert(result.join("\n"));
     }
 }
-login();
+btn.addEventListener("click",login);
