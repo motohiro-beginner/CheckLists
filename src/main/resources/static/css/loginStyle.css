@@ -33,15 +33,13 @@
         height: 5%;
         padding: 8px 30px;
         margin: 5px;
-       
         border-radius: 5px;
     }
     #btn {
         display: block;
         margin: 0 auto;
         margin-top: 10px;
-        width: 200px;
-        height: 100px;
+        width: 75%;
         height: 5%;
     }
 }
@@ -87,8 +85,7 @@
         display: block;
         margin: 0 auto;
         margin-top: 10px;
-        width: 200px;
-        height: 100px;
+        width: 75%;
         height: 5%;
     }
 }
@@ -104,8 +101,16 @@
         height: 100vh;
         background-color: white;
     }
+    #upper {
+        display: flex;
+        justify-content: space-between;
+    }
     #title {
         margin-left: 10px;
+    }
+    #newRegistrationBtn {
+        padding: 30px 60px;
+        margin: 10px;
     }
     .text {
         width: 100%;
@@ -126,15 +131,14 @@
         height: 5%;
         padding: 8px 30px;
         margin: 5px;
-       
         border-radius: 5px;
     }
     #btn {
         display: block;
         margin: 0 auto;
         margin-top: 10px;
-        width: 200px;
-        height: 100px;
+        padding: 8px 30px;
+        width: 75%;
         height: 5%;
     }
 }
