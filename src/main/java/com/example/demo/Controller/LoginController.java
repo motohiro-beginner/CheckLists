@@ -37,6 +37,7 @@ public class LoginController {
             return ResponseEntity.badRequest().body(errors);
         }
         if(loginResult){
+            session.setAttribute("userName",dto.getUserName());
             return ResponseEntity.ok("");
         }else{
             return ResponseEntity.badRequest().body("ユーザー名またはパスワードが違います。");
