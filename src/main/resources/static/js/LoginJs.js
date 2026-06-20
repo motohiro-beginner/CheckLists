@@ -8,15 +8,21 @@ const passwordText =
 const btn =
 /** @type {HTMLButtonElement} */
 (document.querySelector("#btn"));
+const newRegistrationBtn =
+/**@type {HTMLButtonElement} */
+(document.querySelector("#newRegistrationBtn"));
 //@type {HTMLInputElement}は値がHTMLInputElementであると宣言している。javaでいうキャストに近い。
 if(!(userNameText instanceof HTMLInputElement)){
     throw new Error("userNameTextが見つかりません。");
 }
 if(!(passwordText instanceof HTMLInputElement)){
-    throw new Error("userNameTextが見つかりません。");
+    throw new Error("passwordTextが見つかりません。");
 }
 if(!(btn instanceof HTMLButtonElement)){
-    throw new Error("userNameTextが見つかりません。");
+    throw new Error("btnが見つかりません。");
+}
+if(!(newRegistrationBtn instanceof HTMLButtonElement)){
+    throw new Error("newRegistrationBtnが見つかりません。");
 }
 //userNameText,passwordText,btnそれぞれnullでないことを確かめている。
 function checkInput() {
@@ -52,3 +58,8 @@ async function login() {
     }
 }
 btn.addEventListener("click",login);
+//ボタンが押されたら、ログインを試みる。
+async function newRegistrationTransition() {
+    window.location.href= "/home"
+}
+newRegistrationBtn.addEventListener("click",newRegistrationTransition);
