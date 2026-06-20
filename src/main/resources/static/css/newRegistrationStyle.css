@@ -11,8 +11,16 @@
         height: 100vh;
         background-color: white;
     }
+    #upper {
+        display: flex;
+        justify-content: space-between;
+    }
     #title {
         margin-left: 10px;
+    }
+    #loginBtn {
+        padding: 30px 60px;
+        margin: 10px;
     }
     .text {
         width: 100%;
@@ -60,8 +68,16 @@
         height: 100vh;
         background-color: white;
     }
+    #upper {
+        display: flex;
+        justify-content: space-between;
+    }
     #title {
         margin-left: 10px;
+    }
+    #loginBtn {
+        padding: 30px 60px;
+        margin: 10px;
     }
     .text {
         width: 100%;
@@ -110,8 +126,16 @@
         height: 100vh;
         background-color: white;
     }
+    #upper {
+        display: flex;
+        justify-content: space-between;
+    }
     #title {
         margin-left: 10px;
+    }
+    #loginBtn {
+        padding: 30px 60px;
+        margin: 10px;
     }
     .text {
         width: 100%;
