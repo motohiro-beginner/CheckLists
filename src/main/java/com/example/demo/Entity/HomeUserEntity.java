@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 import java.util.List;
 
 /*users表は
- * user_id
- * user_name
- * passwordの３つの列がある。*/
+  CREATE TABLE `users` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_name` (`user_name`)*/
 
 @Entity
 @Table(name = "users")
