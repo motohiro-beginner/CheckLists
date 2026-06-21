@@ -21,10 +21,28 @@ public class HomeCheckListEntity {
     private Integer checkListsId;
     @Column(name = "user_id",nullable = false,unique = false)
     private Integer userId;
-    @Column(name = "check_lists_name",nullable = false)
+    @Column(name = "check_lists_name",nullable = false,unique = true)
     private String checkListsName;
     @Column(name = "created_at",nullable = true)
     private LocalDateTime createdAt;
+    public Integer getUserId(){
+        return userId;
+    }
+    public void setUserId(Integer userId){
+        this.userId = userId;
+    }
+    public String getCheckListsName(){
+        return checkListsName;
+    }
+    public void setCheckListsName(String checkListsName){
+        this.checkListsName = checkListsName;
+    }
+    public LocalDateTime getLocalDateTime(){
+        return createdAt;
+    }
+    public void setLocalDateTime(LocalDateTime createdAt){
+        this.createdAt = createdAt;
+    }
     @ManyToOne
     @JoinColumn(name = "user_id")
     private HomeUserEntity users;
