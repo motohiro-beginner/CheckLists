@@ -1,10 +1,13 @@
 package com.example.demo.Entity;
 
 import jakarta.persistence.*;
+import java.util.List;
+
 /*users表は
  * user_id
  * user_name
  * passwordの３つの列がある。*/
+
 @Entity
 @Table(name = "users")
 public class HomeUserEntity {
@@ -27,4 +30,7 @@ public class HomeUserEntity {
     public void setPassword(String password){
         this.password = password;
     }
+    @OneToMany(mappedBy = "users")
+    private List<HomeCheckListEntity> checklists;
+
 }
