@@ -23,5 +23,7 @@ public class HomeCheckListsItemsEntity {
     private String itemName;
     @Column(name = "isChecked",nullable = false)
     private boolean isChecked;
-
+    @ManyToOne
+    @JoinColumn(name = "check_list_id")
+    private HomeCheckListEntity checkList;
 }

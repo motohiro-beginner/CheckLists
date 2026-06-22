@@ -3,6 +3,7 @@ package com.example.demo.Entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /*check_lists表は
 * CREATE TABLE `check_lists` (
@@ -46,4 +47,6 @@ public class HomeCheckListEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private HomeUserEntity users;
+    @OneToMany(mappedBy = "itemId")
+    private List<HomeCheckListsItemsEntity> items
 }
