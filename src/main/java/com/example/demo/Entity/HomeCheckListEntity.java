@@ -48,5 +48,5 @@ public class HomeCheckListEntity {
     @JoinColumn(name = "user_id")
     private HomeUserEntity users;
     @OneToMany(mappedBy = "itemId")
-    private List<HomeCheckListsItemsEntity> items
+    private List<HomeCheckListsItemsEntity> items;
 }
