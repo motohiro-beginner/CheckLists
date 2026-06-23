@@ -2,12 +2,12 @@ package com.example.demo.DTO;
 
 import java.time.LocalDateTime;
 
-public class HomeCheckListDTO {
-    private String checkListsName;
-    private String itemNames;
-    private boolean isChecked;
-    private LocalDateTime createdAt;
-    public HomeCheckListDTO(String checkListsName,String itemNames,boolean isChecked,LocalDateTime createdAt){
+public class HomeCheckListsDTO {
+    private final String checkListsName;
+    private final String itemNames;
+    private final boolean isChecked;
+    private final LocalDateTime createdAt;
+    public HomeCheckListsDTO(String checkListsName, String itemNames, boolean isChecked, LocalDateTime createdAt){
         this.checkListsName = checkListsName;
         this.itemNames = itemNames;
         this.isChecked = isChecked;
