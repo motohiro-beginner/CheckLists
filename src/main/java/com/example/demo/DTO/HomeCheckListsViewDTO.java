@@ -2,7 +2,7 @@ package com.example.demo.DTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+/*HomeCheckListsViewDTOはServiceクラスがControllerにDBで取り出した値を返すために作成したDTOである。*/
 public class HomeCheckListsViewDTO {
     private final String checkListsName;
     private final List<String> itemNames;

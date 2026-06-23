@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface HomeRepository extends JpaRepository<HomeUserEntity,Integer> {
+    /*users表とcheck_lists表とcheck_lists_items表を結合し、該当のユーザー名かつ該当の日付の行の
+    チェックリスト名,項目名,各項目にチェックされているか否か,作成日を取り出す。*/
     @Query("""
     SELECT new com.example.demo.DTO.HomeCheckListsDTO(c.checkListsName,i.itemName,i.isChecked,c.createdAt)
     FROM HomeUserEntity u
