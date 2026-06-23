@@ -25,5 +25,5 @@ public class HomeCheckListsItemsEntity {
     private boolean isChecked;
     @ManyToOne
     @JoinColumn(name = "check_list_id")
-    private HomeCheckListEntity checkList;
+    private HomeCheckListsEntity checkList;
 }

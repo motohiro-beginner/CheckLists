@@ -34,6 +34,6 @@ public class HomeUserEntity {
         this.password = password;
     }
     @OneToMany(mappedBy = "users")
-    private List<HomeCheckListEntity> checkLists;
+    private List<HomeCheckListsEntity> checkLists;
 
 }

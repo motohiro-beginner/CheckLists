@@ -16,7 +16,7 @@ import java.util.List;
 * */
 @Entity
 @Table(name = "check_lists")
-public class HomeCheckListEntity {
+public class HomeCheckListsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer checkListsId;
