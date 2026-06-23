@@ -1,7 +1,7 @@
 package com.example.demo.DTO;
 
 import java.time.LocalDateTime;
-
+/*HomeCheckListsDTOはHomeRepositoryに定義したメソッドが複数のデータを戻り値として返すために作成したDTOである。*/
 public class HomeCheckListsDTO {
     private final String checkListsName;
     private final String itemNames;
