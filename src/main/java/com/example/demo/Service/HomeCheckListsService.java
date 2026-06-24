@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,23 +15,50 @@ import java.util.List;
 public class HomeCheckListsService {
     @Autowired
     private HomeRepository repository;
+    /*HomeCheckListsDTOの中にある変数は
+    private final String checkListsName;
+    private final String itemNames;
+    private final boolean isChecked;
+    private final LocalDateTime createdAt;
+    である。
+    HomeCheckListsViewDTOの中にある変数は
+    private final String checkListsName;
+    private final List<String> itemNames;
+    private final List<Boolean> isChecked;
+    private final String createdAt;
+    である。*/
     public List<HomeCheckListsViewDTO> findAllCheckLists(String userName, LocalDateTime createdAt){
         List<HomeCheckListsDTO> checkLists = repository.findAllCheckLists(userName,createdAt);
         List<HomeCheckListsViewDTO> viewCheckLists = new ArrayList<>();
-        String checkListsName;
+        StringBuilder checkListsName = new StringBuilder();
         List<String> itemNames = new ArrayList<>();
         List<Boolean> isChecked = new ArrayList<>();
-        String createdAtView;
+        StringBuilder createdAtView = new StringBuilder();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         String prev = null;
-        int checkListsNumber = 0;
         for(int i = 0;i<checkLists.size();i++){
+            if(prev == null){
+                //もし最初の行の部分ならこの部分を実行する。
+                checkListsName.append(checkLists.get(i).getCheckListsName());
+                createdAtView.append(checkLists.get(i).getCreatedAt().format(formatter));
+            }else if(!(checkLists.get(i).getCheckListsName().equals(prev))){
+                viewCheckLists.add(new HomeCheckListsViewDTO(checkListsName.toString(),itemNames,isChecked,createdAtView.toString()));
+                checkListsName.setLength(0);
+                itemNames.clear();
+                isChecked.clear();
+                createdAtView.setLength(0);
+                checkListsName.append(checkLists.get(i).getCheckListsName());
+                createdAtView.append(checkLists.get(i).getCreatedAt().format(formatter));
+                /*checkLists名が切り替わったら別のチェックリストの行に変わったと判断し、viewCheckListsに
+                * checkListsName,itemNames,isChecked,createdAtViewを格納し、次のチェックリスト用に初期化する。*/
+            }else if(i-1<checkLists.size()){
+                itemNames.add(checkLists.get(i).getItemNames());
+                isChecked.add(checkLists.get(i).getIsChecked());
+                viewCheckLists.add(new HomeCheckListsViewDTO(checkListsName.toString(),itemNames,isChecked,createdAtView.toString()));
+            }
             itemNames.add(checkLists.get(i).getItemNames());
             isChecked.add(checkLists.get(i).getIsChecked());
-            if((checkLists.get(i).getCheckListsName().equals(prev)) && (prev != null) ){
-
-                checkListsNumber++;
-            }
-            //別のチェックリストの行に切り替わったらviewCheckListsの格納する位置を次の位置に変える。
+            prev = checkLists.get(i).getCheckListsName();
         }
     }
 }
