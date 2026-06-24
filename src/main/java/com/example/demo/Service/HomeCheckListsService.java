@@ -26,7 +26,10 @@ public class HomeCheckListsService {
     private final List<String> itemNames;
     private final List<Boolean> isChecked;
     private final String createdAt;
-    である。*/
+    である。
+    findAllCheckListsはList<HomeCheckListsDTO>からList<HomeCheckListViewDTO>に変換するメソッドである。
+    なお、HomeCheckListsDTOはDBの行の値が格納されているのに対して、HomeCheckListViewDTOは
+    各CheckListsごとの値が格納されている。*/
     public List<HomeCheckListsViewDTO> findAllCheckLists(String userName, LocalDateTime createdAt){
         List<HomeCheckListsDTO> checkLists = repository.findAllCheckLists(userName,createdAt);
         List<HomeCheckListsViewDTO> viewCheckLists = new ArrayList<>();
@@ -34,6 +37,7 @@ public class HomeCheckListsService {
         List<String> itemNames = new ArrayList<>();
         List<Boolean> isChecked = new ArrayList<>();
         StringBuilder createdAtView = new StringBuilder();
+        //checkListsName,itemNames,isChecked,createdAtViewはHomeCheckListsViewDTOに該当する値を格納するために用意する変数である。
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         String prev = null;
         for(int i = 0;i<checkLists.size();i++){
@@ -55,10 +59,12 @@ public class HomeCheckListsService {
                 itemNames.add(checkLists.get(i).getItemNames());
                 isChecked.add(checkLists.get(i).getIsChecked());
                 viewCheckLists.add(new HomeCheckListsViewDTO(checkListsName.toString(),itemNames,isChecked,createdAtView.toString()));
+                //最後の行だった場合viewCheckListsに格納する。
             }
             itemNames.add(checkLists.get(i).getItemNames());
             isChecked.add(checkLists.get(i).getIsChecked());
             prev = checkLists.get(i).getCheckListsName();
         }
+        return viewCheckLists;
     }
 }
