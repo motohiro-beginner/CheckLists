@@ -1,27 +1,24 @@
 package com.example.demo.DTO;
 
+import  com.example.demo.DTO.HomeItemsViewDTO;
 import java.time.LocalDateTime;
 import java.util.List;
-/*HomeCheckListsViewDTOはServiceクラスがControllerにDBで取り出した値を返すために作成したDTOである。*/
+/*HomeCheckListsViewDTOはServiceクラスがControllerにDBで取り出した値を返すために作成したDTOである。
+* このDTOをjavaScript側に返す。*/
 public class HomeCheckListsViewDTO {
     private final String checkListsName;
-    private final List<String> itemNames;
-    private final List<Boolean> isChecked;
+    private final List<HomeItemsViewDTO> items;
     private final String createdAt;
-    public HomeCheckListsViewDTO(String checkListsName,List<String> itemNames,List<Boolean> isChecked,String createdAt){
+    public HomeCheckListsViewDTO(String checkListsName,List<HomeItemsViewDTO> items,String createdAt){
         this.checkListsName = checkListsName;
-        this.itemNames = itemNames;
-        this.isChecked = isChecked;
+        this.items = items;
         this.createdAt = createdAt;
     }
     public String getCheckListsName(){
         return checkListsName;
     }
-    public List<String> getItemNames(){
-        return itemNames;
-    }
-    public List<Boolean> getIsChecked(){
-        return isChecked;
+    public List<HomeItemsViewDTO> getItems(){
+        return items;
     }
     public String getCreatedAt(){
         return createdAt;
