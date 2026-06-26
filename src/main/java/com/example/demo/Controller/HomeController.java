@@ -17,6 +17,7 @@ public class HomeController {
     public ResponseEntity<?> home(HttpSession session){
         HomeCheckListsService service = new HomeCheckListsService();
         LocalDateTime nowDate = LocalDateTime.now();
-        List<HomeCheckListsViewDTO> resultView = service.findAllCheckLists((String)session.getAttribute("userName"),nowDate);
+        List<HomeCheckListsViewDTO> resultCheckLists = service.findAllCheckLists((String)session.getAttribute("userName"),nowDate);
+        return ResponseEntity.ok(resultCheckLists);
     }
 }
