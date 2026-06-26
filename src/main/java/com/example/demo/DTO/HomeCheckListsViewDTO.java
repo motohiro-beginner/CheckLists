@@ -11,7 +11,7 @@ public class HomeCheckListsViewDTO {
     private final String createdAt;
     public HomeCheckListsViewDTO(String checkListsName,List<HomeItemsViewDTO> items,String createdAt){
         this.checkListsName = checkListsName;
-        this.items = items;
+        this.items = List.copyOf(items);
         this.createdAt = createdAt;
     }
     public String getCheckListsName(){
