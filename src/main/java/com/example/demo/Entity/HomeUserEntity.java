@@ -33,7 +33,7 @@ public class HomeUserEntity {
     public void setPassword(String password){
         this.password = password;
     }
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "userId")
     private List<HomeCheckListsEntity> checkLists;
 
 }

@@ -20,16 +20,14 @@ public class HomeCheckListsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer checkListsId;
-    @Column(name = "user_id",nullable = false,unique = false)
-    private Integer userId;
     @Column(name = "check_lists_name",nullable = false,unique = true)
     private String checkListsName;
     @Column(name = "created_at",nullable = true)
     private LocalDateTime createdAt;
-    public Integer getUserId(){
+    public HomeUserEntity getUserId(){
         return userId;
     }
-    public void setUserId(Integer userId){
+    public void setUserId(HomeUserEntity userId){
         this.userId = userId;
     }
     public String getCheckListsName(){
@@ -46,7 +44,7 @@ public class HomeCheckListsEntity {
     }
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private HomeUserEntity users;
+    private HomeUserEntity userId;
     @OneToMany(mappedBy = "itemId")
     private List<HomeCheckListsItemsEntity> items;
 }

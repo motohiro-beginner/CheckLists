@@ -21,6 +21,30 @@ public class HomeCheckListsItemsEntity {
     private String itemName;
     @Column(name = "isChecked",nullable = false)
     private boolean isChecked;
+    public void setItemId(Integer itemId){
+        this.itemId = itemId;
+    }
+    public Integer getItemId(){
+        return itemId;
+    }
+    public void setCheckList(HomeCheckListsEntity checkList){
+        this.checkList = checkList;
+    }
+    public HomeCheckListsEntity getCheckList(){
+        return checkList;
+    }
+    public void setItemName(String itemName){
+        this.itemName = itemName;
+    }
+    public String getItemName(){
+        return itemName;
+    }
+    public void setIsChecked(boolean isChecked){
+        this.isChecked = isChecked;
+    }
+    public boolean getIsChecked(){
+        return isChecked;
+    }
     @ManyToOne
     @JoinColumn(name = "check_list_id")
     private HomeCheckListsEntity checkList;
