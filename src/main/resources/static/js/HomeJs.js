@@ -27,7 +27,7 @@ async function HomeCheckLists(){
     /**@type {HomeCheckListsViewDTO[]} */
     const checkLists = await response.json();
     /**checkListsオブジェクトに含まれるデータの例
-     * checkLists = [
+     * const checkLists = [
      * {
      *  checkListsName: "買い物",
      *  items: [
@@ -66,6 +66,11 @@ async function HomeCheckLists(){
      * }
      * ]
      */
+    //addCheckListsはチェックリストを画面に表示するための関数である。チェックリストの表の構造の定義を行っている。
+    addCheckLists(checkLists);
+}
+//addCheckListsはチェックリストを画面に表示するための関数である。チェックリストの表の定義を行っている。
+function addCheckLists(/**@type {HomeCheckListsViewDTO[]} */checkLists) {
     checkLists.forEach(checkList => {
         //divタグを生成
         const card = document.createElement("div");
@@ -86,21 +91,98 @@ async function HomeCheckLists(){
         createdAt.classList.add("createdAt");
         createdAt.textContent = checkList.createdAt;
         cardUpper.appendChild(createdAt);
-        const cardLower = document.createElement("div");
+        //addItemsはcheckListに入る項目を定義している。
+        addItems(checkList.items,card);
+    });
+}
+function addItems(/**@type {HomeItemsViewDTO[]}*/items,/**@type {HTMLDivElement}*/card){
+     const cardLower = document.createElement("div");
         //cardLowerには複数の項目及びチェックが入っているか否かが入る。
         cardLower.classList.add("cardLower");
-        const cardRow = document.createElement("div");
-        cardRow.classList.add("cardRow");
-        //cardRowにはチェックリストの項目とそれに対応するチェックボックスが入る。
-        checkList.items.forEach(items => {
+        card.appendChild(cardLower);
+            items.forEach(items => {
+            const cardRow = document.createElement("div");
+            cardRow.classList.add("cardRow");
+            //cardRowにはチェックリストの項目とそれに対応するチェックボックスが入る。
             const item = document.createElement("div");
             item.classList.add("item");
             item.textContent = items.itemNames;
+            //itemFontSizeにはitemの項目の文字の大きさを調整する関数である。
             cardRow.appendChild(item);
             const isChecked = document.createElement("input");
             isChecked.classList.add("itemCheckBox");
             isChecked.type = "checkbox";
             isChecked.checked = items.isChecked;
+            cardRow.appendChild(isChecked);
+            cardLower.appendChild(cardRow);
+            itemFontSize(item);
         });
-    });
 }
+//itemFontSizeはitemの項目の文字の大きさを調整する関数である。
+function itemFontSize(/**@type {HTMLDivElement}*/item){
+    const width = item.clientWidth;
+    const length = item.textContent.length;
+    let fontSize = width/length*1.8;
+    fontSize = Math.max(4,Math.min(fontSize,16));
+    item.style.fontSize = '${fontSize}px';
+}
+function cardContainerTest(){
+    const checkLists = [
+     {
+       checkListsName: "買い物",
+       items: [
+        {
+         itemNames: "リンゴ",
+         isChecked: true
+        },
+        {
+         itemNames: "みかん",
+         isChecked: true
+        },
+        {
+         itemNames: "イチゴ",
+         isChecked: false
+        }
+        ],
+       createdAt: "2025/6/20"
+      },
+      {
+      checkListsName: "勉強",
+       items: [
+        {
+         itemNames: "abcdefghijklmnopqrstuvwxyz,abcdefghijklmnopqrstuvwxyz,abcdefghijklmnopqrstuvwxyz",
+         isChecked: true
+        },
+        {
+         itemNames: "数学",
+         isChecked: true
+        },
+        {
+        itemNames: "英語",
+         isChecked: false
+        }
+        ],
+       createdAt: "2025/6/20"
+     }
+     ]
+     //上に書いたcheckListsオブジェクトはテスト用に書いたデータである、後で消す。
+    addCheckLists(checkLists);
+}
+cardContainerTest();
+//cardContainerTestはテスト用に用意した関数,後で消す。
+/**JavaScriptで追加するcardContainerの中のタグ構成
+ * <div class="card">
+ *   <div class="cardUpper">
+ *     <div class="checkListName"></div>
+ *     <div class="createdAt"></div>
+ *   </div>
+ *   <div class="cardLower">
+ *     <div class="cardRow">
+ *       <div class="item"></div>
+ *       <div class="itemCheckBox"></div>
+ *     </div>
+ *   </div>
+ * </div>
+ * cardは複数連なる場合がある。
+ * cardRowも複数連なる場合がある。
+ */
