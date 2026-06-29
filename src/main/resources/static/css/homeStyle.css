@@ -73,6 +73,7 @@
     }
     .item {
         /*font-sizeはjavascriptにて決定される。4px以上16px以下*/
+        overflow-wrap: anywhere;
         width: 80%;
     }
     .itemCheckBox {
@@ -152,6 +153,7 @@
     }
     .item {
         /*font-sizeはjavascriptにて決定される。4px以上16px以下*/
+        overflow-wrap: anywhere;
         width: 80%;
     }
     .itemCheckBox {
@@ -231,6 +233,7 @@
     }
     .item {
         /*font-sizeはjavascriptにて決定される。4px以上16px以下*/
+        overflow-wrap: anywhere;
         width: 80%;
     }
     .itemCheckBox {
