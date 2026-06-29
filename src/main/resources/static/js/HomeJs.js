@@ -123,8 +123,8 @@ function itemFontSize(/**@type {HTMLDivElement}*/item){
     const width = item.clientWidth;
     const length = item.textContent.length;
     let fontSize = width/length*1.8;
-    fontSize = Math.max(4,Math.min(fontSize,16));
-    item.style.fontSize = '${fontSize}px';
+    fontSize = Math.max(12,Math.min(fontSize,16));
+    item.style.fontSize = `${fontSize}px`;
 }
 function cardContainerTest(){
     const checkLists = [
@@ -150,7 +150,7 @@ function cardContainerTest(){
       checkListsName: "勉強",
        items: [
         {
-         itemNames: "abcdefghijklmnopqrstuvwxyz,abcdefghijklmnopqrstuvwxyz,abcdefghijklmnopqrstuvwxyz",
+         itemNames: "abcdefghijklmnopqrstuvwxyz,abcdefghijklmnopqrstuvwxyz,abcdefghijklmnopqrstuvwxyzaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
          isChecked: true
         },
         {
