@@ -15,9 +15,12 @@ import java.util.List;
 public class HomeController {
     @PostMapping("/home")
     public ResponseEntity<?> home(HttpSession session){
-        HomeCheckListsService service = new HomeCheckListsService();
-        LocalDateTime nowDate = LocalDateTime.now();
-        List<HomeCheckListsViewDTO> resultCheckLists = service.findAllCheckLists((String)session.getAttribute("userName"),nowDate);
-        return ResponseEntity.ok(resultCheckLists);
+        if((session != null)&&(session.getAttribute("userName") != null)){
+            HomeCheckListsService service = new HomeCheckListsService();
+            LocalDateTime nowDate = LocalDateTime.now();
+            List<HomeCheckListsViewDTO> resultCheckLists = service.findAllCheckLists((String)session.getAttribute("userName"),nowDate);
+            return ResponseEntity.ok(resultCheckLists);
+        }
+        return ResponseEntity.badRequest().body("ユーザー名が消失したため、Login画面に戻りました。");
     }
 }
