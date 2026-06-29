@@ -24,8 +24,17 @@ async function HomeCheckLists(){
         },
         body: JSON.stringify({})
     });
-    /**@type {HomeCheckListsViewDTO[]} */
-    const checkLists = await response.json();
+    if(response.status === 400){
+        /**@type {string[]}*/
+        const checkLists = await response.json();
+        alert(checkLists.join("\n"));
+        window.location.href ="/Login"
+        //セッション情報がなかった場合,badRequestが送られてくる。
+        // もしセッション情報がなかった場合、Login画面に遷移する。
+    }else{
+        /**@type {HomeCheckListsViewDTO[]} */
+        const checkLists = await response.json();
+    }
     /**checkListsオブジェクトに含まれるデータの例
      * const checkLists = [
      * {
