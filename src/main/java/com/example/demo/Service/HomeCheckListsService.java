@@ -16,8 +16,10 @@ import java.util.Map;
 
 @Service
 public class HomeCheckListsService {
-    @Autowired
     private HomeRepository repository;
+    public HomeCheckListsService(HomeRepository repository){
+        this.repository = repository;
+    }
     /*HomeCheckListsDTOの中にある変数は
     private final String checkListsName;
     private final String itemNames;
