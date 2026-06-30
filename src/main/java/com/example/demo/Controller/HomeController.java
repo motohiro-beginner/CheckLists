@@ -13,10 +13,13 @@ import java.util.List;
 
 @RestController
 public class HomeController {
+    private final HomeCheckListsService service;
+    public HomeController(HomeCheckListsService service){
+        this.service = service;
+    }
     @PostMapping("/home")
     public ResponseEntity<?> home(HttpSession session){
         if((session != null)&&(session.getAttribute("userName") != null)){
-            HomeCheckListsService service = new HomeCheckListsService();
             LocalDateTime nowDate = LocalDateTime.now();
             List<HomeCheckListsViewDTO> resultCheckLists = service.findAllCheckLists((String)session.getAttribute("userName"),nowDate);
             return ResponseEntity.ok(resultCheckLists);
