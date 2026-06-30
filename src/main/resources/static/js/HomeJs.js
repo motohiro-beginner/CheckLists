@@ -10,9 +10,18 @@
  * @property {string} itemNames,
  * @property {boolean} isChecked
  */
+const checkListsTableBtn =
+/**@type {HTMLButtonElement} */
+(document.querySelector("#checkListsTableBtn"));
+const logOutBtn =
+/**@type {HTMLButtonElement} */
+(document.querySelector("#logOutBtn"));
 const container = 
 /**@type {HTMLDivElement} */
 (document.querySelector(".cardContainer"));
+if(!(checkListsTableBtn instanceof HTMLDivElement)){
+    throw new Error("checkListsTableBtnが見つかりません");
+}
 if(!(container instanceof HTMLDivElement)){
     throw new Error("containerが見つかりません");
 }
@@ -24,16 +33,17 @@ async function HomeCheckLists(){
         },
         body: JSON.stringify({})
     });
+    let checkLists = null;
     if(response.status === 400){
         /**@type {string[]}*/
-        const checkLists = await response.json();
+        checkLists = await response.json();
         alert(checkLists.join("\n"));
         window.location.href ="/Login"
         //セッション情報がなかった場合,badRequestが送られてくる。
         // もしセッション情報がなかった場合、Login画面に遷移する。
     }else{
         /**@type {HomeCheckListsViewDTO[]} */
-        const checkLists = await response.json();
+        checkLists = await response.json();
     }
     /**checkListsオブジェクトに含まれるデータの例
      * const checkLists = [
@@ -135,6 +145,21 @@ function itemFontSize(/**@type {HTMLDivElement}*/item){
     fontSize = Math.max(12,Math.min(fontSize,16));
     item.style.fontSize = `${fontSize}px`;
 }
+function tableTransition() {
+    window.location.href = "/checkListsTable"
+}
+checkListsTableBtn.addEventListener("click",tableTransition);
+async function logOut() {
+    await fetch("/logOut", {
+        method: "Post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({})
+    });
+    window.location.href = "/Login";
+}
+logOutBtn.addEventListener("click",logOut);
 function cardContainerTest(){
     const checkLists = [
      {
