@@ -2,7 +2,7 @@ package com.example.demo.Entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /*check_lists表は
@@ -22,8 +22,8 @@ public class HomeCheckListsEntity {
     private Integer checkListsId;
     @Column(name = "check_lists_name",nullable = false,unique = true)
     private String checkListsName;
-    @Column(name = "created_at",nullable = true)
-    private LocalDateTime createdAt;
+    @Column(name = "created_at",nullable = false)
+    private LocalDate createdAt;
     public HomeUserEntity getUserId(){
         return userId;
     }
@@ -36,10 +36,10 @@ public class HomeCheckListsEntity {
     public void setCheckListsName(String checkListsName){
         this.checkListsName = checkListsName;
     }
-    public LocalDateTime getLocalDateTime(){
+    public LocalDate getLocalDateTime(){
         return createdAt;
     }
-    public void setLocalDateTime(LocalDateTime createdAt){
+    public void setLocalDateTime(LocalDate createdAt){
         this.createdAt = createdAt;
     }
     @ManyToOne
