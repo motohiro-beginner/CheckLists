@@ -20,8 +20,7 @@ public class HomeController {
     @PostMapping("/home")
     public ResponseEntity<?> home(HttpSession session){
         if((session != null)&&(session.getAttribute("userName") != null)){
-            LocalDateTime nowDate = LocalDateTime.now();
-            List<HomeCheckListsViewDTO> resultCheckLists = service.findAllCheckLists((String)session.getAttribute("userName"),nowDate);
+            List<HomeCheckListsViewDTO> resultCheckLists = service.findAllCheckLists((String)session.getAttribute("userName"));
             return ResponseEntity.ok(resultCheckLists);
         }
         return ResponseEntity.badRequest().body("ユーザー名が消失したため、Login画面に戻りました。");

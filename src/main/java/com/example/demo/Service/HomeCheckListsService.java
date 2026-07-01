@@ -7,12 +7,10 @@ import com.example.demo.Repository.HomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class HomeCheckListsService {
@@ -31,12 +29,15 @@ public class HomeCheckListsService {
     private final List<String> itemNames;
     private final List<Boolean> isChecked;
     private final String createdAt;
-    である。
+    である。*/
+    public boolean existsByUserNameAndCreatedAt(String userName,LocalDate createdAt){}
+    /*
     findAllCheckListsはList<HomeCheckListsDTO>からList<HomeCheckListViewDTO>に変換するメソッドである。
     なお、HomeCheckListsDTOはDBの行の値が格納されているのに対して、HomeCheckListViewDTOは
     各CheckListsごとの値が格納されている。*/
-    public List<HomeCheckListsViewDTO> findAllCheckLists(String userName, LocalDateTime createdAt){
-        List<HomeCheckListsDTO> checkLists = repository.findAllCheckLists(userName,createdAt);
+    public List<HomeCheckListsViewDTO> findAllCheckLists(String userName){
+        LocalDate nowDate = LocalDate.now();
+        List<HomeCheckListsDTO> checkLists = repository.findAllCheckLists(userName,nowDate);
         List<HomeCheckListsViewDTO> viewCheckLists = new ArrayList<>();
         List<HomeItemsViewDTO> items = new ArrayList<>();
         String checkListsName = "";

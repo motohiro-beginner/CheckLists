@@ -1,13 +1,13 @@
 package com.example.demo.DTO;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 /*HomeCheckListsDTOはHomeRepositoryに定義したメソッドが複数のデータを戻り値として返すために作成したDTOである。*/
 public class HomeCheckListsDTO {
     private final String checkListsName;
     private final String itemNames;
     private final boolean isChecked;
-    private final LocalDateTime createdAt;
-    public HomeCheckListsDTO(String checkListsName, String itemNames, boolean isChecked, LocalDateTime createdAt){
+    private final LocalDate createdAt;
+    public HomeCheckListsDTO(String checkListsName, String itemNames, boolean isChecked, LocalDate createdAt){
         this.checkListsName = checkListsName;
         this.itemNames = itemNames;
         this.isChecked = isChecked;
@@ -22,7 +22,7 @@ public class HomeCheckListsDTO {
     public boolean getIsChecked(){
         return isChecked;
     }
-    public LocalDateTime getCreatedAt(){
+    public LocalDate getCreatedAt(){
         return createdAt;
     }
 }
