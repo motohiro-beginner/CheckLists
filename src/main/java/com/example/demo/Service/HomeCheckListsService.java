@@ -30,7 +30,10 @@ public class HomeCheckListsService {
     private final List<Boolean> isChecked;
     private final String createdAt;
     である。*/
-    public boolean existsByUserNameAndCreatedAt(String userName,LocalDate createdAt){}
+    public boolean existsByUserNameAndCreatedAt(String userName){
+        LocalDate nowDate = LocalDate.now();
+        return repository.existsByUserNameAndCreatedAt(userName,nowDate);
+    }
     /*
     findAllCheckListsはList<HomeCheckListsDTO>からList<HomeCheckListViewDTO>に変換するメソッドである。
     なお、HomeCheckListsDTOはDBの行の値が格納されているのに対して、HomeCheckListViewDTOは

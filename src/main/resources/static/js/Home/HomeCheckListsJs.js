@@ -41,9 +41,12 @@ async function HomeCheckLists(){
         window.location.href ="/Login"
         //セッション情報がなかった場合,badRequestが送られてくる。
         // もしセッション情報がなかった場合、Login画面に遷移する。
+    }else if(response.status === 404){
+        
     }else{
         /**@type {HomeCheckListsViewDTO[]} */
         checkLists = await response.json();
+        addCheckLists(checkLists);
     }
     /**checkListsオブジェクトに含まれるデータの例
      * const checkLists = [
@@ -114,6 +117,7 @@ function addCheckLists(/**@type {HomeCheckListsViewDTO[]} */checkLists) {
         addItems(checkList.items,card);
     });
 }
+//addItemsはcheckListに入る項目を定義している。
 function addItems(/**@type {HomeItemsViewDTO[]}*/items,/**@type {HTMLDivElement}*/card){
      const cardLower = document.createElement("div");
         //cardLowerには複数の項目及びチェックが入っているか否かが入る。
@@ -145,21 +149,12 @@ function itemFontSize(/**@type {HTMLDivElement}*/item){
     fontSize = Math.max(12,Math.min(fontSize,16));
     item.style.fontSize = `${fontSize}px`;
 }
-function tableTransition() {
-    window.location.href = "/checkListsTable"
+function resultNotFound(){
+    const notFoundText = document.createElement("div");
+    notFoundText.classList.add("notFoundText");
+    notFoundText.textContent = "今日のチェックリストは作成されていません。"
+    container.appendChild(notFoundText);
 }
-checkListsTableBtn.addEventListener("click",tableTransition);
-async function logOut() {
-    await fetch("/logOut", {
-        method: "Post",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({})
-    });
-    window.location.href = "/Login";
-}
-logOutBtn.addEventListener("click",logOut);
 function cardContainerTest(){
     const checkLists = [
      {
