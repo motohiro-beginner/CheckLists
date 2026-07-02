@@ -9,12 +9,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)//JUnitでMockitoを使えるようにする設定
@@ -25,7 +26,7 @@ public class HomeCheckListsServiceTest {
     HomeCheckListsService service;
     @Test
     void findAllCheckListsTest(){
-        LocalDateTime testDateTime = LocalDateTime.of(2026, 1, 1, 0, 0, 0, 0);
+        LocalDate testDateTime = LocalDate.of(2026, 1, 1);
         List<HomeCheckListsDTO> checkLists = new ArrayList<>();
         /*テストデータ1
         checkLists.add(new HomeCheckListsDTO("買い物","リンゴ",true,testDateTime));
@@ -37,7 +38,7 @@ public class HomeCheckListsServiceTest {
         */
         when(repository.findAllCheckLists("abcdefg",testDateTime))
                 .thenReturn(checkLists);
-        List<HomeCheckListsViewDTO> viewCheckLists = service.findAllCheckLists("abcdefg",testDateTime);
+        List<HomeCheckListsViewDTO> viewCheckLists = service.findAllCheckLists("abcdefg");
         /*テストデータ2
         assertEquals(null,viewCheckLists);
         */
@@ -60,5 +61,13 @@ public class HomeCheckListsServiceTest {
         assertEquals(false,viewCheckLists.get(1).getItems().get(2).getIsChecked());
         assertEquals("2026/01/01",viewCheckLists.get(1).getCreatedAt());
          */
+    }
+    @Test
+    void existsByUserNameAndCreatedAtTest(){
+        LocalDate testDateTime = LocalDate.now();
+        when(repository.existsByUserNameAndCreatedAt("abcdefg",testDateTime))
+                .thenReturn(false);
+        boolean success = service.existsByUserNameAndCreatedAt("abcdefg");
+        assertFalse(success);
     }
 }

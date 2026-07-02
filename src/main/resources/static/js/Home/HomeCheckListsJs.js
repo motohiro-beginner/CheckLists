@@ -42,7 +42,7 @@ async function HomeCheckLists(){
         //セッション情報がなかった場合,badRequestが送られてくる。
         // もしセッション情報がなかった場合、Login画面に遷移する。
     }else if(response.status === 404){
-        
+        responseNotFound();
     }else{
         /**@type {HomeCheckListsViewDTO[]} */
         checkLists = await response.json();
@@ -149,7 +149,10 @@ function itemFontSize(/**@type {HTMLDivElement}*/item){
     fontSize = Math.max(12,Math.min(fontSize,16));
     item.style.fontSize = `${fontSize}px`;
 }
-function resultNotFound(){
+//responseNotFoundはチェックリストがなかったときに画面に
+// "今日のチェックリストは作成されていません。"
+//と表示するための関数である。
+function responseNotFound(){
     const notFoundText = document.createElement("div");
     notFoundText.classList.add("notFoundText");
     notFoundText.textContent = "今日のチェックリストは作成されていません。"
