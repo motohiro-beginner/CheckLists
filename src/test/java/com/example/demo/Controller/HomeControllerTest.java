@@ -38,6 +38,7 @@ public class HomeControllerTest {
             items2.add(new HomeItemsViewDTO("国語", true));
             items2.add(new HomeItemsViewDTO("英語", false));
             viewCheckLists.add(new HomeCheckListsViewDTO("勉強", items2, "2026/01/01"));
+            /*テストデータ１
             when(service.existsByUserNameAndCreatedAt("abcdefg"))
                     .thenReturn(true);
             //Controllerがservice.existsByUserNameAndCreatedAtをよびだしたら、trueを返す。
@@ -57,6 +58,19 @@ public class HomeControllerTest {
                     //JSONの中身を表す。
                     .andExpect(status().isOk());
                     //応答結果がResponseEntity.ok()かどうかを確かめる。
+             */
+            when(service.existsByUserNameAndCreatedAt("abcdefg"))
+                    .thenReturn(false);
+            //Controllerがservice.existsByUserNameAndCreatedAtをよびだしたら、falseを返す。
+            mvc.perform(post("/home")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .sessionAttr("userName","abcdefg")
+                    .content("""
+                            {
+                            }
+                            """))
+                    .andExpect(status().isNotFound());
+                    //応答結果がResponseEntity.notFound().build()かどうかを確かめる。
         }catch(Exception e){
             e.printStackTrace();
         }
