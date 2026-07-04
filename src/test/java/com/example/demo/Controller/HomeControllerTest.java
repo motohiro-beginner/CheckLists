@@ -10,7 +10,6 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +58,7 @@ public class HomeControllerTest {
                     .andExpect(status().isOk());
                     //応答結果がResponseEntity.ok()かどうかを確かめる。
              */
+            /*テストデータ2
             when(service.existsByUserNameAndCreatedAt("abcdefg"))
                     .thenReturn(false);
             //Controllerがservice.existsByUserNameAndCreatedAtをよびだしたら、falseを返す。
@@ -71,6 +71,31 @@ public class HomeControllerTest {
                             """))
                     .andExpect(status().isNotFound());
                     //応答結果がResponseEntity.notFound().build()かどうかを確かめる。
+
+             */
+            /*テストデータ3
+            when(service.existsByUserNameAndCreatedAt("abcdefg"))
+                    .thenReturn(null);
+            //Controllerがservice.existsByUserNameAndCreatedAtをよびだしたら、nullを返す。
+            mvc.perform(post("/home")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .sessionAttr("userName","abcdefg")
+                            .content("""
+                            {
+                            }
+                            """))
+                    .andExpect(status().isBadRequest());
+            //応答結果がResponseEntity.notFound().build()かどうかを確かめる。
+             */
+            mvc.perform(post("/home")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .sessionAttr("userName",null)
+                            .content("""
+                            {
+                            }
+                            """))
+                    .andExpect(status().isBadRequest());
+            //応答結果がResponseEntity.badRequest()かどうかを確かめる。
         }catch(Exception e){
             e.printStackTrace();
         }
