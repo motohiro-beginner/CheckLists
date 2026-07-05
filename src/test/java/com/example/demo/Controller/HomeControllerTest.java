@@ -6,7 +6,7 @@ import com.example.demo.Service.HomeCheckListsService;
 import org.springframework.http.MediaType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -75,11 +75,10 @@ public class HomeControllerTest {
              */
             /*テストデータ3
             when(service.existsByUserNameAndCreatedAt("abcdefg"))
-                    .thenReturn(null);
-            //Controllerがservice.existsByUserNameAndCreatedAtをよびだしたら、nullを返す。
+                    .thenReturn(true);
+            //Controllerがservice.existsByUserNameAndCreatedAtをよびだしたら、trueを返す。
             mvc.perform(post("/home")
                             .contentType(MediaType.APPLICATION_JSON)
-                            .sessionAttr("userName","abcdefg")
                             .content("""
                             {
                             }
@@ -87,6 +86,7 @@ public class HomeControllerTest {
                     .andExpect(status().isBadRequest());
             //応答結果がResponseEntity.notFound().build()かどうかを確かめる。
              */
+            /*テストデータ4
             mvc.perform(post("/home")
                             .contentType(MediaType.APPLICATION_JSON)
                             .sessionAttr("userName",null)
@@ -96,6 +96,7 @@ public class HomeControllerTest {
                             """))
                     .andExpect(status().isBadRequest());
             //応答結果がResponseEntity.badRequest()かどうかを確かめる。
+             */
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -36,10 +36,10 @@ public class HomeCheckListsEntity {
     public void setCheckListsName(String checkListsName){
         this.checkListsName = checkListsName;
     }
-    public LocalDate getLocalDateTime(){
+    public LocalDate getCreatedAt(){
         return createdAt;
     }
-    public void setLocalDateTime(LocalDate createdAt){
+    public void setCreatedAt(LocalDate createdAt){
         this.createdAt = createdAt;
     }
     @ManyToOne
