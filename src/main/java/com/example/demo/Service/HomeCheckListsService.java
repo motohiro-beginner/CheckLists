@@ -30,9 +30,14 @@ public class HomeCheckListsService {
     private final List<Boolean> isChecked;
     private final String createdAt;
     である。*/
+    //existsByUserNameAndCreatedAtは該当するユーザー名及び日付のチェックリストが存在するかどうかを確かめるメソッドである。
     public boolean existsByUserNameAndCreatedAt(String userName){
         LocalDate nowDate = LocalDate.now();
-        return repository.existsByUserNameAndCreatedAt(userName,nowDate);
+        if(repository.existsByUserNameAndCreatedAt(userName,nowDate)>0){
+            return true;
+        }else{
+            return false;
+        }
     }
     /*
     findAllCheckListsはList<HomeCheckListsDTO>からList<HomeCheckListViewDTO>に変換するメソッドである。

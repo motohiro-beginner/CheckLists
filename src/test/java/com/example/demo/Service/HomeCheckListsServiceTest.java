@@ -66,8 +66,8 @@ public class HomeCheckListsServiceTest {
     void existsByUserNameAndCreatedAtTest(){
         LocalDate testDateTime = LocalDate.now();
         when(repository.existsByUserNameAndCreatedAt("abcdefg",testDateTime))
-                .thenReturn(false);
+                .thenReturn(1);
         boolean success = service.existsByUserNameAndCreatedAt("abcdefg");
-        assertFalse(success);
+        assertTrue(success);
     }
 }
