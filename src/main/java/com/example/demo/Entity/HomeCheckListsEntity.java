@@ -25,10 +25,10 @@ public class HomeCheckListsEntity {
     @Column(name = "created_at",nullable = false)
     private LocalDate createdAt;
     public HomeUserEntity getUserId(){
-        return userId;
+        return user;
     }
     public void setUserId(HomeUserEntity userId){
-        this.userId = userId;
+        this.user = userId;
     }
     public String getCheckListsName(){
         return checkListsName;
@@ -44,7 +44,7 @@ public class HomeCheckListsEntity {
     }
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private HomeUserEntity userId;
-    @OneToMany(mappedBy = "itemId")
+    private HomeUserEntity user;
+    @OneToMany(mappedBy = "checkList")
     private List<HomeCheckListsItemsEntity> items;
 }

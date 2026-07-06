@@ -33,7 +33,12 @@ public class HomeUserEntity {
     public void setPassword(String password){
         this.password = password;
     }
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user")
     private List<HomeCheckListsEntity> checkLists;
-
+    public List<HomeCheckListsEntity> getCheckLists(){
+        return checkLists;
+    }
+    public void setCheckLists(List<HomeCheckListsEntity> checkLists){
+        this.checkLists = checkLists;
+    }
 }

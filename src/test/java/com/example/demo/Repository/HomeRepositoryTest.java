@@ -58,16 +58,16 @@ public class HomeRepositoryTest {
         Irepository.save(items2);
 
         //実際にrepositoryのメソッドを呼び出して、テストする。
-        boolean result = repository.existsByUserNameAndCreatedAt("abcdefg",nowDate);
-        assertTrue(result);
+        Integer result = repository.existsByUserNameAndCreatedAt("abcdefg",nowDate);
+        assertTrue(result>0);
         List<HomeCheckListsDTO> dto = repository.findAllCheckLists("abcdefg",nowDate);
-        assertEquals(dto.get(0).getCheckListsName(),"買い物");
-        assertEquals(dto.get(0).getItemNames(),"リンゴ");
-        assertEquals(dto.get(0).getIsChecked(),"false");
-        assertEquals(dto.get(0).getCreatedAt(),nowDate);
-        assertEquals(dto.get(1).getCheckListsName(),"勉強");
-        assertEquals(dto.get(1).getItemNames(),"国語");
-        assertEquals(dto.get(1).getIsChecked(),"true");
+        assertEquals("買い物",dto.get(0).getCheckListsName());
+        assertEquals("リンゴ",dto.get(0).getItemNames());
+        assertEquals(false,dto.get(0).getIsChecked());
+        assertEquals(nowDate,dto.get(0).getCreatedAt());
+        assertEquals("勉強",dto.get(1).getCheckListsName());
+        assertEquals("国語",dto.get(1).getItemNames());
+        assertEquals(true,dto.get(1).getIsChecked());
         assertEquals(dto.get(1).getCreatedAt(),nowDate);
     }
 }
