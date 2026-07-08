@@ -16,23 +16,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.validation.Valid;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 public class NewRegistrationController {
+    private final NewRegistrationService service;
+    public NewRegistrationController(NewRegistrationService service){
+        this.service = service;
+    }
     @PostMapping("/newRegistration")
     public ResponseEntity<?> newRegistration(
             @Valid @RequestBody NewRegistrationDTO dto,
-            HttpSession session,
-            BindingResult result
+            BindingResult result,
+            HttpSession session
     ){
         try {
-            NewRegistrationService service = new NewRegistrationService();
             boolean registrationResult = service.existsByUserName(dto.getUserName());
             if (result.hasErrors()) {
                 List<String> errors = result.getFieldErrors()
                         .stream()
+                        .sorted(Comparator.comparing(error ->
+                            switch(error.getField()){
+                                case "userName" -> 0;
+                                case "password" -> 1;
+                                default -> 99;
+                            }))
                         .map(FieldError::getDefaultMessage)
                         .toList();
             /*ユーザーIDとパスワードの内容をチェックして問題があった場合、
@@ -41,7 +51,7 @@ public class NewRegistrationController {
                 /*入力失敗であるという結果を返す。*/
             }
             if (registrationResult) {
-                return ResponseEntity.badRequest().body("ユーザーIDは既に他の人に使われています。");
+                return ResponseEntity.badRequest().body("ユーザー名は既に他の人に使われています。");
             } else {
                 service.save(dto);
                 //新しいユーザー名およびパスワードを挿入
