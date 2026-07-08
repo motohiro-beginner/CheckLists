@@ -19,7 +19,7 @@ public class HomeUserEntity {
     private Integer userId;
     @Column(name = "user_name",nullable = false,unique = true,length = 50)
     private String userName;
-    @Column(name = "password",nullable = false,unique = true,length = 255)
+    @Column(name = "password",nullable = false,unique = false,length = 255)
     private String password;
     public String getUserName(){
         return userName;
