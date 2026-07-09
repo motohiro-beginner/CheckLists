@@ -1,0 +1,23 @@
+import { http, HttpResponse } from "msv";
+//http HTTP通信を書くためのオブジェクトをインポートして使えるようにする。
+export const handlers = [
+    //MSWが使うルール一覧
+    http.post("/newRegistration",async({request}) =>{
+        //http.postはpost送信がきたら、実行する関数
+        //request 送られてきたオブジェクト SpringBootでいうとdtoに近いもの
+        const body = await request.json();
+        if(body.userName === "abcdefg"&&body.password === "qwerty12"){
+            return HttpResponse.json({})
+        }else{
+            return HttpResponse.json(
+                {
+                message: "ユーザー名は既に他の人に使われています。"
+            },
+            {
+                status: 400
+            }
+            //HttpResponseでテスト用の偽の戻り値を返す。
+        )
+        }
+    })
+]
