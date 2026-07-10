@@ -1,0 +1,24 @@
+{
+  "name": "checklists",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motohiro-beginner/CheckLists.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/motohiro-beginner/CheckLists/issues"
+  },
+  "homepage": "https://github.com/motohiro-beginner/CheckLists#readme",
+  "dependencies": {
+    "msw": "^2.15.0"
+  }
+}
