@@ -1,4 +1,5 @@
-import { http, HttpResponse } from "msv";
+//@ts-check
+import { http, HttpResponse } from "msw";
 //http HTTP通信を書くためのオブジェクトをインポートして使えるようにする。
 export const handlers = [
     //MSWが使うルール一覧

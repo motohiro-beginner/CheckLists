@@ -55,12 +55,13 @@ async function registration() {
             })
         });
         //fetch通信では新規登録成功するか否かを確かめる。
-        const registrationResult = await response.json();
         if(response.ok){
             window.location.href = "/home"
         }else if(response.status === 409){
+            const registrationResult = await response.json();
             alert(registrationResult.join("\n"));
         }else{
+            const registrationResult = await response.json();
             alert(registrationResult.join("\n"));
         }
     }catch(error){
