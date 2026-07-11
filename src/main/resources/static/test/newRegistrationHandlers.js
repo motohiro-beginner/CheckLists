@@ -1,26 +1,24 @@
 //@ts-check
-import { http, HttpResponse } from "msw";
-console.log("handlerが読み込まれました");
-//http HTTP通信を書くためのオブジェクトをインポートして使えるようにする。
-export const newRegistrationHandlers = [
+//テストするために偽のFetch通信の関数を用意する。
+async function newRegistrationFakeFetch(userName,password){
     //MSWが使うルール一覧
-    http.post("/newRegistration",async({request}) =>{
-        console.log("MSWがPOSTを受け取りました");
-        //http.postはpost送信がきたら、実行する関数
-        //request 送られてきたオブジェクト SpringBootでいうとdtoに近いもの
-        const body = await request.json();
-        if(body.userName === "abcdefg"&&body.password === "qwerty12"){
-            return HttpResponse.json({})
-        }else{
-            return HttpResponse.json(
-                {
+    if(userName === "abcdefg"&&password === "qwerty12"){
+        return {
+            ok: true,
+            status: 200,
+            json: async () => ({})
+        };
+        //なるべく元のfetch通信に寄せるためにオブジェクト形式で返す。
+        //okはresponse.ok,statusはresponse.status,である。
+        // jsonはresponse.jsonが実行されたときのために用意した関数である。
+    }else{
+        return {
+            ok: false,
+            status: 400,
+            json:async () => ({
                 message: "ユーザー名は既に他の人に使われています。"
-            },
-            {
-                status: 400
-            }
-            //HttpResponseでテスト用の偽の戻り値を返す。
-        )
+            })
+            //badRequest用
         }
-    })
-]
+    }
+}
