@@ -1,9 +1,11 @@
 //@ts-check
 import { http, HttpResponse } from "msw";
+console.log("handlerが読み込まれました");
 //http HTTP通信を書くためのオブジェクトをインポートして使えるようにする。
-export const handlers = [
+export const newRegistrationHandlers = [
     //MSWが使うルール一覧
     http.post("/newRegistration",async({request}) =>{
+        console.log("MSWがPOSTを受け取りました");
         //http.postはpost送信がきたら、実行する関数
         //request 送られてきたオブジェクト SpringBootでいうとdtoに近いもの
         const body = await request.json();
