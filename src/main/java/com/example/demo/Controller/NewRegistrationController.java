@@ -51,7 +51,7 @@ public class NewRegistrationController {
                 /*入力失敗であるという結果を返す。*/
             }
             if (registrationResult) {
-                return ResponseEntity.badRequest().body("ユーザー名は既に他の人に使われています。");
+                return ResponseEntity.badRequest().body(Map.of("message","ユーザー名は既に他の人に使われています。"));
             } else {
                 service.save(dto);
                 //新しいユーザー名およびパスワードを挿入

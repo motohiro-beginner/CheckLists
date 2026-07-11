@@ -1,4 +1,5 @@
 //@ts-check
+import { worker } from "../test/newRegistrationBrowser.js";
 const userNameText =
 /**@type {HTMLInputElement} */
 (document.querySelector("#userNameText"));
