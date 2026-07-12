@@ -18,7 +18,6 @@ import jakarta.validation.Valid;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class NewRegistrationController {
@@ -51,7 +50,7 @@ public class NewRegistrationController {
                 /*入力失敗であるという結果を返す。*/
             }
             if (registrationResult) {
-                return ResponseEntity.badRequest().body(Map.of("message","ユーザー名は既に他の人に使われています。"));
+                return ResponseEntity.badRequest().body(List.of("ユーザー名は既に他の人に使われています。"));
             } else {
                 service.save(dto);
                 //新しいユーザー名およびパスワードを挿入

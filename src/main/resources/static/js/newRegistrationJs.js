@@ -1,5 +1,5 @@
 //@ts-check
-import { worker } from "../test/newRegistrationBrowser.js";
+import { newRegistrationFakeFetch } from "../test/newRegistrationHandlers.js";
 const userNameText =
 /**@type {HTMLInputElement} */
 (document.querySelector("#userNameText"));
@@ -45,6 +45,7 @@ async function registration() {
     try{
         const userName = userNameText.value;
         const password = passwordText.value;
+        /*テストのためにここはコメントアウトしている。あとで戻す。「
         const response = await fetch("/newRegistration", {
             method: "POST",
             headers: {
@@ -54,7 +55,8 @@ async function registration() {
                 userName,
                 password
             })
-        });
+        });*/
+        const response = await newRegistrationFakeFetch(userName,password);
         //fetch通信では新規登録成功するか否かを確かめる。
         if(response.ok){
             window.location.href = "/home"
