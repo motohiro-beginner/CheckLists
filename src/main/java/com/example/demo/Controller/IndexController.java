@@ -18,4 +18,8 @@ public class IndexController {
     public String test(){
         return "newRegistration";
     }//テスト用　後で消す。
+    @GetMapping("screenTest")
+    public String screenTest(){
+        return "test";
+    }
 }

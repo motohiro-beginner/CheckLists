@@ -45,7 +45,6 @@ async function registration() {
     try{
         const userName = userNameText.value;
         const password = passwordText.value;
-        /*テストのためにここはコメントアウトしている。あとで戻す。「
         const response = await fetch("/newRegistration", {
             method: "POST",
             headers: {
@@ -55,11 +54,14 @@ async function registration() {
                 userName,
                 password
             })
-        });*/
-        const response = await newRegistrationFakeFetch(userName,password);
+        });
+        //下のコメントアウトしたコードはテストのために使ったコード
+        //const response = await newRegistrationFakeFetch(userName,password);
         //fetch通信では新規登録成功するか否かを確かめる。
         if(response.ok){
-            window.location.href = "/home"
+            window.location.href = "/homeTransition"
+            //テスト用
+            //window.location.href = "/screenTest";
         }else if(response.status === 409){
             const registrationResult = await response.json();
             alert(registrationResult.join("\n"));
@@ -78,7 +80,7 @@ btn.addEventListener("click",registration);
 //fetch通信で入力されたユーザー名とパスワードが登録可能か否かの結果が返ってくる.
 //結果がtrueであればhome画面に遷移する。
 function loginTransition(){
-    window.location.href = "/login"
+    window.location.href = "/loginTransition"
 }
 loginBtn.addEventListener("click",loginTransition);
 //ログインボタンが押されたら、ログイン画面に遷移する。
