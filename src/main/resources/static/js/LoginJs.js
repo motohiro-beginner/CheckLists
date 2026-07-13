@@ -1,4 +1,5 @@
 //@ts-check
+import { LoginFakeFetch } from "../test/LoginHandlers.js";
 const userNameText =
 /** @type {HTMLInputElement} */
 (document.querySelector("#userNameText"));
@@ -50,9 +51,12 @@ async function login() {
             password
         })
     });//userNameとpasswordをPost送信で送ってログインできるか否かを確かめる。
+    //下のコードはテストのために使ったコード
+    //const LoginResult = await LoginFakeFetch(userName,password);
     const result = await LoginResult.json();
     if(LoginResult.ok){
-        window.location.href = "/home"
+        window.location.href = "/homeTransition";
+        //window.location.href = "/screenTest";
     }else{
         alert(result.join("\n"));
     }
@@ -60,6 +64,7 @@ async function login() {
 btn.addEventListener("click",login);
 //ボタンが押されたら、ログインを試みる。
 async function newRegistrationTransition() {
-    window.location.href= "/home"
+    window.location.href= "/newRegistrationTransition";
+    //window.location.href = "/screenTest";
 }
 newRegistrationBtn.addEventListener("click",newRegistrationTransition);
