@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LogOutController {
     @PostMapping("/logOut")
-    public void logOut(HttpSession session){
+    public String logOut(HttpSession session){
         session.invalidate();
+        return "Login";
     }
 }
