@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "check_lists")
 public class TableCheckListsEntity {
+    /*check_lists表の列と各変数が対応している。*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer checkListsId;
@@ -17,10 +18,13 @@ public class TableCheckListsEntity {
     private LocalDate createdAt;
     @OneToMany(mappedBy = "checkList")
     private List<TableCheckListsItemsEntity> items;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private TableUserEntity user;
     public Integer getCheckListsId(){
         return checkListsId;
     }
-    public void setUserId(Integer checkListsId){
+    public void setCheckListsId(Integer checkListsId){
         this.checkListsId = checkListsId;
     }
     public String getCheckListsName(){
@@ -34,5 +38,11 @@ public class TableCheckListsEntity {
     }
     public void setCreatedAt(LocalDate createdAt){
         this.createdAt = createdAt;
+    }
+    public TableUserEntity getUserEntity(){
+        return user;
+    }
+    public void setUserEntity(TableUserEntity user){
+        this.user = user;
     }
 }
