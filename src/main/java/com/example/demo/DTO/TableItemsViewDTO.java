@@ -1,5 +1,6 @@
 package com.example.demo.DTO;
 
+//一つのチェックリストに対して、複数の項目があるため、TableViewDTOにTableItemsViewDTOのリストを持たせている。
 public class TableItemsViewDTO {
     private final String itemName;
     private final boolean isChecked;

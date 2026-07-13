@@ -2,6 +2,7 @@ package com.example.demo.DTO;
 
 import java.util.List;
 
+//Serviceクラスにチェックリストのデータを渡すために用意するDTO
 public class TableViewDTO {
     private final String checkListsName;
     private final List<TableItemsViewDTO> items;
