@@ -1,6 +1,18 @@
 //@ts-check
+const checkListsTableBtn =
+/**@type {HTMLButtonElement} */
+(document.querySelector("#checkListsTableBtn"));
+const logOutBtn =
+/**@type {HTMLButtonElement} */
+(document.querySelector("#logOutBtn"));
 function tableTransition(){
     window.location.href = "/checkListsTable"
+}
+if(!(checkListsTableBtn instanceof HTMLDivElement)){
+    throw new Error("checkListsTableBtnが見つかりません");
+}
+if(!(logOutBtn instanceof HTMLDivElement)){
+    throw new Error("logOutBtnが見つかりません");
 }
 //作成したチェックリスト一覧を見れる画面に移動
 checkListsTableBtn.addEventListener("click",tableTransition);
