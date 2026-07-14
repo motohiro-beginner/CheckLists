@@ -20,4 +20,11 @@ public interface TableRepository extends JpaRepository<TableUserEntity,Integer> 
             WHERE u.userName = :userName
             """)
     List<TableDTO> findTableAllCheckLists(@Param("userName") String userName);
+    /*該当するユーザーのチェックリストが何個あるかを返すメソッドである。*/
+    @Query("""
+            SELECT COUNT(u)
+            FROM  TableUserEntity u
+            JOIN u.checkLists c
+            WHERE u.userName = :userName""")
+    Integer existsByUserCheckLists(@Param("userName") String userName);
 }

@@ -75,4 +75,8 @@ public class TableService {
         viewDto.add(new TableViewDTO(checkListsName,items,createdAt));
         return viewDto;
     }
+    /*existsByUserCheckListsは該当するユーザーのチェックリストがあるかないかを返すメソッドである。*/
+    public boolean existsByUserCheckLists(String userName){
+        return repository.existsByUserCheckLists(userName) > 0;
+    }
 }
