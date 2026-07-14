@@ -16,6 +16,33 @@ public class TableService {
     public TableService(TableRepository repository){
         this.repository = repository;
     }
+    /*findTableAllCheckListsはdbから受け取った列が格納されている
+    * TableDTOからチェックリストのデータが格納されているTableViewDTO
+    * に変換するメソッドである。
+    * 例
+    * List<TableDTO>
+    * checkListsName "買い物" itemName "リンゴ" isChecked true createdAt 2026/1/1
+    * checkListsName "買い物" itemName "みかん" isChecked true createdAt 2026/1/1
+    * checkListsName "買い物" itemName "イチゴ" isChecked false createdAt 2026/1/1
+    * checkListsName "勉強" itemName "数学" isChecked true createdAt 2026/1/2
+     * checkListsName "勉強" itemName "国語" isChecked false createdAt 2026/1/2
+     * checkListsName "勉強" itemName "英語" isChecked false createdAt 2026/1/2
+     *                                ↓
+     * List<TableViewDTO>
+     * checkListsName "買い物" items itemName "リンゴ" createdAt "2026/1/1"
+     *                              isChecked true
+     *                              itemName "みかん"
+     *                              isChecked true
+     *                              itemName "イチゴ"
+     *                              isChecked false
+     *
+     * checkListsName "勉強" items   itemName "数学"   createdAt "2026/1/2"
+     *                              isChecked true
+     *                              itemName "国語"
+     *                              isChecked false
+     *                              itemName "英語"
+     *                              isChecked false
+    * */
     public List<TableViewDTO> findTableAllCheckLists(String userName){
         List<TableDTO> dto = repository.findTableAllCheckLists(userName);
         List<TableViewDTO> viewDto = new ArrayList<>();
@@ -46,5 +73,6 @@ public class TableService {
             prev = column.getCheckListsName();
         }
         viewDto.add(new TableViewDTO(checkListsName,items,createdAt));
+        return viewDto;
     }
 }
