@@ -45,6 +45,7 @@ public class TableServiceTest {
 
          */
         /*テストデータ１
+        //リストにチェックリストの情報がしっかり格納されているかをテストしている。
         assertEquals("買い物",viewDto.get(0).getCheckListsName());
         assertEquals("リンゴ",viewDto.get(0).getItems().get(0).getItemName());
         assertEquals("みかん",viewDto.get(0).getItems().get(1).getItemName());
