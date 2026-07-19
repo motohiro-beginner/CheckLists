@@ -11,7 +11,7 @@ public class TableItemsViewDTO {
     public String getItemName(){
         return itemName;
     }
-    public boolean isChecked(){
+    public boolean getIsChecked(){
         return isChecked;
     }
 }

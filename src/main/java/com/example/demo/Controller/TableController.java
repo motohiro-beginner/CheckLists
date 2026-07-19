@@ -28,6 +28,8 @@ public class TableController {
             }else{
                 return ResponseEntity.notFound().build();
             }
+        }else{
+            return ResponseEntity.badRequest().body("ユーザー名が消失したため、Login画面に戻りました。");
         }
     }
 }

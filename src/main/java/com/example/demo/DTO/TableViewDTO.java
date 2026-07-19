@@ -15,7 +15,7 @@ public class TableViewDTO {
     public String getCheckListsName(){
         return checkListsName;
     }
-    public List<TableItemsViewDTO> items(){
+    public List<TableItemsViewDTO> getItems(){
         return items;
     }
     public String getCreatedAt(){
