@@ -17,6 +17,7 @@ public class TableController {
         this.service = service;
     }
     @PostMapping("/Table")
+    //tableメソッドは該当するユーザーの全てのチェックリストの情報をフロントエンド側に返すメソッドである。
     public ResponseEntity<?> table(HttpSession session){
         if((session != null)&&(session.getAttribute("userName") != null)){
             //セッションの情報があるかないかを確かめる。もし消失していたら、badRequestを返す。

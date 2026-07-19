@@ -76,8 +76,7 @@ public class TableControllerTest {
                             {
                             }
                             """))
-                    .andExpect(status().isBadRequest())
-                    .andExpect()
+                    .andExpect(status().isBadRequest());
         }catch(Exception e){
             e.printStackTrace();
         }
