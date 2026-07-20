@@ -25,7 +25,7 @@ public class TableCheckListsItemsEntity {
     public String getItemName(){
         return itemName;
     }
-    public void setItemName(){
+    public void setItemName(String itemName){
         this.itemName = itemName;
     }
     public boolean getIsChecked(){
@@ -33,5 +33,8 @@ public class TableCheckListsItemsEntity {
     }
     public void setIsChecked(boolean isChecked){
         this.isChecked = isChecked;
+    }
+    public void setCheckListsEntity(TableCheckListsEntity checkList){
+        this.checkList = checkList;
     }
 }
