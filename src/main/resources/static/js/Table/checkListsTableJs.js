@@ -57,11 +57,22 @@ function checkListsTable(/**@type {TableViewDTO[]} */checkLists){
         const card = document.createElement("div");
         card.classList.add("card");
         container.appendChild(card);
-        const cardUpper =document.createElement("div");
+        const cardUpper = document.createElement("div");
         cardUpper.classList.add("cardUpper");
         card.appendChild(cardUpper);
         const checkListName = document.createElement("div");
         checkListName.classList.add("checkListName");
         checkListName.textContent = checkList.checkListsName;
+        cardUpper.appendChild(checkListName);
+        const createdAt = document.createElement("div");
+        createdAt.classList.add("createdAt");
+        createdAt.textContent = checkList.createdAt;
+        cardUpper.appendChild(createdAt);
+
+    });
+}
+function checkListItems(/**@type {TableItemsViewDTO[]} */items,/**@type {HTMLDivElement} */card){
+    items.forEach(item => {
+        const
     })
 }
