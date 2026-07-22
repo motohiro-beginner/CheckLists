@@ -27,9 +27,10 @@ async function table(){
     }else if(response.status === 404){
         const checkLists = await response.json();
         //responseNotFoundという関数を作成する予定
+        table();
     }else{
         /**@type {TableViewDTO[]} */
         const checkLists = await response.json();
-
+        checkListsTable(checkLists);
     }
 }
