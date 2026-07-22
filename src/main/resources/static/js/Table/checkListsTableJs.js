@@ -52,7 +52,7 @@ if(!(container instanceof HTMLDivElement)){
  * </div>
  */
 /**checkListsTableは画面に複数のチェックリストを表示するための構造を作成する変数である。 */
-function checkListsTable(/**@type {TableViewDTO[]} */checkLists){
+export function checkListsTable(/**@type {TableViewDTO[]} */checkLists){
     //チェックリストの個数分構造を定義する。
     checkLists.forEach(checkList => {
         const card = document.createElement("div");
@@ -81,17 +81,17 @@ function checkListItems(/**@type {TableItemsViewDTO[]} */items,/**@type {HTMLDiv
     items.forEach(item => {
         const cardRow = document.createElement("div");
         cardRow.classList.add("cardRow");
-        cardRow.appendChild(cardLower);
+        cardLower.appendChild(cardRow);
         const itemName = document.createElement("div");
         itemName.classList.add("itemName");
         itemName.textContent = item.itemName;
         itemFontSize(itemName);
-        itemName.appendChild(cardRow);
+        cardRow.appendChild(itemName);
         const isChecked = document.createElement("input");
         isChecked.type = "checkbox";
         isChecked.checked = item.isChecked;
         isChecked.classList.add("isChecked");
-        isChecked.appendChild(cardRow);
+        cardRow.appendChild(isChecked);
     });
 }
 //itemFontSizeはitemNameの項目の文字の大きさを文字数に応じて調整する関数である。
