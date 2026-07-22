@@ -75,9 +75,22 @@
     font-size: 12px;
 }
 .createdAt {
-    font-size: 8px;
+    font-size: 6px;
     color: rgba(0,0,0,0.5);
 }
 .cardLower {
-    margin-left:5px;
+    margin-left: 5px;
+}
+.cardRow {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #d3d3d3;
+}
+.item {
+    /*font-sizeはjavascriptにて決定される。8px以上12px以下*/
+    overflow-wrap: anywhere;
+    width: 80%;
+}
+.isChecked {
+    width: 30px;
 }
