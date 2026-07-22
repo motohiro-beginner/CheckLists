@@ -99,6 +99,6 @@ function itemFontSize(/**@type {HTMLDivElement} */itemName){
     const width = itemName.clientWidth;
     const length = itemName.textContent.length;
     let fontSize = width/length*1.8;
-    fontSize = Math.max(12,Math.min(fontSize,16));
+    fontSize = Math.max(8,Math.min(fontSize,12));
     itemName.style.fontSize = `${fontSize}px`;
 }
