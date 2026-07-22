@@ -69,15 +69,36 @@ function checkListsTable(/**@type {TableViewDTO[]} */checkLists){
         createdAt.classList.add("createdAt");
         createdAt.textContent = checkList.createdAt;
         cardUpper.appendChild(createdAt);
-
+        checkListItems(checkList.items,card);
     });
 }
 /**checkListItemsはcheckListsTableのチェックリストに項目に関する要素を追加する関数である。 */
 function checkListItems(/**@type {TableItemsViewDTO[]} */items,/**@type {HTMLDivElement} */card){
+    const cardLower = document.createElement("div");
+    cardLower.classList.add("cardLower");
+    cardLower.appendChild(card);
+    //チェックリストに項目及びその項目に対するチェックボックスを追加する。
     items.forEach(item => {
-        const cardLower = document.createElement("div");
-        cardLower.classList.add("cardLower");
-        cardLower.appendChild(card);
-        
+        const cardRow = document.createElement("div");
+        cardRow.classList.add("cardRow");
+        cardRow.appendChild(cardLower);
+        const itemName = document.createElement("div");
+        itemName.classList.add("itemName");
+        itemName.textContent = item.itemName;
+        itemFontSize(itemName);
+        itemName.appendChild(cardRow);
+        const isChecked = document.createElement("input");
+        isChecked.type = "checkbox";
+        isChecked.checked = item.isChecked;
+        isChecked.classList.add("isChecked");
+        isChecked.appendChild(cardRow);
     });
+}
+//itemFontSizeはitemNameの項目の文字の大きさを文字数に応じて調整する関数である。
+function itemFontSize(/**@type {HTMLDivElement} */itemName){
+    const width = itemName.clientWidth;
+    const length = itemName.textContent.length;
+    let fontSize = width/length*1.8;
+    fontSize = Math.max(12,Math.min(fontSize,16));
+    itemName.style.fontSize = `${fontSize}px`;
 }
