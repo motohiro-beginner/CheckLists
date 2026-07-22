@@ -53,6 +53,7 @@ if(!(container instanceof HTMLDivElement)){
  */
 /**checkListsTableは画面に複数のチェックリストを表示するための構造を作成する変数である。 */
 function checkListsTable(/**@type {TableViewDTO[]} */checkLists){
+    //チェックリストの個数分構造を定義する。
     checkLists.forEach(checkList => {
         const card = document.createElement("div");
         card.classList.add("card");
@@ -71,8 +72,12 @@ function checkListsTable(/**@type {TableViewDTO[]} */checkLists){
 
     });
 }
+/**checkListItemsはcheckListsTableのチェックリストに項目に関する要素を追加する関数である。 */
 function checkListItems(/**@type {TableItemsViewDTO[]} */items,/**@type {HTMLDivElement} */card){
     items.forEach(item => {
-        const
-    })
+        const cardLower = document.createElement("div");
+        cardLower.classList.add("cardLower");
+        cardLower.appendChild(card);
+        
+    });
 }
