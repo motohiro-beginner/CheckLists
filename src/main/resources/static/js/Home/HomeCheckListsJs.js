@@ -80,8 +80,6 @@ async function HomeCheckLists(){
      * }
      * ]
      */
-    //addCheckListsはチェックリストを画面に表示するための関数である。チェックリストの表の構造の定義を行っている。
-    addCheckLists(checkLists);
 }
 //responseNotFoundはチェックリストがなかったときに画面に
 // "今日のチェックリストは作成されていません。"
