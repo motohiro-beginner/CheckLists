@@ -1,26 +1,36 @@
 <!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <title>ホーム画面</title>
-    <link rel="stylesheet" href="/css/tableStyle.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <div class="upper">
-        <div class="upperGroup">
-            <h1 id="title">チェックリスト一覧</h1>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>ホーム画面</title>
+        <link rel="stylesheet" href="/css/Table/tableStyle.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="upper">
+            <div class="upperGroup">
+                <h1 id="title">チェックリスト一覧</h1>
+            </div>
+            <div class="upperGroup">
+                    <button id="addBtn">+</button>
+            </div>
         </div>
-        <div class="upperGroup">
-                <button id="addBtn">+</button>
+        <div id="search">
+            <div class="searchGroup">
+                <div class="searchLabel">チェックリスト名で検索</div>
+                <input type="text" id="searchName">
+            </div>
+            <div class="searchGroup">
+                <div class="searchLabel">日付で検索</div>
+                <div id="dateSearchGroup">
+                    <input type="text" id="yearSearch"><div class="dateLabel">年</div>
+                    <input type="text" id="monthSearch"><div class="dateLabel">月</div>
+                    <input type="text" id="daySearch"><div class="dateLabel">日</div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div id="search">
-        <div class="searchGroup">
-            <input type="text" id="searchName">
-            <input type="text" id="searchCreatedAt">
-        </div>
-    </div>
-    <div class="cardContainer"></div>
-    <script src="/js/Table/tableJs.js"></script>
-    <script src="/js/Table/checkListsTableJs.js"></script>
-</body>
+        <div class="cardContainer"></div>
+        <!-- <script src="/js/Table/tableJs.js"></script> -->
+        <!-- <script src="/js/Table/checkListsTableJs.js"></script> -->
+    </body>
+</html>

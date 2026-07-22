@@ -1,0 +1,55 @@
+@charset "utf-8";
+.upper {
+    display: flex;
+    justify-content: space-between;
+}
+#addBtn {
+    font-size: 5rem;
+    border: none;
+    outline: none;
+    background-color: white;
+    cursor: pointer;
+}
+.searchGroup {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+#search {
+    display: flex;
+    justify-content: center;
+}
+#searchName {
+    font-size: 1rem;
+    height: 25px;
+    width: 300px;
+}
+#yearSearch {
+    font-size: 1rem;
+    width: 60px;
+    height: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+#monthSearch {
+    font-size: 1rem;
+    width: 30px;
+    height: 25px;
+    margin-left: 5px;
+    margin-right: 5px
+}
+#daySearch {
+    font-size: 1rem;
+    width: 30px;
+    height: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.dateLabel {
+    width: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+#dateSearchGroup {
+    display: flex;
+    justify-content: center;
+}
