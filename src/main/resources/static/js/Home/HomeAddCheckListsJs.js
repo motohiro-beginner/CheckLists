@@ -2,12 +2,14 @@
 import { checkItem } from "./HomeIsCheckedJs.js";
 /**
  * @typedef {Object} HomeCheckListsViewDTO
+ * @property {int} checkListsId,
  * @property {string} checkListsName,
  * @property {HomeItemsViewDTO[]} items,
  * @property {string} createdAt
  */
 /**
  * @typedef {Object} HomeItemsViewDTO
+ * @property {int} itemId,
  * @property {string} itemNames,
  * @property {boolean} isChecked
  */
@@ -41,6 +43,7 @@ export function addCheckLists(/**@type {HomeCheckListsViewDTO[]} */checkLists) {
         const card = document.createElement("div");
         //クラスを付与
         card.classList.add("card");
+        card.dataset.checkListsId = checkList.checkListsId;
         //containerの中に追加
         container.appendChild(card);
         //checkListNameを生成してcardの中に追加
@@ -66,25 +69,26 @@ function addItems(/**@type {HomeItemsViewDTO[]}*/items,/**@type {HTMLDivElement}
         cardLower.classList.add("cardLower");
         card.appendChild(cardLower);
             items.forEach(items => {
-            const cardRow = document.createElement("div");
-            cardRow.classList.add("cardRow");
-            //cardRowにはチェックリストの項目とそれに対応するチェックボックスが入る。
-            const item = document.createElement("div");
-            item.classList.add("item");
-            item.textContent = items.itemNames;
-            //itemFontSizeにはitemの項目の文字の大きさを調整する関数である。
-            cardRow.appendChild(item);
-            const isChecked = document.createElement("input");
-            isChecked.classList.add("itemCheckBox");
-            //チェックされたときに実行するためにisCheckedをイベントリスナー登録する。
-            isChecked.addEventListener("change",() => {
-                checkItem(isChecked);
-            })
-            isChecked.type = "checkbox";
-            isChecked.checked = items.isChecked;
-            cardRow.appendChild(isChecked);
-            cardLower.appendChild(cardRow);
-            itemFontSize(item);
+                const cardRow = document.createElement("div");
+                cardRow.classList.add("cardRow");
+                //cardRowにはチェックリストの項目とそれに対応するチェックボックスが入る。
+                cardRow.dataset.itemId = item.itemId;
+                const item = document.createElement("div");
+                item.classList.add("item");
+                item.textContent = items.itemNames;
+                //itemFontSizeにはitemの項目の文字の大きさを調整する関数である。
+                cardRow.appendChild(item);
+                const isChecked = document.createElement("input");
+                isChecked.classList.add("itemCheckBox");
+                //チェックされたときに実行するためにisCheckedをイベントリスナー登録する。
+                isChecked.addEventListener("change",() => {
+                    checkItem(isChecked);
+                })
+                isChecked.type = "checkbox";
+                isChecked.checked = items.isChecked;
+                cardRow.appendChild(isChecked);
+                cardLower.appendChild(cardRow);
+                itemFontSize(item);
         });
 }
 //itemFontSizeはitemの項目の文字の大きさを調整する関数である。
