@@ -1,4 +1,5 @@
 //@ts-check
+import { checkItem } from "./HomeIsCheckedJs.js";
 /**
  * @typedef {Object} HomeCheckListsViewDTO
  * @property {string} checkListsName,
@@ -75,6 +76,10 @@ function addItems(/**@type {HomeItemsViewDTO[]}*/items,/**@type {HTMLDivElement}
             cardRow.appendChild(item);
             const isChecked = document.createElement("input");
             isChecked.classList.add("itemCheckBox");
+            //チェックされたときに実行するためにisCheckedをイベントリスナー登録する。
+            isChecked.addEventListener("change",() => {
+                checkItem(isChecked);
+            })
             isChecked.type = "checkbox";
             isChecked.checked = items.isChecked;
             cardRow.appendChild(isChecked);
