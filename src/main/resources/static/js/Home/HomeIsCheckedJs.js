@@ -4,7 +4,7 @@ export async function checkItem(/**@type {HTMLInputElement}*/ItemCheckBox){
     const isChecked = ItemCheckBox.checked;
     const cardRow = itemCheckBox.parentElement;
     const itemId = cardRow.dataset.itemId;
-    await fetch("/itemIsCheck",{
+    const response = await fetch("/updateCheck",{
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -14,4 +14,7 @@ export async function checkItem(/**@type {HTMLInputElement}*/ItemCheckBox){
             itemId: itemId
         })
     });
+    if(!response.ok){
+        alert("ユーザーが項目につけたチェックの情報の保存に失敗しました。");
+    }
 }
