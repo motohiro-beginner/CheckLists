@@ -2,12 +2,14 @@
 import { addCheckLists } from "./HomeAddCheckListsJs.js";
 /**
  * @typedef {Object} HomeCheckListsViewDTO
+ * @property {int} checkListsId,
  * @property {string} checkListsName,
  * @property {HomeItemsViewDTO[]} items,
  * @property {string} createdAt
  */
 /**
  * @typedef {Object} HomeItemsViewDTO
+ * @property {int} itemId,
  * @property {string} itemNames,
  * @property {boolean} isChecked
  */
