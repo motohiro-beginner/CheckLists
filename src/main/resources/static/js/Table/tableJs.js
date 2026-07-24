@@ -38,7 +38,10 @@ async function table(){
     }else{
         console.log("3");
         /**@type {TableViewDTO[]} */
-        const checkLists = await response.json(); 
+        const checkLists = await response.json();
+        console.log(checkLists[0].checkListsName);
+        console.log(checkLists[0].items[0].itemName);
+        console.log(checkLists[0].items[0].isChecked);
         checkListsTable(checkLists);
         console.log("4");
     }

@@ -1,4 +1,5 @@
 //@ts-check
+console.log("checkListsTableJs loaded");
 /**
  * @typedef {Object} TableViewDTO
  * @property {string} checkListsName,
@@ -53,6 +54,7 @@ if(!(container instanceof HTMLDivElement)){
  */
 /**checkListsTableは画面に複数のチェックリストを表示するための構造を作成する変数である。 */
 export function checkListsTable(/**@type {TableViewDTO[]} */checkLists){
+    console.log("5");
     //チェックリストの個数分構造を定義する。
     checkLists.forEach(checkList => {
         const card = document.createElement("div");
@@ -70,13 +72,15 @@ export function checkListsTable(/**@type {TableViewDTO[]} */checkLists){
         createdAt.textContent = checkList.createdAt;
         cardUpper.appendChild(createdAt);
         checkListItems(checkList.items,card);
+        console.log("6");
     });
 }
 /**checkListItemsはcheckListsTableのチェックリストに項目に関する要素を追加する関数である。 */
 function checkListItems(/**@type {TableItemsViewDTO[]} */items,/**@type {HTMLDivElement} */card){
+    console.log("7");
     const cardLower = document.createElement("div");
     cardLower.classList.add("cardLower");
-    cardLower.appendChild(card);
+    card.appendChild(cardLower);
     //チェックリストに項目及びその項目に対するチェックボックスを追加する。
     items.forEach(item => {
         const cardRow = document.createElement("div");
@@ -85,6 +89,7 @@ function checkListItems(/**@type {TableItemsViewDTO[]} */items,/**@type {HTMLDiv
         const itemName = document.createElement("div");
         itemName.classList.add("itemName");
         itemName.textContent = item.itemName;
+        console.log("8");
         itemFontSize(itemName);
         cardRow.appendChild(itemName);
         const isChecked = document.createElement("input");
@@ -92,13 +97,16 @@ function checkListItems(/**@type {TableItemsViewDTO[]} */items,/**@type {HTMLDiv
         isChecked.checked = item.isChecked;
         isChecked.classList.add("isChecked");
         cardRow.appendChild(isChecked);
+        console.log("11");
     });
 }
 //itemFontSizeはitemNameの項目の文字の大きさを文字数に応じて調整する関数である。
 function itemFontSize(/**@type {HTMLDivElement} */itemName){
+    console.log("9");
     const width = itemName.clientWidth;
     const length = itemName.textContent.length;
     let fontSize = width/length*1.8;
-    fontSize = Math.max(8,Math.min(fontSize,12));
+    fontSize = Math.max(12,Math.min(fontSize,16));
     itemName.style.fontSize = `${fontSize}px`;
+    console.log("10");
 }
