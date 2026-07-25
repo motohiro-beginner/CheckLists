@@ -15,6 +15,6 @@ export async function checkItem(/**@type {HTMLInputElement}*/ItemCheckBox){
         })
     });
     if(!response.ok){
-        alert("ユーザーが項目につけたチェックの情報の保存に失敗しました。");
+        alert("ユーザーが項目につけたチェックの情報の更新に失敗しました。");
     }
 }
