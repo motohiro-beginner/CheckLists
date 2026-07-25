@@ -3,6 +3,7 @@ package com.example.demo.Service;
 import com.example.demo.DTO.NewRegistrationDTO;
 import com.example.demo.Entity.NewRegistrationEntity;
 import com.example.demo.Repository.NewRegistrationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class NewRegistrationService {
             throw new IllegalArgumentException("登録処理に失敗しました。");
         }
     }
+    @Transactional
     public void save(NewRegistrationDTO dto){
         try {
             NewRegistrationEntity registration = new NewRegistrationEntity();
