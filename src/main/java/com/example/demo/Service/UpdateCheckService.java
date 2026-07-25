@@ -15,7 +15,7 @@ public class UpdateCheckService {
         this.repository = repository;
     }
     @Transactional
-    public void saveIsChecked(CheckDTO dto){
+    public void saveIsChecked(CheckDTO dto) throws IllegalArgumentException{
         HomeCheckListsItemsEntity item = repository.findById(dto.getItemId())
                 .orElseThrow(() -> new IllegalArgumentException("指定されたitemIdが見つかりません。"));
         item.setIsChecked(dto.getIsChecked());

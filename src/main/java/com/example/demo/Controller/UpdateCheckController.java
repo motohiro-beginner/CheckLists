@@ -16,6 +16,18 @@ public class UpdateCheckController {
     public ResponseEntity<?> updateCheck(
             @Valid @RequestBody CheckDTO dto
     ){
-
+        try{
+            service.saveIsChecked(dto);
+        }catch(IllegalArgumentException e){
+            return ResponseEntity.badRequest().build();
+        }catch(RuntimeException e){
+            e.printStackTrace();
+            System.out.println("コードに誤りがあります。");
+            return ResponseEntity.badRequest().build();
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Exception発生");
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
