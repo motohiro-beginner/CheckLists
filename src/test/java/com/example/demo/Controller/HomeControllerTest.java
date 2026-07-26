@@ -29,14 +29,14 @@ public class HomeControllerTest {
             List<HomeCheckListsViewDTO> viewCheckLists = new ArrayList<>();
             List<HomeItemsViewDTO> items1 = new ArrayList<>();
             List<HomeItemsViewDTO> items2 = new ArrayList<>();
-            items1.add(new HomeItemsViewDTO("リンゴ", true));
-            items1.add(new HomeItemsViewDTO("みかん", true));
-            items1.add(new HomeItemsViewDTO("いちご", false));
-            viewCheckLists.add(new HomeCheckListsViewDTO("買い物", items1, "2026/01/01"));
-            items2.add(new HomeItemsViewDTO("数学", true));
-            items2.add(new HomeItemsViewDTO("国語", true));
-            items2.add(new HomeItemsViewDTO("英語", false));
-            viewCheckLists.add(new HomeCheckListsViewDTO("勉強", items2, "2026/01/01"));
+            items1.add(new HomeItemsViewDTO(1,"リンゴ", true));
+            items1.add(new HomeItemsViewDTO(2,"みかん", true));
+            items1.add(new HomeItemsViewDTO(3,"いちご", false));
+            viewCheckLists.add(new HomeCheckListsViewDTO(1,"買い物", items1, "2026/01/01"));
+            items2.add(new HomeItemsViewDTO(4,"数学", true));
+            items2.add(new HomeItemsViewDTO(5,"国語", true));
+            items2.add(new HomeItemsViewDTO(6,"英語", false));
+            viewCheckLists.add(new HomeCheckListsViewDTO(2,"勉強", items2, "2026/01/01"));
             /*テストデータ１
             when(service.existsByUserNameAndCreatedAt("abcdefg"))
                     .thenReturn(true);
