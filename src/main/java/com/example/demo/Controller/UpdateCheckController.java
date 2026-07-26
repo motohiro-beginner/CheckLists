@@ -4,20 +4,25 @@ import com.example.demo.DTO.CheckDTO;
 import com.example.demo.Service.UpdateCheckService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UpdateCheckController {
-    private UpdateCheckService service;
+    private final UpdateCheckService service;
     public UpdateCheckController(UpdateCheckService service){
         this.service = service;
     }
+    /*updateCheckはユーザーがつけたチェックの情報を受け取り、ServiceクラスのsaveIsCheckedを呼び出すためのメソッドである。
+    * 具体的にはユーザーがとある項目にチェックを付けたり外したりしたら、その情報をfetch通信で受け取り、saveIsCheckedを呼び出す。*/
+    @PostMapping("/updateCheck")
     public ResponseEntity<?> updateCheck(
             @Valid @RequestBody CheckDTO dto
     ){
         try{
             service.saveIsChecked(dto);
+            return ResponseEntity.ok().build();
         }catch(IllegalArgumentException e){
             return ResponseEntity.badRequest().build();
         }catch(RuntimeException e){

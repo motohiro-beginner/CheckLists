@@ -5,9 +5,6 @@ const checkListsTableBtn =
 const logOutBtn =
 /**@type {HTMLButtonElement} */
 (document.querySelector("#logOutBtn"));
-function tableTransition(){
-    window.location.href = "/checkListsTable"
-}
 if(!(checkListsTableBtn instanceof HTMLDivElement)){
     throw new Error("checkListsTableBtnが見つかりません");
 }
@@ -15,7 +12,9 @@ if(!(logOutBtn instanceof HTMLDivElement)){
     throw new Error("logOutBtnが見つかりません");
 }
 //作成したチェックリスト一覧を見れる画面に移動
-//チェックリスト一覧を見れる画面はまだ作っていないのでまだtableTransitionは書いていない。
+async function tableTransition(){
+    await fetch("tableTransition");
+}
 checkListsTableBtn.addEventListener("click",tableTransition);
 
 async function logOut() {

@@ -10,10 +10,12 @@ import java.util.Optional;
 
 @Service
 public class UpdateCheckService {
-    private HomeItemsRepository repository;
+    private final HomeItemsRepository repository;
     public UpdateCheckService(HomeItemsRepository repository){
         this.repository = repository;
     }
+    /*saveIsCheckedはユーザーがつけた項目に対するチェックを更新するためのメソッドである。
+    * ユーザーがチェックボックスに印をつけたら、true、ついていなければfalseに更新する。*/
     @Transactional
     public void saveIsChecked(CheckDTO dto) throws IllegalArgumentException{
         HomeCheckListsItemsEntity item = repository.findById(dto.getItemId())
