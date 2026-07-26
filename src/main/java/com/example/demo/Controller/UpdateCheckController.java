@@ -24,6 +24,7 @@ public class UpdateCheckController {
             service.saveIsChecked(dto);
             return ResponseEntity.ok().build();
         }catch(IllegalArgumentException e){
+            e.getMessage();
             return ResponseEntity.badRequest().build();
         }catch(RuntimeException e){
             e.printStackTrace();
