@@ -2,6 +2,7 @@
 console.log("checkListsTableJs loaded");
 /**
  * @typedef {Object} TableViewDTO
+ * @property {int} checkListsId,
  * @property {string} checkListsName,
  * @property {TableItemsViewDTO[]} items,
  * @property {string} createdAt

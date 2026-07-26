@@ -29,14 +29,14 @@ public class TableControllerTest {
             List<TableViewDTO> viewDTO = new ArrayList<>();
             List<TableItemsViewDTO> items1 = new ArrayList<>();
             List<TableItemsViewDTO> items2 = new ArrayList<>();
-            items1.add(new TableItemsViewDTO("リンゴ",true));
-            items1.add(new TableItemsViewDTO("みかん",true));
-            items1.add(new TableItemsViewDTO("いちご",false));
-            viewDTO.add(new TableViewDTO("買い物",items1,"2026/01/01"));
-            items2.add(new TableItemsViewDTO("数学",true));
-            items2.add(new TableItemsViewDTO("国語",true));
-            items2.add(new TableItemsViewDTO("英語",false));
-            viewDTO.add(new TableViewDTO("勉強",items2,"2026/01/02"));
+            items1.add(new TableItemsViewDTO(1,"リンゴ",true));
+            items1.add(new TableItemsViewDTO(2,"みかん",true));
+            items1.add(new TableItemsViewDTO(3,"いちご",false));
+            viewDTO.add(new TableViewDTO(1,"買い物",items1,"2026/01/01"));
+            items2.add(new TableItemsViewDTO(4,"数学",true));
+            items2.add(new TableItemsViewDTO(5,"国語",true));
+            items2.add(new TableItemsViewDTO(6,"英語",false));
+            viewDTO.add(new TableViewDTO(2,"勉強",items2,"2026/01/02"));
             /*テストデータ1
             when(service.existsByUserCheckLists("abcdefg"))
                     .thenReturn(true);

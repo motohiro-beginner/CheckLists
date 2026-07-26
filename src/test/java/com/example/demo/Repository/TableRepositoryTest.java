@@ -28,28 +28,32 @@ public class TableRepositoryTest {
         user.setPassword("qwerty12");
         repository.save(user);
         TableCheckListsEntity checkLists = new TableCheckListsEntity();
+        checkLists.setCheckListsId(1);
         checkLists.setCheckListsName("買い物");
         checkLists.setUserEntity(user);
         LocalDate date = LocalDate.of(2026,1,1);
         checkLists.setCreatedAt(date);
         Crepository.save(checkLists);
         TableCheckListsEntity checkLists2 = new TableCheckListsEntity();
+        checkLists2.setCheckListsId(2);
         checkLists2.setCheckListsName("勉強");
         checkLists2.setUserEntity(user);
         LocalDate date2 = LocalDate.of(2026,1,2);
         checkLists2.setCreatedAt(date2);
         Crepository.save(checkLists2);
         TableCheckListsItemsEntity items = new TableCheckListsItemsEntity();
+        items.setItemId(1);
         items.setItemName("リンゴ");
         items.setIsChecked(true);
         items.setCheckListsEntity(checkLists);
         Irepository.save(items);
         TableCheckListsItemsEntity items2 = new TableCheckListsItemsEntity();
+        items2.setItemId(2);
         items2.setItemName("数学");
         items2.setIsChecked(false);
         items2.setCheckListsEntity(checkLists2);
         Irepository.save(items2);
-        /*テストデータ1
+
         Integer result = repository.existsByUserCheckLists("abcdefg");
         assertTrue(result>0);
         List<TableDTO> dto = repository.findTableAllCheckLists("abcdefg");
@@ -62,8 +66,10 @@ public class TableRepositoryTest {
         assertFalse(dto.get(1).getIsChecked());
         assertEquals(date2,dto.get(1).getCreatedAt());
 
-         */
+
+        /*
         Integer result = repository.existsByUserCheckLists("aaaaa");
         assertFalse(result>0);
+         */
     }
 }
