@@ -13,7 +13,7 @@ import java.util.List;
 public interface TableRepository extends JpaRepository<TableUserEntity,Integer> {
     /*該当するユーザーの全てのチェックリストをdbから取得するメソッドである。*/
     @Query("""
-            SELECT new com.example.demo.DTO.TableDTO(c.checkListsName,i.itemName,i.isChecked,c.createdAt)
+            SELECT new com.example.demo.DTO.TableDTO(c.checkListsId,c.checkListsName,i.itemId,i.itemName,i.isChecked,c.createdAt)
             FROM TableUserEntity u
             JOIN u.checkLists c
             JOIN c.items i
