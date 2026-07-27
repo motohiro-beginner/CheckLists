@@ -23,6 +23,19 @@ if(!(monthSearchInput instanceof HTMLInputElement)){
 if(!(daySearchInput instanceof HTMLInputElement)){
     throw new Error("daySearchが見つかりません。");
 }
+/**
+ * @typedef {Object} TableViewDTO
+ * @property {string} checkListsId,
+ * @property {string} checkListsName,
+ * @property {TableItemsViewDTO[]} items,
+ * @property {string} createdAt
+ */
+/**
+ * @typedef {Object} TableItemsViewDTO
+ * @property {string} itemId,
+ * @property {string} itemName,
+ * @property {boolean} isChecked
+ */
 async function search(){
     const searchName = searchNameInput.value;
     const yearSearch = yearSearchInput.value;
@@ -40,4 +53,8 @@ async function search(){
             daySearch
         })
     });
+    if(response.ok){
+        /**@type { TableViewDTO } */
+        const checkLists = response.json();
+    }
 }
