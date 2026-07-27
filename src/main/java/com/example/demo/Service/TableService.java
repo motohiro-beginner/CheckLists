@@ -47,7 +47,8 @@ public class TableService {
 
         List<TableDTO> dto = repository.findTableAllCheckLists(userName);
         List<TableViewDTO> viewDto = new ArrayList<>();
-        Integer checkListsId = null;
+        //checkListsId及びitemIdはJavaScriptに情報を送る関係でString型にする。
+        String checkListsId = null;
         String checkListsName = null;
         List<TableItemsViewDTO> items = new ArrayList<>();
         String createdAt = null;
@@ -55,21 +56,21 @@ public class TableService {
         for (TableDTO column : dto) {
             if (prev == null) {
                 //最初の繰り返しのときにこの部分を実行する。
-                checkListsId = column.getCheckListsId();
+                checkListsId = column.getCheckListsId().toString();
                 checkListsName = column.getCheckListsName();
                 createdAt = column.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-                items.add(new TableItemsViewDTO(column.getItemId(),column.getItemNames(), column.getIsChecked()));
+                items.add(new TableItemsViewDTO(column.getItemId().toString(),column.getItemNames(), column.getIsChecked()));
             } else if (!(prev.equals(column.getCheckListsName()))) {
                 //checkListsNameの名前が変わったタイミングでTableViewDTOを作り、viewDtoに代入する。
                 viewDto.add(new TableViewDTO(checkListsId,checkListsName, items, createdAt));
-                checkListsId = column.getCheckListsId();
+                checkListsId = column.getCheckListsId().toString();
                 checkListsName = column.getCheckListsName();
                 items = new ArrayList<>();
-                items.add(new TableItemsViewDTO(column.getItemId(),column.getItemNames(), column.getIsChecked()));
+                items.add(new TableItemsViewDTO(column.getItemId().toString(),column.getItemNames(), column.getIsChecked()));
                 createdAt = column.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
             } else {
                 //itemsには一つのチェックリストの項目が入る。一つのチェックリストに１つ以上の項目が入る。
-                items.add(new TableItemsViewDTO(column.getItemId(),column.getItemNames(), column.getIsChecked()));
+                items.add(new TableItemsViewDTO(column.getItemId().toString(),column.getItemNames(), column.getIsChecked()));
             }
                 prev = column.getCheckListsName();
         }
