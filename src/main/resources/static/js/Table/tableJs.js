@@ -3,12 +3,14 @@ import { checkListsTable } from "./checkListsTableJs.js";
 import { tableFakeFetch } from "../../test/tableFakeFetchJs.js";
 /**
  * @typedef {Object} TableViewDTO
+ * @property {string} checkListsId,
  * @property {string} checkListsName,
  * @property {TableItemsViewDTO[]} items,
  * @property {string} createdAt
  */
 /**
  * @typedef {Object} TableItemsViewDTO
+ * @property {string} itemId,
  * @property {string} itemName,
  * @property {boolean} isChecked
  */
@@ -22,9 +24,9 @@ async function table(){
         body:JSON.stringify({})
     });
     */
-   console.log("1");
+   //console.log("1");
     const response =  await tableFakeFetch();
-    console.log("2");
+   //console.log("2");
     if(response.status === 400){
         //セッション情報が何等かの理由でなかった時に400となる。その時にログイン画面に遷移する。
         const checkLists = await response.json();
@@ -36,14 +38,14 @@ async function table(){
         alert(checkLists.join("\n"));
         table();
     }else{
-        console.log("3");
+        //console.log("3");
         /**@type {TableViewDTO[]} */
         const checkLists = await response.json();
-        console.log(checkLists[0].checkListsName);
+        /*console.log(checkLists[0].checkListsName);
         console.log(checkLists[0].items[0].itemName);
-        console.log(checkLists[0].items[0].isChecked);
+        console.log(checkLists[0].items[0].isChecked);*/
         checkListsTable(checkLists);
-        console.log("4");
+        //console.log("4");
     }
 }
 table();

@@ -5,6 +5,7 @@
         <title>ホーム画面</title>
         <link rel="stylesheet" href="/css/Table/tableStyle.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
     </head>
     <body>
         <div class="upper">
@@ -18,11 +19,15 @@
         <div id="search">
             <div class="searchGroup">
                 <div class="searchLabel">チェックリスト名で検索</div>
-                <input type="text" id="searchName">
+                <div class="nameSearchGroup">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" id="searchName">
+                </div>
             </div>
             <div class="searchGroup">
                 <div class="searchLabel">日付で検索</div>
                 <div id="dateSearchGroup">
+                    <span class="material-symbols-outlined">search</span>
                     <input type="text" id="yearSearch"><div class="dateLabel">年</div>
                     <input type="text" id="monthSearch"><div class="dateLabel">月</div>
                     <input type="text" id="daySearch"><div class="dateLabel">日</div>
