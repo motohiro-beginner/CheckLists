@@ -36,6 +36,9 @@ if(!(daySearchInput instanceof HTMLInputElement)){
  * @property {string} itemName,
  * @property {boolean} isChecked
  */
+/**searchはチェックリスト名,年,月,日の情報を送り該当するチェックリストを受けとる関数である。
+ * それぞれの値は入力必須ではないため入力されていない可能性がある。
+ */
 async function search(){
     const searchName = searchNameInput.value;
     const yearSearch = yearSearchInput.value;

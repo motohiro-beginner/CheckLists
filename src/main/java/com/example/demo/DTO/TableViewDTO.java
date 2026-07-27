@@ -4,11 +4,11 @@ import java.util.List;
 
 //Serviceクラスにチェックリストのデータを渡すために用意するDTO
 public class TableViewDTO {
-    private final Integer checkListsId;
+    private final String checkListsId;
     private final String checkListsName;
     private final List<TableItemsViewDTO> items;
     private final String createdAt;
-    public TableViewDTO(Integer checkListsId,String checkListsName,List<TableItemsViewDTO> items,String createdAt){
+    public TableViewDTO(String checkListsId,String checkListsName,List<TableItemsViewDTO> items,String createdAt){
         this.checkListsId = checkListsId;
         this.checkListsName = checkListsName;
         this.items = List.copyOf(items);

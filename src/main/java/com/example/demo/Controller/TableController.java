@@ -30,7 +30,7 @@ public class TableController {
                 return ResponseEntity.notFound().build();
             }
         }else{
-            return ResponseEntity.badRequest().body("ユーザー名が消失したため、Login画面に戻りました。");
+            return ResponseEntity.badRequest().body("ユーザー名が消失したため、ログイン画面に戻りました。");
         }
     }
 }
