@@ -11,22 +11,13 @@
     cursor: pointer;
 }
 .searchGroup {
+    margin-left: 50px;
     margin-right: 50px;
-}
-.material-symbols-outlined {
-    font-size: 1rem;
-    color: gray;
 }
 #search {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
     margin-bottom: 50px;
-}
-.nameSearchGroup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 #searchName {
     font-size: 1rem;
@@ -62,7 +53,6 @@
 #dateSearchGroup {
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 .cardContainer {
     display: grid;
