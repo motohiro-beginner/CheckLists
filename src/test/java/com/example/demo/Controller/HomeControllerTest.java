@@ -29,15 +29,15 @@ public class HomeControllerTest {
             List<HomeCheckListsViewDTO> viewCheckLists = new ArrayList<>();
             List<HomeItemsViewDTO> items1 = new ArrayList<>();
             List<HomeItemsViewDTO> items2 = new ArrayList<>();
-            items1.add(new HomeItemsViewDTO(1,"リンゴ", true));
-            items1.add(new HomeItemsViewDTO(2,"みかん", true));
-            items1.add(new HomeItemsViewDTO(3,"いちご", false));
-            viewCheckLists.add(new HomeCheckListsViewDTO(1,"買い物", items1, "2026/01/01"));
-            items2.add(new HomeItemsViewDTO(4,"数学", true));
-            items2.add(new HomeItemsViewDTO(5,"国語", true));
-            items2.add(new HomeItemsViewDTO(6,"英語", false));
-            viewCheckLists.add(new HomeCheckListsViewDTO(2,"勉強", items2, "2026/01/01"));
-            /*テストデータ１
+            items1.add(new HomeItemsViewDTO("1","リンゴ", true));
+            items1.add(new HomeItemsViewDTO("2","みかん", true));
+            items1.add(new HomeItemsViewDTO("3","いちご", false));
+            viewCheckLists.add(new HomeCheckListsViewDTO("1","買い物", items1, "2026/01/01"));
+            items2.add(new HomeItemsViewDTO("4","数学", true));
+            items2.add(new HomeItemsViewDTO("5","国語", true));
+            items2.add(new HomeItemsViewDTO("6","英語", false));
+            viewCheckLists.add(new HomeCheckListsViewDTO("2","勉強", items2, "2026/01/01"));
+            /*テストデータ1
             when(service.existsByUserNameAndCreatedAt("abcdefg"))
                     .thenReturn(true);
             //Controllerがservice.existsByUserNameAndCreatedAtをよびだしたら、trueを返す。
