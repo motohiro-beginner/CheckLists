@@ -1,12 +1,15 @@
 package com.example.demo.Controller;
 
 import com.example.demo.DTO.TableSearchDTO;
+import com.example.demo.DTO.TableViewDTO;
 import com.example.demo.Service.SearchService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class SearchController {
@@ -20,6 +23,7 @@ public class SearchController {
             HttpSession session
     ){
         if((session != null)&&(session.getAttribute("userName") != null)){
+            List<TableViewDTO> checkList = service.findSearchedCheckLists((String)session.getAttribute("userName"),dto);
         }else{
             return ResponseEntity.badRequest().body("ユーザー名が消失したためログイン画面に戻りました。");
         }

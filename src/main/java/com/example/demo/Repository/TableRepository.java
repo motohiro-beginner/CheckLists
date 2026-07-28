@@ -39,6 +39,26 @@ public interface TableRepository extends JpaRepository<TableUserEntity,Integer> 
     AND (:month IS NULL OR FUNCTION('MONTH',c.createdAt) = :month)
     AND (:day IS NULL OR FUNCTION('DAY',c.createdAt) = :day)
     """)
-    //checkListsNameのワイルドカードはServiceクラスで結合する
-    List<TableDTO> findSearchedCheckLists(@Param("userName") String userName,@Param("keyword") String keyword,@Param("year") Integer year,@Param("month") Integer month,@Param("day") Integer day);
+    //Serviceクラスから、ワイルドカードつきの文字列が送られてくる。
+    List<TableDTO> findSearchedCheckLists(@Param("userName") String userName,
+                                          @Param("keyword") String keyword,
+                                          @Param("year") Integer year,
+                                          @Param("month") Integer month,
+                                          @Param("day") Integer day);
+    @Query("""
+    SELECT COUNT(u)
+    FROM TableUserEntity u
+    JOIN u.checkLists c
+    WHERE u.userName = :userName
+    AND (:keyword IS NULL OR c.checkListsName LIKE :keyword)
+    AND (:year IS NULL OR FUNCTION('YEAR',c.createdAt) = :year)
+    AND (:month IS NULL OR FUNCTION('MONTH',c.createdAt) = :month)
+    AND (:day IS NULL OR FUNCTION('DAY',c.createdAt) = :day)
+    """)
+    //Serviceクラスから、ワイルドカードつきの文字列が送られてくる。
+    Integer existsBySearchedCheckLists(@Param("userName") String userName,
+                                       @Param("keyword") String keyword,
+                                       @Param("year") Integer year,
+                                       @Param("month") Integer month,
+                                       @Param("day") Integer day);
 }
