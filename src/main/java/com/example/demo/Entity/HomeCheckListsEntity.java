@@ -24,6 +24,12 @@ public class HomeCheckListsEntity {
     private String checkListsName;
     @Column(name = "created_at",nullable = false)
     private LocalDate createdAt;
+    public Integer getCheckListsId(){
+        return checkListsId;
+    }
+    public void setCheckListsId(Integer checkListsId){
+        this.checkListsId = checkListsId;
+    }
     public HomeUserEntity getUserId(){
         return user;
     }

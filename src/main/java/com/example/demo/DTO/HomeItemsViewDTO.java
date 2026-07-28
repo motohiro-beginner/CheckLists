@@ -1,15 +1,15 @@
 package com.example.demo.DTO;
 
 public class HomeItemsViewDTO {
-    private final Integer itemId;
+    private final String itemId;
     private final String itemNames;
     private final boolean isChecked;
-    public HomeItemsViewDTO(Integer itemId,String itemNames,boolean isChecked){
+    public HomeItemsViewDTO(String itemId,String itemNames,boolean isChecked){
         this.itemId = itemId;
         this.itemNames = itemNames;
         this.isChecked = isChecked;
     }
-    public Integer getItemId(){
+    public String getItemId(){
         return itemId;
     }
     public String getItemNames(){

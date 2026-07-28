@@ -21,6 +21,7 @@ public interface HomeRepository extends JpaRepository<HomeUserEntity,Integer> {
     JOIN c.items i
     WHERE u.userName = :userName
     AND c.createdAt = :createdAt
+    ORDER BY c.createdAt
     """)
     List<HomeCheckListsDTO> findAllCheckLists(@Param("userName") String userName, @Param("createdAt") LocalDate createdAt);
     @Query("""
