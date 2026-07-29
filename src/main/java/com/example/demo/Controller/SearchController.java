@@ -23,7 +23,12 @@ public class SearchController {
             HttpSession session
     ){
         if((session != null)&&(session.getAttribute("userName") != null)){
-            List<TableViewDTO> checkList = service.findSearchedCheckLists((String)session.getAttribute("userName"),dto);
+            if(service.existsBySearchedCheckLists((String)session.getAttribute("userName"),dto)) {
+                List<TableViewDTO> checkList = service.findSearchedCheckLists((String) session.getAttribute("userName"),dto);
+                return ResponseEntity.ok().body(checkList);
+            }else{
+                return ResponseEntity.notFound().build();
+            }
         }else{
             return ResponseEntity.badRequest().body("ユーザー名が消失したためログイン画面に戻りました。");
         }

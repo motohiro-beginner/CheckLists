@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class SearchService {
-    private TableRepository repository;
+    private final TableRepository repository;
     public SearchService(TableRepository repository){
         this.repository = repository;
     }
