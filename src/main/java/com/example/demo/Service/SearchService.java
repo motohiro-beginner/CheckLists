@@ -56,11 +56,26 @@ public class SearchService {
                 sb.insert(i,"\\");
             }
         }
-        //部分一致検索なのでワイルドカードの%を両端につける。
-        String keyword = "%" + searchDto.getSearchName() + "%";
-        Integer year = Integer.parseInt(searchDto.getYearSearch());
-        Integer month = Integer.parseInt(searchDto.getMonthSearch());
-        Integer day = Integer.parseInt(searchDto.getDaySearch());
+
+        String keyword = null;
+        //値が何も入っていいないときは%をくっつけない。
+        if(searchDto.getSearchName() != null){
+            //部分一致検索なのでワイルドカードの%を両端につける。
+            keyword = "%" + searchDto.getSearchName() + "%";
+        }
+        Integer year = null;
+        Integer month = null;
+        Integer day = null;
+        //これらのif文はInteger.parseIntの中の変数がnullだった場合にエラーになるのを防ぐために書いている。
+        if(searchDto.getYearSearch() != null) {
+            year = Integer.parseInt(searchDto.getYearSearch());
+        }
+        if(searchDto.getMonthSearch() != null) {
+            month = Integer.parseInt(searchDto.getMonthSearch());
+        }
+        if(searchDto.getDaySearch() != null) {
+            day = Integer.parseInt(searchDto.getDaySearch());
+        }
         List<TableDTO> dto = repository.findSearchedCheckLists(userName,keyword,year,month,day);
         //これ以降はTableServiceのList<TableDTO>からList<TableViewDTO>に変換する部分と同じである。
         List<TableViewDTO> viewDto = new ArrayList<>();
