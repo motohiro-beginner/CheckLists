@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +30,6 @@ public class SearchServiceTest {
     void findSearchedCheckListsTest(){
         LocalDate date1 = LocalDate.of(2026,1,1);
         LocalDate date2 = LocalDate.of(2026,1,2);
-        /*テストデータ1
         createDto(1,"買い物",1,"リンゴ",true,date1);
         createDto(1,"買い物",2,"みかん",false,date1);
         when(repository.findSearchedCheckLists("abcdefg","%買い物%",2026,1,1))
@@ -41,7 +41,31 @@ public class SearchServiceTest {
         TableViewDTO shopping =view.get(0);
         checkListsEquals(shopping,"1","買い物","2026/01/01");
         ItemsEquals(shopping.getItems().get(0),"1","リンゴ",true);
+        assertFalse(
+                view.stream()
+                        .anyMatch(dto -> (
+                            dto.getCheckListsName().equals("勉強")
+                        ))
+        );
+        /*テストデータ2
+        createDto(1,"買い物",1,"リンゴ",true,date1);
+        createDto(1,"買い物",2,"みかん",false,date1);
+        createDto(2,"勉強",3,"国語",true,date2);
+        createDto(2,"勉強",4,"数学",false,date2);
+        when(repository.findSearchedCheckLists("abcdefg","%買い物%",null,null,null))
+                .thenReturn(dto);
+
+        TableSearchDTO search = new TableSearchDTO("買い物",null,null,null);
+        List<TableViewDTO> view = service.findSearchedCheckLists("abcdefg",search);
+
+        TableViewDTO shopping = view.get(0);
+
+        checkListsEquals(shopping,"1","買い物","2026/01/01");
+
+        ItemsEquals(shopping.getItems().get(0),"1","リンゴ",true);
+        ItemsEquals(shopping.getItems().get(1),"2","みかん",false);
          */
+        /*テストデータ3
         createDto(1,"買い物",1,"リンゴ",true,date1);
         createDto(1,"買い物",2,"みかん",false,date1);
         createDto(2,"勉強",3,"国語",true,date2);
@@ -49,7 +73,7 @@ public class SearchServiceTest {
         when(repository.findSearchedCheckLists("abcdefg",null,null,null,null))
                 .thenReturn(dto);
 
-        TableSearchDTO search = new TableSearchDTO("買い物",null,null,null);
+        TableSearchDTO search = new TableSearchDTO(null,null,null,null);
         List<TableViewDTO> view = service.findSearchedCheckLists("abcdefg",search);
 
         TableViewDTO shopping = view.get(0);
@@ -62,6 +86,7 @@ public class SearchServiceTest {
         ItemsEquals(shopping.getItems().get(1),"2","みかん",false);
         ItemsEquals(study.getItems().get(0),"3","国語",true);
         ItemsEquals(study.getItems().get(1),"4","数学",false);
+         */
     }
     //テスト用データをすぐにつくるためのメソッド
     private void createDto(Integer checkListsId, String checkListsName, Integer itemId, String itemNames, boolean isChecked, LocalDate createdAt){
