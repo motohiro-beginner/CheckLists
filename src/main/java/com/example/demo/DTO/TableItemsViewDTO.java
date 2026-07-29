@@ -10,7 +10,7 @@ public class TableItemsViewDTO {
         this.itemName = itemName;
         this.isChecked = isChecked;
     }
-    public Integer getItemId(){
+    public String getItemId(){
         return itemId;
     }
     public String getItemName(){

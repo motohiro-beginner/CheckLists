@@ -14,7 +14,7 @@ public class TableViewDTO {
         this.items = List.copyOf(items);
         this.createdAt = createdAt;
     }
-    public Integer getCheckListsId(){
+    public String getCheckListsId(){
         return checkListsId;
     }
     public String getCheckListsName(){
