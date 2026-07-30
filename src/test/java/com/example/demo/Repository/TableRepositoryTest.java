@@ -72,4 +72,35 @@ public class TableRepositoryTest {
         assertFalse(result>0);
          */
     }
+    @Test
+    void findSearchedCheckListsのテスト(){
+        TableUserEntity abcdefg = saveUserEntity("abcdefg","qwerty");
+        LocalDate date = LocalDate.of(2026,1,1);
+        LocalDate date2 = LocalDate.of(2026,1,2);
+        TableCheckListsEntity shopping = saveCheckListsEntity(abcdefg,"買い物",date);
+        TableCheckListsEntity study = saveCheckListsEntity(abcdefg,"勉強",date2);
+        TableCheckListsItemsEntity fruit = saveItemsEntity(shopping,"リンゴ",true);
+        TableCheckListsItemsEntity subject = saveItemsEntity(study,"数学",false);
+        List<TableDTO> result = repository.findSearchedCheckLists()
+    }
+    private TableUserEntity saveUserEntity(String userName,String password){
+        TableUserEntity user = new TableUserEntity();
+        user.setUserName(userName);
+        user.setPassword(password);
+        return repository.save(user);
+    }
+    private TableCheckListsEntity saveCheckListsEntity(TableUserEntity user,String checkListsName,LocalDate createdAt){
+        TableCheckListsEntity list = new TableCheckListsEntity();
+        list.setCheckListsName(checkListsName);
+        list.setCreatedAt(createdAt);
+        list.setUserEntity(user);
+        return Crepository.save(list);
+    }
+    private TableCheckListsItemsEntity saveItemsEntity(TableCheckListsEntity list,String itemName,boolean isChecked){
+        TableCheckListsItemsEntity items = new TableCheckListsItemsEntity();
+        items.setItemName(itemName);
+        items.setIsChecked(isChecked);
+        items.setCheckListsEntity(list);
+        return Irepository.save(items);
+    }
 }
