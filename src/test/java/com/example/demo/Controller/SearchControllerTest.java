@@ -37,10 +37,25 @@ public class SearchControllerTest {
             createItemData(itemTestData2, "3", "国語", true);
             createItemData(itemTestData2, "4", "数学", true);
             createListData(testData, "2", "勉強", itemTestData2, "2026/01/02");
-            TableSearchDTO dto = new TableSearchDTO(null, null, null, null);
-            when(service.existsBySearchedCheckLists("abcdefg", dto))
+            when(service.existsBySearchedCheckLists(
+                    eq("abcdefg"),
+                    argThat(dto ->
+                            dto.getSearchName() == null &&
+                                    dto.getYearSearch() == null &&
+                                    dto.getMonthSearch() == null &&
+                                    dto.getDaySearch() == null
+                    )
+            ))
                     .thenReturn(true);
-            when(service.findSearchedCheckLists("abcdefg", dto))
+            when(service.findSearchedCheckLists(
+                    eq("abcdefg"),
+                    argThat(dto ->
+                            dto.getSearchName() == null &&
+                                    dto.getYearSearch() == null &&
+                                    dto.getMonthSearch() == null &&
+                                    dto.getDaySearch() == null
+                    )
+            ))
                     .thenReturn(testData);
             mvc.perform(post("/search")
                             .contentType(MediaType.APPLICATION_JSON)
@@ -51,9 +66,25 @@ public class SearchControllerTest {
                                     """))
                     .andExpect(status().isOk());
             verify(service,times(1))
-                    .existsBySearchedCheckLists("abcdefg",dto);
+                    .existsBySearchedCheckLists(
+                            eq("abcdefg"),
+                            argThat(dto ->
+                                    dto.getSearchName() == null &&
+                                            dto.getYearSearch() == null &&
+                                            dto.getMonthSearch() == null &&
+                                            dto.getDaySearch() == null
+                            )
+                    );
             verify(service,times(1))
-                    .findSearchedCheckLists("abcdefg",dto);
+                    .findSearchedCheckLists(
+                            eq("abcdefg"),
+                            argThat(dto ->
+                                    dto.getSearchName() == null &&
+                                            dto.getYearSearch() == null &&
+                                            dto.getMonthSearch() == null &&
+                                            dto.getDaySearch() == null
+                            )
+                    );
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -68,7 +99,12 @@ public class SearchControllerTest {
             createListData(testData, "1", "買い物", itemTestData, "2026/01/01");
             when(service.existsBySearchedCheckLists(
                     eq("abcdefg"),
-                    ))
+                    argThat(dto ->
+                            "買い物".equals(dto.getSearchName()) &&
+                                    dto.getYearSearch() == null &&
+                                    dto.getMonthSearch() == null &&
+                                    dto.getDaySearch() == null
+                    )))
                     .thenReturn(true);
             when(service.findSearchedCheckLists(
                     eq("abcdefg"),
@@ -89,9 +125,90 @@ public class SearchControllerTest {
                                     """))
                     .andExpect(status().isOk());
             verify(service,times(1))
-                    .existsBySearchedCheckLists("abcdefg",dto);
+                    .existsBySearchedCheckLists(
+                            eq("abcdefg"),
+                            argThat(dto ->
+                                    "買い物".equals(dto.getSearchName()) &&
+                                            dto.getYearSearch() == null &&
+                                            dto.getMonthSearch() == null &&
+                                            dto.getDaySearch() == null
+                            ));
+
             verify(service,times(1))
-                    .findSearchedCheckLists("abcdefg",dto);
+                    .findSearchedCheckLists(
+                            eq("abcdefg"),
+                            argThat(dto ->
+                                    "買い物".equals(dto.getSearchName()) &&
+                                            dto.getYearSearch() == null &&
+                                            dto.getMonthSearch() == null &&
+                                            dto.getDaySearch() == null
+                    ));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    @Test
+    void 検索条件を満たすチェックリストがなかった場合(){
+        try {
+            when(service.existsBySearchedCheckLists(
+                    eq("abcdefg"),
+                    argThat(dto ->
+                            "買い物".equals(dto.getSearchName()) &&
+                                    dto.getYearSearch().equals("2026") &&
+                                    dto.getMonthSearch().equals("1") &&
+                                    dto.getDaySearch().equals("2")
+                    )))
+                    .thenReturn(false);
+            mvc.perform(post("/search")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .sessionAttr("userName", "abcdefg")
+                            .content("""
+                                    {
+                                    "searchName":"買い物",
+                                    "yearSearch":"2026",
+                                    "monthSearch":"1",
+                                    "daySearch":"2"
+                                    }
+                                    """))
+                    .andExpect(status().isNotFound());
+            verify(service, times(1))
+                    .existsBySearchedCheckLists(
+                            eq("abcdefg"),
+                            argThat(dto ->
+                                    "買い物".equals(dto.getSearchName()) &&
+                                            dto.getYearSearch().equals("2026") &&
+                                            dto.getMonthSearch().equals("1") &&
+                                            dto.getDaySearch().equals("2")
+                            ));
+            verify(service, never())
+                    .findSearchedCheckLists(
+                            any(),
+                            any()
+                    );
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    @Test
+    void ユーザー名がなかった場合(){
+        try {
+            mvc.perform(post("/search")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                    }
+                                    """))
+                    .andExpect(status().isBadRequest());
+            verify(service, never())
+                    .existsBySearchedCheckLists(
+                            any(),
+                            any()
+                    );
+            verify(service, never())
+                    .findSearchedCheckLists(
+                            any(),
+                            any()
+                    );
         }catch(Exception e){
             e.printStackTrace();
         }

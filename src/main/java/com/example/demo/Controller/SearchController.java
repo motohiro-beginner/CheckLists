@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class SearchController {
     }
     @PostMapping("/search")
     public ResponseEntity<?> search(
-            @Valid TableSearchDTO dto,
+            @Valid @RequestBody TableSearchDTO dto,
             HttpSession session
     ){
         if((session != null)&&(session.getAttribute("userName") != null)){
