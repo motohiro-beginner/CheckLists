@@ -81,8 +81,34 @@ public class TableRepositoryTest {
         TableCheckListsEntity study = saveCheckListsEntity(abcdefg,"勉強",date2);
         TableCheckListsItemsEntity fruit = saveItemsEntity(shopping,"リンゴ",true);
         TableCheckListsItemsEntity subject = saveItemsEntity(study,"数学",false);
-        List<TableDTO> result = repository.findSearchedCheckLists()
+        List<TableDTO> result = repository.findSearchedCheckLists("abcdefg","%買い物%",2026,1,1);
+        //resultに買い物のチェックリストの情報しか入っていないことを確認する。
+        assertEquals(shopping.getCheckListsId(),result.get(0).getCheckListsId());
+        assertEquals(shopping.getCheckListsName(),result.get(0).getCheckListsName());
+        assertEquals(shopping.getCreatedAt(),result.get(0).getCreatedAt());
+        assertEquals(fruit.getItemId(),result.get(0).getItemId());
+        assertEquals(fruit.getItemName(),result.get(0).getItemNames());
+        assertEquals(fruit.getIsChecked(),result.get(0).getIsChecked());
+        assertFalse(
+                result.stream()
+                        .anyMatch(dto -> (
+                            dto.getCheckListsName().equals("勉強")
+                        ))
+        );
     }
+    @Test
+    void existsBySearchedCheckListsのテスト(){
+        TableUserEntity abcdefg = saveUserEntity("abcdefg","qwerty");
+        LocalDate date = LocalDate.of(2026,1,1);
+        LocalDate date2 = LocalDate.of(2026,1,2);
+        TableCheckListsEntity shopping = saveCheckListsEntity(abcdefg,"買い物",date);
+        TableCheckListsEntity study = saveCheckListsEntity(abcdefg,"勉強",date2);
+        TableCheckListsItemsEntity fruit = saveItemsEntity(shopping,"リンゴ",true);
+        TableCheckListsItemsEntity subject = saveItemsEntity(study,"数学",false);
+        Integer result = repository.existsBySearchedCheckLists("abcdefg","%買い物%",2026,1,1);
+        assertEquals(1,result);
+    }
+    //この下のメソッドはテストデータ作成のために作っている。
     private TableUserEntity saveUserEntity(String userName,String password){
         TableUserEntity user = new TableUserEntity();
         user.setUserName(userName);

@@ -11,6 +11,12 @@ const monthSearchInput =
 const daySearchInput =
 /**@type { HTMLInputElement } */
 (document.querySelector("#daySearch"));
+const searchBtn =
+/**@type { HTMLButtonElement } */
+(document.querySelector("#searchBtn"));
+const cardContainer =
+/**@type { HTMLDivElement } */
+(document.querySelector("cardContainer"));
 if(!(searchNameInput instanceof HTMLInputElement)){
     throw new Error("searchNameが見つかりません。");
 }
@@ -22,6 +28,9 @@ if(!(monthSearchInput instanceof HTMLInputElement)){
 }
 if(!(daySearchInput instanceof HTMLInputElement)){
     throw new Error("daySearchが見つかりません。");
+}
+if(!(searchBtn instanceof HTMLButtonElement)){
+    throw new Error("searchBtnが見つかりません。");
 }
 /**
  * @typedef {Object} TableViewDTO
@@ -57,7 +66,9 @@ async function search(){
         })
     });
     if(response.ok){
+        cardContainer.replaceChildren();
         /**@type { TableViewDTO } */
         const checkLists = response.json();
     }
 }
+searchBtn.addEventListener("click",search);

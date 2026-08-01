@@ -18,6 +18,7 @@ public interface TableRepository extends JpaRepository<TableUserEntity,Integer> 
             JOIN u.checkLists c
             JOIN c.items i
             WHERE u.userName = :userName
+            ORDER BY c.createdAt DESC,c.checkListsId
             """)
     List<TableDTO> findTableAllCheckLists(@Param("userName") String userName);
     /*該当するユーザーのチェックリストが何個あるかを返すメソッドである。*/
@@ -25,11 +26,13 @@ public interface TableRepository extends JpaRepository<TableUserEntity,Integer> 
             SELECT COUNT(u)
             FROM  TableUserEntity u
             JOIN u.checkLists c
-            WHERE u.userName = :userName""")
+            WHERE u.userName = :userName
+            ORDER BY c.createdAt DESC,c.checkListsId
+            """)
     Integer existsByUserCheckLists(@Param("userName") String userName);
     /*該当するユーザーの、検索されたチェックリスト名,年,月,日に一致するチェックリストを検索するメソッドである。*/
     @Query("""
-    SELECT new com.example.demo.DTO.TableDTO(c.checkListsId,c.checkListsName,i.itemId,i.isChecked,c.createdAt)
+    SELECT new com.example.demo.DTO.TableDTO(c.checkListsId,c.checkListsName,i.itemId,i.itemName,i.isChecked,c.createdAt)
     FROM TableUserEntity u
     JOIN u.checkLists c
     JOIN c.items i
@@ -38,6 +41,7 @@ public interface TableRepository extends JpaRepository<TableUserEntity,Integer> 
     AND (:year IS NULL OR FUNCTION('YEAR',c.createdAt) = :year)
     AND (:month IS NULL OR FUNCTION('MONTH',c.createdAt) = :month)
     AND (:day IS NULL OR FUNCTION('DAY',c.createdAt) = :day)
+    ORDER BY c.createdAt DESC,c.checkListsId
     """)
     //Serviceクラスから、ワイルドカードつきの文字列が送られてくる。
     List<TableDTO> findSearchedCheckLists(@Param("userName") String userName,
@@ -54,6 +58,7 @@ public interface TableRepository extends JpaRepository<TableUserEntity,Integer> 
     AND (:year IS NULL OR FUNCTION('YEAR',c.createdAt) = :year)
     AND (:month IS NULL OR FUNCTION('MONTH',c.createdAt) = :month)
     AND (:day IS NULL OR FUNCTION('DAY',c.createdAt) = :day)
+    ORDER BY c.createdAt DESC,c.checkListsId
     """)
     //Serviceクラスから、ワイルドカードつきの文字列が送られてくる。
     Integer existsBySearchedCheckLists(@Param("userName") String userName,

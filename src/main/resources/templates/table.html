@@ -5,6 +5,7 @@
         <title>ホーム画面</title>
         <link rel="stylesheet" href="/css/Table/tableStyle.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     </head>
     <body>
         <div class="upper">
@@ -16,17 +17,24 @@
             </div>
         </div>
         <div id="search">
-            <div class="searchGroup">
-                <div class="searchLabel">チェックリスト名で検索</div>
-                <input type="text" id="searchName">
-            </div>
-            <div class="searchGroup">
-                <div class="searchLabel">日付で検索</div>
-                <div id="dateSearchGroup">
-                    <input type="text" id="yearSearch"><div class="dateLabel">年</div>
-                    <input type="text" id="monthSearch"><div class="dateLabel">月</div>
-                    <input type="text" id="daySearch"><div class="dateLabel">日</div>
+            <div class="searchBox">
+                <div class="searchGroup">
+                    <div class="searchLabel">チェックリスト名で検索</div>
+                    <input type="text" id="searchName">
                 </div>
+                <div class="searchGroup">
+                    <div class="searchLabel">日付で検索</div>
+                    <div id="dateSearchGroup">
+                        <input type="text" id="yearSearch"><div class="dateLabel">年</div>
+                        <input type="text" id="monthSearch"><div class="dateLabel">月</div>
+                        <input type="text" id="daySearch"><div class="dateLabel">日</div>
+                    </div>
+                </div>
+            </div>
+            <div class="searchButton">
+                <button id="searchBtn">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
             </div>
         </div>
         <div class="cardContainer"></div>
