@@ -11,13 +11,23 @@
     cursor: pointer;
 }
 .searchGroup {
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 #search {
     display: flex;
     justify-content: center;
+    align-items: flex-end;
+}
+.searchBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 50px;
+}
+.searchLabel {
+    margin-left: 5px;
 }
 #searchName {
     font-size: 1rem;
@@ -53,6 +63,16 @@
 #dateSearchGroup {
     display: flex;
     justify-content: center;
+}
+#searchBtn {
+    border: none;
+    background: white;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 50px;
+}
+.material-symbols-outlined{
+    font-size: 50px !important;
 }
 .cardContainer {
     display: grid;
