@@ -9,4 +9,8 @@ public class TransitionController {
     public String changeCheckList(){
         return "changeCheckList";
     }
+    @GetMapping("/addCheckList")
+    public String addCheckList(){
+        return "addCheckList";
+    }
 }
