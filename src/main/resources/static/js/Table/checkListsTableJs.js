@@ -122,3 +122,15 @@ function itemFontSize(/**@type {HTMLDivElement} */itemName){
     itemName.style.fontSize = `${fontSize}px`;
     //console.log("10");
 }
+export function responseNotFound(){
+    const notFoundText = document.createElement("div");
+    notFoundText.classList.add("notFoundText");
+    notFoundText.textContent = "チェックリストはまだ作成されていません。";
+    container.appendChild(notFoundText);
+}
+export function searchNotFound(){
+    const notFoundText = document.createElement("div");
+    notFoundText.classList.add("notFoundText");
+    notFoundText.textContent = "検索条件に一致するチェックリストはありませんでした。";
+    container.appendChild(notFoundText);
+}

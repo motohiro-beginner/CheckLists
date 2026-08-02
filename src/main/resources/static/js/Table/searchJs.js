@@ -1,4 +1,7 @@
 //@ts-check
+import { checkListsTable } from "./checkListsTableJs.js";
+import { searchNotFound } from "./checkListsTableJs.js";
+import { searchResultFetch } from "../../test/tableFakeFetchJs.js";
 const searchNameInput =
 /**@type { HTMLInputElement } */
 (document.querySelector("#searchName"));
@@ -16,7 +19,7 @@ const searchBtn =
 (document.querySelector("#searchBtn"));
 const cardContainer =
 /**@type { HTMLDivElement } */
-(document.querySelector("cardContainer"));
+(document.querySelector(".cardContainer"));
 if(!(searchNameInput instanceof HTMLInputElement)){
     throw new Error("searchNameが見つかりません。");
 }
@@ -32,6 +35,10 @@ if(!(daySearchInput instanceof HTMLInputElement)){
 if(!(searchBtn instanceof HTMLButtonElement)){
     throw new Error("searchBtnが見つかりません。");
 }
+if(!(cardContainer instanceof HTMLDivElement)){
+    throw new Error("cardContainerが見つかりません。");
+}
+//console.log(cardContainer);
 /**
  * @typedef {Object} TableViewDTO
  * @property {string} checkListsId,
@@ -49,10 +56,12 @@ if(!(searchBtn instanceof HTMLButtonElement)){
  * それぞれの値は入力必須ではないため入力されていない可能性がある。
  */
 async function search(){
+    //console.log("関数search開始");
     const searchName = searchNameInput.value;
     const yearSearch = yearSearchInput.value;
     const monthSearch = monthSearchInput.value;
     const daySearch = daySearchInput.value;
+    /*テストのためfakeFetchJs.jsの関数に差し替えている。
     const response = await fetch("/search", {
         method: "POST",
         headers: {
@@ -65,10 +74,22 @@ async function search(){
             daySearch
         })
     });
+    */
+    const response = await searchResultFetch(searchName,yearSearch,monthSearch,daySearch);
+    //console.log("response");
     if(response.ok){
         cardContainer.replaceChildren();
-        /**@type { TableViewDTO } */
-        const checkLists = response.json();
+        /**@type { TableViewDTO[] } */
+        const checkLists = await response.json();
+        checkListsTable(checkLists);
+        //console.log("checkListsTable");
+    }else if(response.status == 404){
+        searchNotFound();
+    }else if(response.status == 400){
+        const caution = await response.json();
+        alert(caution.join("\n"));
+    }else{
+        throw new Error("Fetch通信の応答にてError発生");
     }
 }
 searchBtn.addEventListener("click",search);

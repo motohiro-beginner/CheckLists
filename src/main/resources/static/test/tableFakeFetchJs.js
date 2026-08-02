@@ -138,3 +138,54 @@ export async function tableFakeFetch(){
         ]
     };
 }
+export async function searchResultFetch(/**@type {string}*/searchName,/**@type {string}*/yearSearch,/**@type {string}*/monthSearch,/**@type {string}*/daySearch){
+    return {
+        ok: true,
+        status: 200,
+        json: async () => [
+            {   
+                checkListsId: "1",
+                checkListsName: "買い物",
+                items: [
+                {   itemId: "1",
+                    itemName: "リンゴ",
+                    isChecked: true
+                },
+                {
+                    itemId: "2",
+                    itemName: "みかん",
+                    isChecked: true
+                },
+                {
+                    itemId: "3",
+                    itemName: "いちご",
+                    isChecked: false
+                }
+                ],
+                createdAt: "2026/01/01"
+            },
+            {
+                checkListsId: "2",
+                checkListsName: "買い物",
+                items: [
+                {
+                    itemId: "4",
+                    itemName: "リンゴ",
+                    isChecked: true
+                },
+                {
+                    itemId: "5",
+                    itemName: "みかん",
+                    isChecked: true
+                },
+                {
+                    itemId: "6",
+                    itemName: "いちご",
+                    isChecked: false
+                }
+                ],
+                createdAt: "2026/01/01"
+            },
+        ]
+    }
+}
