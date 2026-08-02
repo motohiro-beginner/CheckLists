@@ -12,7 +12,7 @@ public class TableCheckListsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer checkListsId;
-    @Column(name = "check_lists_name",nullable = false,unique = true)
+    @Column(name = "check_lists_name",nullable = false,unique = false)
     private String checkListsName;
     @Column(name = "created_at",nullable = false)
     private LocalDate createdAt;

@@ -1,5 +1,6 @@
 //@ts-check
 import { checkListsTable } from "./checkListsTableJs.js";
+import { responseNotFound } from "./checkListsTableJs.js";
 import { tableFakeFetch } from "../../test/tableFakeFetchJs.js";
 /**
  * @typedef {Object} TableViewDTO
@@ -29,15 +30,14 @@ async function table(){
    //console.log("2");
     if(response.status === 400){
         //セッション情報が何等かの理由でなかった時に400となる。その時にログイン画面に遷移する。
-        const checkLists = await response.json();
-        alert(checkLists.join("\n"));
+        const caution = await response.json();
+        alert(caution.join("\n"));
         window.location.href ="/Login";
     }else if(response.status === 404){
         const checkLists = await response.json();
-        //responseNotFoundという関数を作成する予定
+        responseNotFound();
         alert(checkLists.join("\n"));
-        table();
-    }else{
+    }else if(response.ok){
         //console.log("3");
         /**@type {TableViewDTO[]} */
         const checkLists = await response.json();
@@ -46,6 +46,8 @@ async function table(){
         console.log(checkLists[0].items[0].isChecked);*/
         checkListsTable(checkLists);
         //console.log("4");
+    }else{
+        throw new Error("Fetch通信の応答にてエラー発生");
     }
 }
 table();
