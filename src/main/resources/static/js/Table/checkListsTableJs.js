@@ -64,6 +64,10 @@ export function checkListsTable(/**@type {TableViewDTO[]} */checkLists){
         const card = document.createElement("div");
         card.classList.add("card");
         card.dataset.checkListsId = checkList.checkListsId;
+        card.addEventListener("click",() =>{
+            const id = card.dataset.checkListsId;
+            window.location.href = `/changeCheckList/${id}`;
+        });
         container.appendChild(card);
         const cardUpper = document.createElement("div");
         cardUpper.classList.add("cardUpper");
