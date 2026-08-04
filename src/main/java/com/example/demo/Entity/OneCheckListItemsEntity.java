@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "check_lists_items")
 public class OneCheckListItemsEntity {
+    //check_lists_items表を活用するためのEntityである。
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer itemId;

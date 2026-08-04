@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "check_lists")
 public class OneCheckListCheckListsEntity {
+    //check_lists表に格納されているデータを活用するためのEntityである。
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer checkListsId;

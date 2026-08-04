@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface OneCheckListRepository extends JpaRepository<OneCheckListCheckListsEntity,Integer> {
+    //該当するcheckListIdの列を取り出すためのメソッドである。
     @Query("""
            SELECT new com.example.demo.DTO.OneCheckListDTO(c.checkListId,c.checkListName,i.itemId,i.itemName,i.isChecked,c.createdAt)
            FROM OneCheckListCheckListsEntity c
