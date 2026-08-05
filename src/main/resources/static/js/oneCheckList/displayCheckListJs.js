@@ -1,4 +1,5 @@
 //@ts-check
+import { saveCheckList } from "./saveCheckListJs";
 /**
  * @typedef {Object} OneCheckListViewDTO
  * @property {string} checkListsId,
@@ -24,6 +25,11 @@ if(!(container instanceof HTMLDivElement)){
 if(!(keepBtn instanceof HTMLButtonElement)){
     throw new Error("keepBtnが見つかりません。");
 }
+const card = document.createElement("div");
+keepBtn.addEventListener("click",() => {
+        //後でchangeCheckListName関数を作る予定
+        saveCheckList(card);
+    });
 /**
  * oneCheckListの画面
  * 　　　　　　　　　ーーーーーーーーー
@@ -57,7 +63,6 @@ if(!(keepBtn instanceof HTMLButtonElement)){
  */
 /** displayCheckListは画面上に一つのチェックリストを表示するための関数であり、チェックリストの構成を作成する。*/
 export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkList){
-    const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.checkListsId = checkList.checkListsId;
     container.appendChild(card);
@@ -68,19 +73,11 @@ export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkLis
     checkListName.type = "text";
     checkListName.value = checkList.checkListsName;
     checkListName.classList.add("checkListName");
-    keepBtn.addEventListener("input",() => {
-        //後でchangeCheckListName関数を作る予定
-        changeCheckListName(checkListName);
-    });
     cardUpper.appendChild(checkListName);
     const createdAt = document.createElement("input");
     createdAt.type = "text";
     createdAt.value = checkList.createdAt;
     createdAt.classList.add("createdAt");
-    keepBtn.addEventListener("input",() => {
-        //後でchangeCreatedAt関数を作る予定
-        changeCreatedAt(createdAt);
-    });
     cardUpper.appendChild(createdAt);
 }
 /**checkListItemsは項目名を変更できるテキストボックスおよびチェックボックスを作成する変数である。 */
@@ -96,19 +93,11 @@ function checkListItems(/**@type {OneItemsViewDTO[]} */items,/**@type {HTMLDivEl
         const itemName = document.createElement("input");
         itemName.type = "text";
         itemName.value = item.itemNames;
-        keepBtn.addEventListener("input",() => {
-            //後でchangeItemName関数を作る予定
-            changeItemName(itemName);
-        });
         itemName.classList.add("itemNames");
         cardRow.appendChild(itemName);
         const isChecked = document.createElement("input");
         isChecked.type = "checkbox";
         isChecked.checked = item.isChecked;
-        keepBtn.addEventListener("change",() => {
-            //後でchangeChecked関数を作る予定
-            changeChecked(isChecked);
-        });
         isChecked.classList.add("isChecked");
         cardRow.appendChild(isChecked);
     });
