@@ -45,7 +45,14 @@ keepBtn.addEventListener("click",() => {
  * <div class="card">
  *   <div class="cardUpper">
  *     <input class="checkListName" value="チェックリスト名"></input>//チェックリスト名の初期値はcheckListの中のcheckListsNameによって決まる。
- *     <input class="createdAt" value="このチェックリストを使用する日付"></input>//日付の初期値はcheckListの中のcreatedAtによって決まる。
+ *     <div class="createdAt">
+ *        <input class="year"></input>
+ *        <span class="dataLabel">年</span>
+ *        <input class="month"></input>
+ *        <span class="dateLabel">月</span>
+ *        <input class="day"></input>
+ *        <span class="dateLabel">日</span>
+ *     </div>//inputタグのyear,month,dayにはそれぞれ初期値が入っている。それらの初期値はcheckListの中のcreatedAtによって決まる。
  *   </div>
  *   <div class="cardLower">
  *     <div class="cardRow">
@@ -74,11 +81,44 @@ export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkLis
     checkListName.value = checkList.checkListsName;
     checkListName.classList.add("checkListName");
     cardUpper.appendChild(checkListName);
-    const createdAt = document.createElement("input");
-    createdAt.type = "text";
-    createdAt.value = checkList.createdAt;
+    //年月日の情報を分けて表示する。  チェックリスト内では□年□月□日といった風に表示する。
+    const createdAt = document.createElement("div");
     createdAt.classList.add("createdAt");
-    cardUpper.appendChild(createdAt);
+    const ymd = checkList.createdAt.split("/",3);
+
+    const year = document.createElement("input");
+    year.type = "text";
+    year.value = ymd[0];
+    year.classList.add("year");
+    createdAt.appendChild(year);
+
+    const yearLabel = document.createElement("span");
+    yearLabel.textContent = "年";
+    yearLabel.classList.add("dateLabel");
+    createdAt.appendChild(yearLabel);
+
+    const month = document.createElement("input");
+    month.type = "text";
+    month.value = ymd[1];
+    month.classList.add("month");
+    createdAt.appendChild(month);
+
+    const monthLabel = document.createElement("span");
+    monthLabel.textContent = "月";
+    monthLabel.classList.add("dateLabel");
+    createdAt.appendChild(monthLabel);
+
+    const day = document.createElement("input");
+    day.type = "text";
+    day.value = ymd[2];
+    day.classList.add("day");
+    createdAt.appendChild(day);
+
+    const dayLabel = document.createElement("input");
+    dayLabel.textContent = "日";
+    dayLabel.classList.add("dateLabel");
+    createdAt.appendChild(dayLabel);
+    checkListItems(checkList.items,card);
 }
 /**checkListItemsは項目名を変更できるテキストボックスおよびチェックボックスを作成する変数である。 */
 function checkListItems(/**@type {OneItemsViewDTO[]} */items,/**@type {HTMLDivElement} */card){

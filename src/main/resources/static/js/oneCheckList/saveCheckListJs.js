@@ -3,7 +3,9 @@
 export async function saveCheckList(/**@type {HTMLDivElement} */card){
     const checkListsId = card.dataset.checkListsId;
     const checkListName = card.querySelector(".checkListName");
-    const createdAt = card.querySelector(".createdAt");
+    const year = card.querySelector(".year");
+    const month = card.querySelector(".month");
+    const day = card.querySelector(".day");
     const cardRow = card.querySelectorAll(".cardRow");
     let items = 
     /**@type {Object[]} */
@@ -36,7 +38,9 @@ export async function saveCheckList(/**@type {HTMLDivElement} */card){
             checkListsId,
             checkListName,
             items,
-            createdAt
+            year,
+            month,
+            day
         })
     });
 }
