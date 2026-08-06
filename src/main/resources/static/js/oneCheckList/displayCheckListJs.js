@@ -1,5 +1,6 @@
 //@ts-check
 import { saveCheckList } from "./saveCheckListJs";
+import { element } from "./helperJs";
 /**
  * @typedef {Object} OneCheckListViewDTO
  * @property {string} checkListsId,
@@ -13,18 +14,8 @@ import { saveCheckList } from "./saveCheckListJs";
  * @property {string} itemNames,
  * @property {boolean} isChecked
  */
-const container =
-/**@type {HTMLDivElement} */
-(document.querySelector(".cardContainer"));
-const keepBtn =
-/**@type {HTMLButtonElement} */
-(document.querySelector("#keepBtn"));
-if(!(container instanceof HTMLDivElement)){
-    throw new Error("cardContainerが見つかりません。");
-}
-if(!(keepBtn instanceof HTMLButtonElement)){
-    throw new Error("keepBtnが見つかりません。");
-}
+const container = element(document,".cardContainer",HTMLDivElement);
+const keepBtn = element(document,"#keepBtn",HTMLDivElement);
 const card = document.createElement("div");
 keepBtn.addEventListener("click",() => {
         //後でchangeCheckListName関数を作る予定

@@ -1,4 +1,5 @@
 //@ts-check
+import {element} from "./helperJs";
 /**
  * @typedef {Object} OneCheckListViewDTO
  * @property {string} checkListsId,
@@ -12,12 +13,8 @@
  * @property {string} itemNames,
  * @property {boolean} isChecked
  */
-const deleteBtn =
-/**@type {HTMLButtonElement} */
-(document.querySelector("#deleteBtn"));
-const backBtn =
-/**@type {HTMLButtonElement} */
-(document.querySelector("#backBtn"));
+const deleteBtn = element(document,"#deleteBtn",HTMLButtonElement);
+const backBtn = element(document,"#backBtn",HTMLButtonElement);
 async function oneCheckList(){
     const id = window.location.pathname.split("/").pop();
     const response = await fetch(`showOneCheckList/${id}`, {

@@ -1,34 +1,39 @@
 //@ts-check
+import { inputCheck } from "./inputCheckJs";
+import { element } from "./helperJs";
+/**
+ * @typedef { Object } items
+ * @property {string} itemId,
+ * @property {string} itemNames,
+ * @property {boolean} isChecked
+ */
 /**changeCheckListNameはチェックリスト名が変更されたとき、変更された名前をバックエンド側に送るための関数である。 */
 export async function saveCheckList(/**@type {HTMLDivElement} */card){
     const checkListsId = card.dataset.checkListsId;
-    const checkListName = card.querySelector(".checkListName");
-    const year = card.querySelector(".year");
-    const month = card.querySelector(".month");
-    const day = card.querySelector(".day");
+    const checkListName = element(card,".checkListName",HTMLButtonElement).value;
+    const year = element(card,".year",HTMLInputElement).value;
+    const month = element(card,".month",HTMLInputElement).value;
+    const day = element(card,".day",HTMLInputElement).value;
     const cardRow = card.querySelectorAll(".cardRow");
     let items = 
-    /**@type {Object[]} */
+    /**@type {items[]} */
     ([]);
     cardRow.forEach(row => {
         //警告をなくすためにチェックをしている。
         if(!(row instanceof HTMLDivElement)){
             throw new Error("rowの型が一致しません。");
         }
-        const id = row.dataset.itemId;
-        const name = row.querySelector(".itemNames");
-        const  checkbox = row.querySelector("isChecked");
-        //警告をなくすためにチェックをしている。
-        if(!(checkbox instanceof HTMLInputElement)){
-            throw new Error("checkboxがnullです。");
-        }
-        const isChecked = checkbox.checked;
+        const id = /**@type {string}*/(row.dataset.itemId);
+        const name = element(row,".itemNames",HTMLInputElement).value;
+        const  isChecked = element(row,".isChecked",HTMLInputElement).checked;
         items.push({
             itemId: id,
             itemNames: name,
             isChecked: isChecked
         });
     });
+    const input = inputCheck(checkListName,year,month,day,items);
+
     const response = await fetch("/saveCheckList",{
         method: "POST",
         headers: {

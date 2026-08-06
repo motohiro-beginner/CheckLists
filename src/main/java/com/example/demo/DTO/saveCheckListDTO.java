@@ -4,5 +4,7 @@ public class saveCheckListDTO {
     private String checkListsId;
     private String checkListName;
     private saveItemsDTO items;
-    private String createdAt;
+    private String year;
+    private String month;
+    private String day;
 }
