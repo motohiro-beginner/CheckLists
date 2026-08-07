@@ -33,7 +33,10 @@ export async function saveCheckList(/**@type {HTMLDivElement} */card){
         });
     });
     const input = inputCheck(checkListName,year,month,day,items);
-
+    if(input.problem){
+        alert(input.caution.join("/n"));
+        return;
+    }
     const response = await fetch("/saveCheckList",{
         method: "POST",
         headers: {
