@@ -2,6 +2,11 @@ package com.example.demo.DTO;
 
 import java.util.List;
 
+/*SaveCheckListDTOはfetch通信で引数を受け取るために用意したDTOである。
+* checkListIdは変更があった、DBのチェックリスト表の行のIDの情報
+* checkListNameはその行のチェックリスト名の情報
+* itemsはそのチェックリストidを外部キーに持つ項目表の行の情報
+* year,month,dayはチェックリストの列の日付の情報を格納している。*/
 public class SaveCheckListDTO {
     private String checkListsId;
     private String checkListName;

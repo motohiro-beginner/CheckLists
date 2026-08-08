@@ -18,6 +18,11 @@ public class SaveCheckListController {
     public ResponseEntity<?> saveCheckList(
             @Valid @RequestBody SaveCheckListDTO dto
     ){
-
+        try {
+            service.updateColumns(dto);
+            return ResponseEntity.ok().build();
+        }catch(RuntimeException e){
+            return ResponseEntity.badRequest().body("更新処理に失敗しました。");
+        }
     }
 }
