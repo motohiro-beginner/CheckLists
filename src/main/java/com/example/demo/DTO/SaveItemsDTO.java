@@ -12,10 +12,19 @@ public class SaveItemsDTO {
     public String getItemId(){
         return itemId;
     }
+    public void setItemId(String itemId){
+        this.itemId = itemId;
+    }
     public String getItemNames(){
         return itemNames;
     }
+    public void setItemNames(String itemNames){
+        this.itemNames = itemNames;
+    }
     public boolean getIsChecked(){
         return isChecked;
+    }
+    public void setIsChecked(boolean isChecked){
+        this.isChecked = isChecked;
     }
 }

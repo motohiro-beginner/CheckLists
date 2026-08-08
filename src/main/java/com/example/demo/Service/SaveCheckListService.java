@@ -24,6 +24,12 @@ public class SaveCheckListService {
         try {
             //チェックリスト名、日付の情報をOneCheckListCheckListsEntityに代入して、repositoryを使ってDBに保存する。
             OneCheckListCheckListsEntity checkList = new OneCheckListCheckListsEntity();
+            System.out.println(dto.getCheckListsId());
+            System.out.println(dto.getCheckListName());
+            System.out.println(dto.getItems());
+            System.out.println(dto.getYear());
+            System.out.println(dto.getMonth());
+            System.out.println(dto.getDay());
             Integer checkListsId = Integer.parseInt(dto.getCheckListsId());
             checkList.setCheckListsId(checkListsId);
             checkList.setCheckListsName(dto.getCheckListName());

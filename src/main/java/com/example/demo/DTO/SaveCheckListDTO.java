@@ -19,13 +19,13 @@ public class SaveCheckListDTO {
     public String getCheckListsId(){
         return checkListsId;
     }
-    public void setCheckListsId(String checkListName){
+    public void setCheckListsId(String checkListsId){
         this.checkListsId = checkListsId;
     }
     public String getCheckListName(){
         return checkListName;
     }
-    public void setCheckListName(){
+    public void setCheckListName(String checkListName){
         this.checkListName = checkListName;
     }
     public List<SaveItemsDTO> getItems(){
@@ -43,13 +43,13 @@ public class SaveCheckListDTO {
     public String getMonth(){
         return month;
     }
-    public void setMonth(){
+    public void setMonth(String month){
         this.month = month;
     }
     public String getDay(){
         return day;
     }
-    public void setDay(){
+    public void setDay(String day){
         this.day = day;
     }
 }
