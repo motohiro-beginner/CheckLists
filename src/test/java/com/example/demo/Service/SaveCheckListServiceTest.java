@@ -12,12 +12,14 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataAccessException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,7 +36,15 @@ public class SaveCheckListServiceTest {
         List<SaveItemsDTO> itemDTO = new ArrayList<>();
         createItemsDTO(itemDTO,"1","リンゴ",true);
         createItemsDTO(itemDTO,"2","みかん",false);
-        createDTO(dto,"1","買い物",itemDTO,"2026","1","1");
+        createDTO(
+                dto,
+                "1",
+                "買い物",
+                itemDTO,
+                "2026",
+                "1",
+                "1"
+        );
         ArgumentCaptor<OneCheckListCheckListsEntity> captor =
                 ArgumentCaptor.forClass(OneCheckListCheckListsEntity.class);
         ArgumentCaptor<OneCheckListItemsEntity> captor2 =
@@ -42,9 +52,63 @@ public class SaveCheckListServiceTest {
         service.updateColumns(dto);
         verify(repository).save(captor.capture());
         verify(iRepository,times(2)).save(captor2.capture());
-        entityCheck(captor.getValue(),1,"買い物",LocalDate.of(2026,1,1));
-        entityCheck2(captor2.getAllValues().get(1),1,"リンゴ",true);
-        entityCheck2(captor2.getAllValues().get(2),2,"みかん",false);
+        entityCheck(
+                captor.getValue(),
+                1,
+                "買い物",
+                LocalDate.of(2026,1,1)
+        );
+        List<OneCheckListItemsEntity> values = captor2.getAllValues();
+        entityCheck2(
+                values.get(0),
+                1,
+                "リンゴ",
+                true
+        );
+        entityCheck2(values.get(1),
+                2,
+                "みかん",
+                false
+        );
+    }
+    @Test
+    void 例外が発生した場合(){
+        SaveCheckListDTO dto = new SaveCheckListDTO();
+        List<SaveItemsDTO> itemDTO = new ArrayList<>();
+        createItemsDTO(
+                itemDTO,
+                "1",
+                "リンゴ",
+                true
+        );
+        createItemsDTO(
+                itemDTO,
+                "2",
+                "みかん",
+                false
+        );
+        createDTO(
+                dto,
+                "1",
+                "買い物",
+                itemDTO,
+                "2026",
+                "1",
+                "1"
+        );
+        doThrow(new DataAccessException("DBエラー"){})
+                .when(repository)
+                .save(
+                        argThat(entity ->
+                                entity.getCheckListsId() == 1 &&
+                                entity.getCheckListsName().equals("買い物") &&
+                                entity.getCreatedAt().equals(LocalDate.of(2026,1,1)))
+                );
+        RuntimeException exception = assertThrows(
+                RuntimeException.class,
+                () -> service.updateColumns(dto)
+        );
+        errorCheck(exception);
     }
     private void createDTO(SaveCheckListDTO dto, String checkListsId, String checkListName, List<SaveItemsDTO> items,String year,String month,String day){
         dto.setCheckListsId(checkListsId);
@@ -70,5 +134,8 @@ public class SaveCheckListServiceTest {
         assertEquals(itemId,value.getItemId());
         assertEquals(itemName,value.getItemName());
         assertEquals(isChecked,value.getIsChecked());
+    }
+    private void errorCheck(RuntimeException e){
+        assertEquals("データの保存に失敗しました。",e.getMessage());
     }
 }

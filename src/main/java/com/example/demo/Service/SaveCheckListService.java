@@ -16,20 +16,22 @@ import java.time.LocalDate;
 public class SaveCheckListService {
     private OneCheckListRepository repository;
     private OneCheckListItemsRepository iRepository;
-    public SaveCheckListService(OneCheckListRepository repository){
+    public SaveCheckListService(OneCheckListRepository repository,OneCheckListItemsRepository iRepository){
         this.repository = repository;
+        this.iRepository = iRepository;
     }
     /*updateColumnsはユーザーが変更したチェックリスト名、日付、項目名、チェックがついているか否かの情報をデータベースに更新するためのメソッドである。*/
     public void updateColumns(SaveCheckListDTO dto){
         try {
             //チェックリスト名、日付の情報をOneCheckListCheckListsEntityに代入して、repositoryを使ってDBに保存する。
             OneCheckListCheckListsEntity checkList = new OneCheckListCheckListsEntity();
+            /*テスト用コード
             System.out.println(dto.getCheckListsId());
             System.out.println(dto.getCheckListName());
             System.out.println(dto.getItems());
             System.out.println(dto.getYear());
             System.out.println(dto.getMonth());
-            System.out.println(dto.getDay());
+            System.out.println(dto.getDay());*/
             Integer checkListsId = Integer.parseInt(dto.getCheckListsId());
             checkList.setCheckListsId(checkListsId);
             checkList.setCheckListsName(dto.getCheckListName());
