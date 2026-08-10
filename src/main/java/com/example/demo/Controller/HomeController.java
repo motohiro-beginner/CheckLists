@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import com.example.demo.DTO.HomeCheckListsViewDTO;
 import com.example.demo.Service.HomeCheckListsService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class HomeController {
                 List<HomeCheckListsViewDTO> resultCheckLists = service.findAllCheckLists((String) session.getAttribute("userName"));
                 return ResponseEntity.ok(resultCheckLists);
             }else{
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
         }
         return ResponseEntity.badRequest().body("ユーザー名が消失したため、Login画面に戻りました。");

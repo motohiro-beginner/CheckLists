@@ -20,6 +20,7 @@ if(!(container instanceof HTMLDivElement)){
     throw new Error("containerが見つかりません。");
 }
 async function HomeCheckLists(){
+    container.classList.remove("notFoundText");
     const response = await fetch("/home", {
         method: "POST",
         headers: {
@@ -37,10 +38,12 @@ async function HomeCheckLists(){
         // もしセッション情報がなかった場合、Login画面に遷移する。
     }else if(response.status === 404){
         responseNotFound();
-    }else{
+    }else if(response.ok){
         /**@type {HomeCheckListsViewDTO[]} */
         checkLists = await response.json();
         addCheckLists(checkLists);
+    }else{
+        throw new Error("responseの応答に異常があります。");
     }
     /**checkListsオブジェクトに含まれるデータの例
      * const checkLists = [
@@ -87,10 +90,12 @@ async function HomeCheckLists(){
 // "今日のチェックリストは作成されていません。"
 //と表示するための関数である。
 function responseNotFound(){
-    const notFoundText = document.createElement("div");
-    notFoundText.classList.add("notFoundText");
-    notFoundText.textContent = "今日のチェックリストは作成されていません。"
-    container.appendChild(notFoundText);
+    container.replaceChildren();
+    container.classList.add("notFoundText");
+    const notFoundMessage = document.createElement("div");
+    notFoundMessage.classList.add("notFoundMessage");
+    notFoundMessage.textContent = "今日のチェックリストは作成されていません。"
+    container.appendChild(notFoundMessage);
 }
 /*
 function cardContainerTest(){

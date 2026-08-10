@@ -58,7 +58,7 @@ public class HomeControllerTest {
                     .andExpect(status().isOk());
                     //応答結果がResponseEntity.ok()かどうかを確かめる。
              */
-            /*テストデータ2
+            /*
             when(service.existsByUserNameAndCreatedAt("abcdefg"))
                     .thenReturn(false);
             //Controllerがservice.existsByUserNameAndCreatedAtをよびだしたら、falseを返す。
@@ -69,7 +69,7 @@ public class HomeControllerTest {
                             {
                             }
                             """))
-                    .andExpect(status().isNotFound());
+                    .andExpect(status().isNoContent());
                     //応答結果がResponseEntity.notFound().build()かどうかを確かめる。
 
              */
