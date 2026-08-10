@@ -5,6 +5,7 @@ import com.example.demo.DTO.TableViewDTO;
 import com.example.demo.Service.SearchService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +29,7 @@ public class SearchController {
                 List<TableViewDTO> checkList = service.findSearchedCheckLists((String) session.getAttribute("userName"),dto);
                 return ResponseEntity.ok().body(checkList);
             }else{
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             }
         }else{
             return ResponseEntity.badRequest().body("ユーザー名が消失したためログイン画面に戻りました。");

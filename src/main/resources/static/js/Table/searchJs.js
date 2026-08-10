@@ -1,7 +1,7 @@
 //@ts-check
 import { checkListsTable } from "./checkListsTableJs.js";
 import { searchNotFound } from "./checkListsTableJs.js";
-import { searchResultFetch } from "../../test/tableFakeFetchJs.js";
+import { searchResultFetch, searchResultFetchNoContent } from "../../test/tableFakeFetchJs.js";
 const searchNameInput =
 /**@type { HTMLInputElement } */
 (document.querySelector("#searchName"));
@@ -17,7 +17,7 @@ const daySearchInput =
 const searchBtn =
 /**@type { HTMLButtonElement } */
 (document.querySelector("#searchBtn"));
-const cardContainer =
+const container =
 /**@type { HTMLDivElement } */
 (document.querySelector(".cardContainer"));
 if(!(searchNameInput instanceof HTMLInputElement)){
@@ -35,7 +35,7 @@ if(!(daySearchInput instanceof HTMLInputElement)){
 if(!(searchBtn instanceof HTMLButtonElement)){
     throw new Error("searchBtnが見つかりません。");
 }
-if(!(cardContainer instanceof HTMLDivElement)){
+if(!(container instanceof HTMLDivElement)){
     throw new Error("cardContainerが見つかりません。");
 }
 //console.log(cardContainer);
@@ -56,7 +56,8 @@ if(!(cardContainer instanceof HTMLDivElement)){
  * それぞれの値は入力必須ではないため入力されていない可能性がある。
  */
 async function search(){
-    //console.log("関数search開始");
+    console.log("関数search開始");
+    container.classList.remove("notFoundText");
     const searchName = searchNameInput.value;
     const yearSearch = yearSearchInput.value;
     const monthSearch = monthSearchInput.value;
@@ -75,17 +76,18 @@ async function search(){
         })
     });
     */
-    const response = await searchResultFetch(searchName,yearSearch,monthSearch,daySearch);
-    //console.log("response");
+    const response = await searchResultFetchNoContent(searchName,yearSearch,monthSearch,daySearch);
+    console.log("response");
     if(response.ok){
-        cardContainer.replaceChildren();
+        container.replaceChildren();
         /**@type { TableViewDTO[] } */
         const checkLists = await response.json();
         checkListsTable(checkLists);
         //console.log("checkListsTable");
-    }else if(response.status == 404){
+    }else if(response.status === 204){
         searchNotFound();
-    }else if(response.status == 400){
+        console.log("searchNotFound");
+    }else if(response.status === 400){
         const caution = await response.json();
         alert(caution.join("\n"));
     }else{

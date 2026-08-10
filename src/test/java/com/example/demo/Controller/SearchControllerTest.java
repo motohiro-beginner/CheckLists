@@ -170,7 +170,7 @@ public class SearchControllerTest {
                                     "daySearch":"2"
                                     }
                                     """))
-                    .andExpect(status().isNotFound());
+                    .andExpect(status().isNoContent());
             verify(service, times(1))
                     .existsBySearchedCheckLists(
                             eq("abcdefg"),
