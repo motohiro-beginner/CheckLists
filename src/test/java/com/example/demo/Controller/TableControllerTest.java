@@ -51,7 +51,6 @@ public class TableControllerTest {
                             """))
                     .andExpect(status().isOk());
              */
-            /*テストデータ2
             when(service.existsByUserCheckLists("abcdefg"))
                     .thenReturn(false);
             when(service.findTableAllCheckLists("abcdefg"))
@@ -63,9 +62,8 @@ public class TableControllerTest {
                             {
                             }
                             """))
-                    .andExpect(status().isNotFound());
-
-             */
+                    .andExpect(status().isNoContent());
+            /*テストデータ3
             when(service.existsByUserCheckLists("abcdefg"))
                     .thenReturn(false);
             when(service.findTableAllCheckLists("abcdefg"))
@@ -77,6 +75,8 @@ public class TableControllerTest {
                             }
                             """))
                     .andExpect(status().isBadRequest());
+
+             */
         }catch(Exception e){
             e.printStackTrace();
         }

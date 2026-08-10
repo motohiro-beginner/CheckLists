@@ -1,7 +1,7 @@
 //@ts-check
 import { checkListsTable } from "./checkListsTableJs.js";
 import { responseNotFound } from "./checkListsTableJs.js";
-import { tableFakeFetch } from "../../test/tableFakeFetchJs.js";
+import {tableFakeFetch, tableFakeFetchNoContent} from "../../test/tableFakeFetchJs.js";
 /**
  * @typedef {Object} TableViewDTO
  * @property {string} checkListsId,
@@ -26,17 +26,15 @@ async function table(){
     });
     */
    //console.log("1");
-    const response =  await tableFakeFetch();
+    const response =  await tableFakeFetchNoContent();
    //console.log("2");
     if(response.status === 400){
         //セッション情報が何等かの理由でなかった時に400となる。その時にログイン画面に遷移する。
         const caution = await response.json();
         alert(caution.join("\n"));
         window.location.href ="/Login";
-    }else if(response.status === 404){
-        const checkLists = await response.json();
+    }else if(response.status === 204){
         responseNotFound();
-        alert(checkLists.join("\n"));
     }else if(response.ok){
         //console.log("3");
         /**@type {TableViewDTO[]} */

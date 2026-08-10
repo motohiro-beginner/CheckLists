@@ -116,3 +116,11 @@
 .isChecked {
     width: 30px;
 }
+.cardContainer.notFoundText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notFoundMessage {
+    color: #808080;
+}

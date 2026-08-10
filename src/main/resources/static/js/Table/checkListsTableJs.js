@@ -15,7 +15,7 @@
  * @property {string} itemName,
  * @property {boolean} isChecked
  */
-//@ts-checkの警告がcontainerでないように@type {HTMLDivElement}を書いている。
+//@ts-checkの警告がcontainerにでないように@type {HTMLDivElement}を書いている。
 const container =
 /**@type {HTMLDivElement} */
 (document.querySelector(".cardContainer"));
@@ -127,14 +127,56 @@ function itemFontSize(/**@type {HTMLDivElement} */itemName){
     //console.log("10");
 }
 export function responseNotFound(){
-    const notFoundText = document.createElement("div");
-    notFoundText.classList.add("notFoundText");
-    notFoundText.textContent = "チェックリストはまだ作成されていません。";
-    container.appendChild(notFoundText);
+    /*containerの中にnotFoundTextが既にあった場合2つの文章が表示されてしまうので、
+    replaceChildren()でcontainerの中を空にする。*/
+    //console.log("responseNotFound");
+    container.replaceChildren();
+    container.classList.remove("notFoundText");
+    container.classList.add("notFoundText");
+    //console.log("notFoundTextタグ追加");
+    const notFoundMessage = document.createElement("div");
+    notFoundMessage.classList.add("notFoundMessage");
+    notFoundMessage.textContent = "チェックリストはまだ作成されていません。";
+    container.appendChild(notFoundMessage);
+    /*テスト用コードその１
+    console.log(container.outerHTML);
+    console.log("responseNotFound終わり");
+
+    console.log("追加した要素:", notFoundText);
+    console.log("container:", container);
+    console.log("containerの中身:", container.innerHTML);
+    console.log("display:",getComputedStyle(container).display);
+    console.log("width:",getComputedStyle(container).width);
+    console.log("height:",getComputedStyle(container).height);
+
+    console.log("親:", container.outerHTML);
+    console.log("親の高さ:", container.clientHeight);
+
+    console.log("子の幅:", notFoundText.clientWidth);
+    console.log("子の高さ:", notFoundText.clientHeight);
+
+    console.log("子のdisplay:", getComputedStyle(notFoundText).display);
+    console.log("子のvisibility:", getComputedStyle(notFoundText).visibility);
+    console.log("子のopacity:", getComputedStyle(notFoundText).opacity);
+    console.log("子のfont-size:", getComputedStyle(notFoundText).fontSize);
+    console.log("子のcolor:", getComputedStyle(notFoundText).color);
+    console.log(container.isConnected);
+    console.log(container === document.querySelector(".cardContainer"));
+    */
+   console.log("①", container.className);
+
+setTimeout(() => {
+    console.log("② 1秒後", container.className);
+}, 1000);
 }
 export function searchNotFound(){
-    const notFoundText = document.createElement("div");
-    notFoundText.classList.add("notFoundText");
-    notFoundText.textContent = "検索条件に一致するチェックリストはありませんでした。";
-    container.appendChild(notFoundText);
+    /*containerの中にnotFoundTextが既にあった場合複数の文章が表示されてしまうので、
+    replaceChildren()でcontainerの中を空にする。*/
+    container.replaceChildren();
+    container.classList.remove("notFoundText");
+    container.classList.add("notFoundText");
+    const notFoundMessage = document.createElement("div");
+    notFoundMessage.classList.add("notFoundMessage");
+    notFoundMessage.textContent = "検索条件に一致するチェックリストはありませんでした。";
+    container.appendChild(notFoundMessage);
 }

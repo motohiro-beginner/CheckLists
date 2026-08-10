@@ -138,6 +138,12 @@ export async function tableFakeFetch(){
         ]
     };
 }
+export async function tableFakeFetchNoContent(){
+    return {
+        ok: false,
+        status: 204
+    }
+}
 export async function searchResultFetch(/**@type {string}*/searchName,/**@type {string}*/yearSearch,/**@type {string}*/monthSearch,/**@type {string}*/daySearch){
     return {
         ok: true,
@@ -187,5 +193,11 @@ export async function searchResultFetch(/**@type {string}*/searchName,/**@type {
                 createdAt: "2026/01/01"
             },
         ]
+    }
+}
+export async function searchResultFetchNoContent(/**@type {string}*/searchName,/**@type {string}*/yearSearch,/**@type {string}*/monthSearch,/**@type {string}*/daySearch){
+    return {
+        ok: false,
+        status: 204
     }
 }
