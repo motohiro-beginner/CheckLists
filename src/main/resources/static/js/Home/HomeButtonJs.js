@@ -5,10 +5,10 @@ const checkListsTableBtn =
 const logOutBtn =
 /**@type {HTMLButtonElement} */
 (document.querySelector("#logOutBtn"));
-if(!(checkListsTableBtn instanceof HTMLDivElement)){
+if(!(checkListsTableBtn instanceof HTMLButtonElement)){
     throw new Error("checkListsTableBtnが見つかりません");
 }
-if(!(logOutBtn instanceof HTMLDivElement)){
+if(!(logOutBtn instanceof HTMLButtonElement)){
     throw new Error("logOutBtnが見つかりません");
 }
 //作成したチェックリスト一覧を見れる画面に移動
