@@ -1,5 +1,7 @@
 //@ts-check
 import {element} from "./helperJs";
+import { displayCheckList } from "./displayCheckListJs";
+import { oneCheckListFakeFetch } from "../../test/oneCheckListFakeFetchJs";
 /**
  * @typedef {Object} OneCheckListViewDTO
  * @property {string} checkListsId,
@@ -17,6 +19,7 @@ const deleteBtn = element(document,"#deleteBtn",HTMLButtonElement);
 const backBtn = element(document,"#backBtn",HTMLButtonElement);
 async function oneCheckList(){
     const id = window.location.pathname.split("/").pop();
+    /*テストのため一時的にコメントアウトしている。
     const response = await fetch(`showOneCheckList/${id}`, {
         method: "POST",
         headers: {
@@ -24,9 +27,12 @@ async function oneCheckList(){
         },
         body: JSON.stringify({})
     });
+    */
+   const response = await oneCheckListFakeFetch();
     if(response.ok){
         /**@type {OneCheckListViewDTO} */
         const checkList = await response.json();
+        displayCheckList(checkList);
     }else if(response.status == 400){
         /**@type {string} */
         const message = await response.json();
