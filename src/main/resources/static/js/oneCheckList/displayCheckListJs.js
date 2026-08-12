@@ -53,6 +53,9 @@ keepBtn.addEventListener("click",() => {
  *                     ・
  * 　　　　　　　　　　　・
  * 　　　　　　　　　　　・
+ *     <button>
+ *       <span class="material-symbols-outlined">add</span>
+ *     <button>
  *   </div>
  * </div>
  * </div>
@@ -129,28 +132,42 @@ function checkListItems(/**@type {OneItemsViewDTO[]} */items,/**@type {HTMLDivEl
         const isChecked = document.createElement("input");
         isChecked.type = "checkbox";
         isChecked.checked = item.isChecked;
-        isChecked.classList.add("isChecked");
+        isChecked.classList.add("itemCheckBox");
         cardRow.appendChild(isChecked);
     });
     const cardRow = document.createElement("div");
     cardRow.classList.add("cardRow");
     cardLower.appendChild(cardRow);
     const addItemBtn = document.createElement("button");
+    addItemBtn.classList.add("addItemBtn");
     const addIcon = document.createElement("span");
     addIcon.classList.add("material-symbols-outlined");
     addIcon.textContent = "add";
     addItemBtn.appendChild(addIcon);
+    /*テストのため一時的にコメントアウト
     addItemBtn.addEventListener("click",() => {
         addItem(cardLower);
     });
+    */
     cardRow.appendChild(addItemBtn);
     const deleteItemBtn = document.createElement("button");
+    deleteItemBtn.classList.add("deleteItemBtn");
     const deleteIcon = document.createElement("span");
     deleteIcon.textContent = "remove";
     deleteItemBtn.appendChild(deleteIcon);
+    /*テストのため一時的にコメントアウト
     deleteItemBtn.addEventListener("click",() => {
         deleteItemBtn(cardLower);
     });
+    */
     cardRow.appendChild(deleteItemBtn);
     //保存ボタンを押したときに変更した内容を更新するように仕様を変更する。
+}
+//itemFontSizeはitemの項目の文字の大きさを調整する関数である。
+function itemFontSize(/**@type {HTMLDivElement} */itemName){
+    const width = itemName.clientWidth;
+    const length = itemName.textContent.length;
+    let fontSize = width/length*1.8;
+    fontSize = Math.max(12,Math.min(fontSize,16));
+    itemName.style.fontSize = `${fontSize}px`;
 }
