@@ -17,6 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(SaveCheckListController.class)
 public class SaveCheckListControllerTest {
@@ -29,32 +30,16 @@ public class SaveCheckListControllerTest {
         try{
             SaveCheckListDTO dto = new SaveCheckListDTO();
             List<SaveItemsDTO> itemsDTO = new ArrayList<>();
-            createItemsDTO(
-                    itemsDTO,
-                    "1",
-                    "りんご",
-                    true
-            );
-            createItemsDTO(
-                    itemsDTO,
-                    "2",
-                    "みかん",
-                    false
-            );
-            createDTO(
-                    dto,
-                    "1",
-                    "買い物",
-                    itemsDTO,
-                    "2026",
-                    "1",
-                    "1"
-            );
             ArgumentCaptor<SaveCheckListDTO> captor =
                     ArgumentCaptor.forClass(SaveCheckListDTO.class);
             mvc.perform(post("/saveCheckListName")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .sessionAttr())
+                    .sessionAttr("userName","abcdefg")
+                    .content("""
+                            {
+                            }
+                            """))
+                            .andExpect(status().isOk());
             verify(service).updateColumns(captor.capture());
             SaveCheckListDTO argumentDTO = captor.getValue();
             argumentCheck(
