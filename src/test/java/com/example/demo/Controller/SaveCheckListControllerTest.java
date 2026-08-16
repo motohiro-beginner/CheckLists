@@ -28,8 +28,6 @@ public class SaveCheckListControllerTest {
     @Test
     void 問題なく更新できた場合(){
         try{
-            SaveCheckListDTO dto = new SaveCheckListDTO();
-            List<SaveItemsDTO> itemsDTO = new ArrayList<>();
             ArgumentCaptor<SaveCheckListDTO> captor =
                     ArgumentCaptor.forClass(SaveCheckListDTO.class);
             mvc.perform(post("/saveCheckListName")
@@ -38,16 +36,16 @@ public class SaveCheckListControllerTest {
                     .content("""
                             {
                              "checkListsId": "1",
-                             "CheckListName": "買い物",
+                             "checkListName": "買い物",
                              "items": [
                              {
                               "itemId": "1",
-                              "itemName": "りんご",
-                             　"isChecked": true
+                              "itemNames": "りんご",
+                              "isChecked": true
                              },
                             {
                              "itemId": "2",
-                             "itemName": "みかん",
+                             "itemNames": "みかん",
                              "isChecked": false
                             }
                             ],
@@ -80,6 +78,37 @@ public class SaveCheckListControllerTest {
                     "みかん",
                     false
             );
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    @Test
+    void セッション情報が消失していた場合(){
+        try {
+            mvc.perform(post("/saveCheckListName")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                             "checkListsId": "1",
+                             "checkListName": "買い物",
+                             "items": [
+                             {
+                              "itemId": "1",
+                              "itemNames": "りんご",
+                              "isChecked": true
+                             },
+                            {
+                             "itemId": "2",
+                             "itemNames": "みかん",
+                             "isChecked": false
+                            }
+                            ],
+                            "year": "2026",
+                            "month": "01",
+                            "day": "01"
+                            }
+                            """))
+                .andExpect(status().isUnauthorized());
         }catch(Exception e){
             e.printStackTrace();
         }
