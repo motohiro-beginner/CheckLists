@@ -23,7 +23,7 @@ public class SaveCheckListService {
     /*updateColumnsはユーザーが変更したチェックリスト名、日付、項目名、チェックがついているか否かの情報をデータベースに更新するためのメソッドである。*/
     public void updateColumns(SaveCheckListDTO dto){
         try {
-            //チェックリスト名、日付の情報をOneCheckListCheckListsEntityに代入して、repositoryを使ってDBに保存する。
+            //チェックリスト本体を保存する。
             OneCheckListCheckListsEntity checkList = new OneCheckListCheckListsEntity();
             /*テスト用コード
             System.out.println(dto.getCheckListsId());
@@ -35,13 +35,14 @@ public class SaveCheckListService {
             Integer checkListsId = Integer.parseInt(dto.getCheckListsId());
             checkList.setCheckListsId(checkListsId);
             checkList.setCheckListsName(dto.getCheckListName());
+            //DTOではStringで受け取った日付をLocalDateに変換する。
             Integer year = Integer.parseInt(dto.getYear());
             Integer month = Integer.parseInt(dto.getMonth());
             Integer day = Integer.parseInt(dto.getDay());
             LocalDate saveDate = LocalDate.of(year, month, day);
             checkList.setCreatedAt(saveDate);
             repository.save(checkList);
-            //各項目の、項目名、チェックがついているか否かの情報をOneCheckListItemsEntityに代入して、iRepositoryを使ってDBに保存する。
+            //チェックリストに含まれる各項目を保存する。
             for (SaveItemsDTO item : dto.getItems()) {
                 OneCheckListItemsEntity oneItem = new OneCheckListItemsEntity();
                 Integer itemId = Integer.parseInt(item.getItemId());
@@ -51,6 +52,7 @@ public class SaveCheckListService {
                 iRepository.save(oneItem);
             }
         }catch(DataAccessException e){
+            //Serviceクラスの例外をControllerクラスに伝播する。
             throw new RuntimeException("データの保存に失敗しました。");
         }
     }

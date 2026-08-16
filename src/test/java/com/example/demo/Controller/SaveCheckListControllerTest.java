@@ -37,6 +37,23 @@ public class SaveCheckListControllerTest {
                     .sessionAttr("userName","abcdefg")
                     .content("""
                             {
+                             "checkListsId": "1",
+                             "CheckListName": "買い物",
+                             "items": [
+                             {
+                              "itemId": "1",
+                              "itemName": "りんご",
+                             　"isChecked": true
+                             },
+                            {
+                             "itemId": "2",
+                             "itemName": "みかん",
+                             "isChecked": false
+                            }
+                            ],
+                            "year": "2026",
+                            "month": "01",
+                            "day": "01"
                             }
                             """))
                             .andExpect(status().isOk());
@@ -47,8 +64,8 @@ public class SaveCheckListControllerTest {
                     "1",
                     "買い物",
                     "2026",
-                    "1",
-                    "1"
+                    "01",
+                    "01"
             );
             List<SaveItemsDTO> items = argumentDTO.getItems();
             argumentCheck2(
