@@ -15,8 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(SaveCheckListController.class)
@@ -108,7 +111,44 @@ public class SaveCheckListControllerTest {
                             "day": "01"
                             }
                             """))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isUnauthorized())
+                    .andExpect(content().string("ユーザー名が消失したため、ログイン画面に戻りました。"));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    @Test
+    void 更新処理に失敗した場合(){
+        try{
+            doThrow(new RuntimeException("データの保存に失敗しました。"))
+                    .when(service)
+                    .updateColumns(any(SaveCheckListDTO.class));
+            mvc.perform(post("/saveCheckListName")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .sessionAttr("userName","abcdefg")
+                    .content("""
+                            {
+                             "checkListsId": "1",
+                             "checkListName": "買い物",
+                             "items": [
+                             {
+                              "itemId": "1",
+                              "itemNames": "りんご",
+                              "isChecked": true
+                             },
+                            {
+                             "itemId": "2",
+                             "itemNames": "みかん",
+                             "isChecked": false
+                            }
+                            ],
+                            "year": "2026",
+                            "month": "01",
+                            "day": "01"
+                            }
+                            """))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().string("データの保存に失敗しました。"));
         }catch(Exception e){
             e.printStackTrace();
         }

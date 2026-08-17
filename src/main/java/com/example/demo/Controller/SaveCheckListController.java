@@ -32,7 +32,7 @@ public class SaveCheckListController {
             }
         }catch(RuntimeException e){
             //Serviceクラスから例外が投げられたら、badRequestを返す。
-            return ResponseEntity.badRequest().body("更新処理に失敗しました。");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }
