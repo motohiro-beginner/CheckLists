@@ -1,6 +1,6 @@
 //@ts-check
-import { inputCheck } from "./inputCheckJs";
-import { element } from "./helperJs";
+import { inputCheck } from "./inputCheckJs.js";
+import { element } from "./helperJs.js";
 /**
  * @typedef { Object } items
  * @property {string} itemId,

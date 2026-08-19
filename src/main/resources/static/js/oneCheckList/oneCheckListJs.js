@@ -1,7 +1,8 @@
 //@ts-check
-import {element} from "./helperJs";
-import { displayCheckList } from "./displayCheckListJs";
-import { oneCheckListFakeFetch } from "../../test/oneCheckListFakeFetchJs";
+console.log("oneCheckListJs.js開始");
+import {element} from "./helperJs.js";
+import { displayCheckList } from "./displayCheckListJs.js";
+import { oneCheckListFakeFetch } from "../../test/oneCheckListFakeFetchJs.js";
 /**
  * @typedef {Object} OneCheckListViewDTO
  * @property {string} checkListsId,
@@ -18,8 +19,9 @@ import { oneCheckListFakeFetch } from "../../test/oneCheckListFakeFetchJs";
 const deleteBtn = element(document,"#deleteBtn",HTMLButtonElement);
 const backBtn = element(document,"#backBtn",HTMLButtonElement);
 async function oneCheckList(){
-    const id = window.location.pathname.split("/").pop();
+
     /*テストのため一時的にコメントアウトしている。
+    const id = window.location.pathname.split("/").pop();
     const response = await fetch(`showOneCheckList/${id}`, {
         method: "POST",
         headers: {
@@ -32,6 +34,7 @@ async function oneCheckList(){
     if(response.ok){
         /**@type {OneCheckListViewDTO} */
         const checkList = await response.json();
+        console.log(checkList);
         displayCheckList(checkList);
     }else if(response.status == 400){
         /**@type {string} */
@@ -41,3 +44,4 @@ async function oneCheckList(){
         throw new Error("Fetch通信の応答にてエラー発生");
     }
 }
+oneCheckList();

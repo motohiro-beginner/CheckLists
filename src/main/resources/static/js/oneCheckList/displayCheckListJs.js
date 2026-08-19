@@ -1,6 +1,6 @@
 //@ts-check
-import { saveCheckList } from "./saveCheckListJs";
-import { element } from "./helperJs";
+import { saveCheckList } from "./saveCheckListJs.js";
+import { element } from "./helperJs.js";
 /**
  * @typedef {Object} OneCheckListViewDTO
  * @property {string} checkListsId,
@@ -15,7 +15,7 @@ import { element } from "./helperJs";
  * @property {boolean} isChecked
  */
 const container = element(document,".cardContainer",HTMLDivElement);
-const keepBtn = element(document,"#keepBtn",HTMLDivElement);
+const keepBtn = element(document,"#keepBtn",HTMLButtonElement);
 const card = document.createElement("div");
 keepBtn.addEventListener("click",() => {
         //後でchangeCheckListName関数を作る予定
@@ -64,6 +64,7 @@ keepBtn.addEventListener("click",() => {
  */
 /** displayCheckListは画面上に一つのチェックリストを表示するための関数であり、チェックリストの構成を作成する。*/
 export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkList){
+    console.log("displayCheckList開始");
     card.classList.add("card");
     card.dataset.checkListsId = checkList.checkListsId;
     container.appendChild(card);
@@ -78,8 +79,10 @@ export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkLis
     //年月日の情報を分けて表示する。  チェックリスト内では□年□月□日といった風に表示する。
     const createdAt = document.createElement("div");
     createdAt.classList.add("createdAt");
+    cardUpper.appendChild(createdAt);
     const ymd = checkList.createdAt.split("/",3);
-
+    console.log(ymd);
+    
     const year = document.createElement("input");
     year.type = "text";
     year.value = ymd[0];
@@ -88,7 +91,7 @@ export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkLis
 
     const yearLabel = document.createElement("span");
     yearLabel.textContent = "年";
-    yearLabel.classList.add("dateLabel");
+    yearLabel.classList.add("yearDateLabel");
     createdAt.appendChild(yearLabel);
 
     const month = document.createElement("input");
@@ -99,7 +102,7 @@ export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkLis
 
     const monthLabel = document.createElement("span");
     monthLabel.textContent = "月";
-    monthLabel.classList.add("dateLabel");
+    monthLabel.classList.add("monthDateLabel");
     createdAt.appendChild(monthLabel);
 
     const day = document.createElement("input");
@@ -108,9 +111,9 @@ export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkLis
     day.classList.add("day");
     createdAt.appendChild(day);
 
-    const dayLabel = document.createElement("input");
+    const dayLabel = document.createElement("span");
     dayLabel.textContent = "日";
-    dayLabel.classList.add("dateLabel");
+    dayLabel.classList.add("dayDateLabel");
     createdAt.appendChild(dayLabel);
     checkListItems(checkList.items,card);
 }
@@ -153,6 +156,7 @@ function checkListItems(/**@type {OneItemsViewDTO[]} */items,/**@type {HTMLDivEl
     const deleteItemBtn = document.createElement("button");
     deleteItemBtn.classList.add("deleteItemBtn");
     const deleteIcon = document.createElement("span");
+    deleteIcon.classList.add("material-symbols-outlined");
     deleteIcon.textContent = "remove";
     deleteItemBtn.appendChild(deleteIcon);
     /*テストのため一時的にコメントアウト
