@@ -204,16 +204,19 @@
         margin-left: 10px;
     }
     #keepBtn {
+        background-color: white;
         border: none;
         padding: 15px 20px;
         margin: 10px;
     }
     #deleteBtn {
+        background-color: white;
         border: none;
         padding: 15px 20px;
         margin: 10px;
     }
     #backBtn {
+        background-color: white;
         border: none;
         padding: 15px 20px;
         margin: 10px;
@@ -275,11 +278,13 @@
         height: 30px;
     }
     .addItemBtn {
+        background-color: white;
         border: none;
         padding: 15px 20px;
         margin: 10px;
     }
     .deleteItemBtn {
+        background-color: white;
         border: none;
         padding: 15px 20px;
         margin: 10px;
