@@ -138,9 +138,10 @@ function checkListItems(/**@type {OneItemsViewDTO[]} */items,/**@type {HTMLDivEl
         isChecked.classList.add("itemCheckBox");
         cardRow.appendChild(isChecked);
     });
-    const cardRow = document.createElement("div");
-    cardRow.classList.add("cardRow");
-    cardLower.appendChild(cardRow);
+    //一番最後の行に追加アイコンと削除アイコンを追加する。
+    const lastRow = document.createElement("div");
+    lastRow.classList.add("lastRow");
+    cardLower.appendChild(lastRow);
     const addItemBtn = document.createElement("button");
     addItemBtn.classList.add("addItemBtn");
     const addIcon = document.createElement("span");
@@ -152,7 +153,7 @@ function checkListItems(/**@type {OneItemsViewDTO[]} */items,/**@type {HTMLDivEl
         addItem(cardLower);
     });
     */
-    cardRow.appendChild(addItemBtn);
+    lastRow.appendChild(addItemBtn);
     const deleteItemBtn = document.createElement("button");
     deleteItemBtn.classList.add("deleteItemBtn");
     const deleteIcon = document.createElement("span");
@@ -164,7 +165,7 @@ function checkListItems(/**@type {OneItemsViewDTO[]} */items,/**@type {HTMLDivEl
         deleteItemBtn(cardLower);
     });
     */
-    cardRow.appendChild(deleteItemBtn);
+    lastRow.appendChild(deleteItemBtn);
     //保存ボタンを押したときに変更した内容を更新するように仕様を変更する。
 }
 //itemFontSizeはitemの項目の文字の大きさを調整する関数である。

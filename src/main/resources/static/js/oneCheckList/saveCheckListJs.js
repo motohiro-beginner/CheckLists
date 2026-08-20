@@ -10,7 +10,7 @@ import { element } from "./helperJs.js";
 /**changeCheckListNameはチェックリスト名が変更されたとき、変更された名前をバックエンド側に送るための関数である。 */
 export async function saveCheckList(/**@type {HTMLDivElement} */card){
     const checkListsId = card.dataset.checkListsId;
-    const checkListName = element(card,".checkListName",HTMLButtonElement).value;
+    const checkListName = element(card,".checkListName",HTMLInputElement).value;
     const year = element(card,".year",HTMLInputElement).value;
     const month = element(card,".month",HTMLInputElement).value;
     const day = element(card,".day",HTMLInputElement).value;
@@ -25,7 +25,7 @@ export async function saveCheckList(/**@type {HTMLDivElement} */card){
         }
         const id = /**@type {string}*/(row.dataset.itemId);
         const name = element(row,".itemNames",HTMLInputElement).value;
-        const  isChecked = element(row,".isChecked",HTMLInputElement).checked;
+        const  isChecked = element(row,".itemCheckBox",HTMLInputElement).checked;
         items.push({
             itemId: id,
             itemNames: name,
