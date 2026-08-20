@@ -19,4 +19,5 @@ public interface OneCheckListRepository extends JpaRepository<OneCheckListCheckL
            WHERE c.checkListsId = :checkListsId
            """)
     List<OneCheckListDTO> findOneCheckList(@Param("checkListsId") Integer checkListsId);
+    Integer deleteByCheckListsId(Integer id);
 }
