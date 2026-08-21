@@ -13,4 +13,16 @@ public class OneCheckListViewDTO {
         this.items = List.copyOf(items);
         this.createdAt = createdAt;
     }
+    public String getCheckListId(){
+        return checkListId;
+    }
+    public String getCheckListName(){
+        return checkListName;
+    }
+    public List<OneItemsViewDTO> getItems(){
+        return List.copyOf(items);
+    }
+    public String getCreatedAt(){
+        return createdAt;
+    }
 }

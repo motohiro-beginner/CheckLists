@@ -9,4 +9,13 @@ public class OneItemsViewDTO {
         this.itemName = itemName;
         this.isChecked = isChecked;
     }
+    public String getItemId(){
+        return itemId;
+    }
+    public String getItemName(){
+        return itemName;
+    }
+    public boolean getIsChecked(){
+        return isChecked;
+    }
 }

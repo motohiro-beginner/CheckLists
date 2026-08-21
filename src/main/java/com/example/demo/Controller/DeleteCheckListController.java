@@ -16,15 +16,21 @@ public class DeleteCheckListController {
     public DeleteCheckListController(DeleteCheckListService service){
         this.service = service;
     }
+    //deleteCheckListはチェックリストidをfetch通信で受け取り、そのidに一致するチェックリストの情報を削除するメソッドである。
     @PostMapping("/deleteCheckList")
     public ResponseEntity<?> deleteCheckList(
             @Valid @RequestBody DeleteCheckListDTO dto,
             HttpSession session
     ){
-       if(session != null && session.getAttribute("userName") != null){
-
-       }else{
-           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ユーザー名が消失したためログイン画面に戻りました。");
-       }
+        try {
+            if (session != null && session.getAttribute("userName") != null) {
+                service.deleteCheckList(dto.getCheckListsId());
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ユーザー名が消失したためログイン画面に戻りました。");
+            }
+        }catch(RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
