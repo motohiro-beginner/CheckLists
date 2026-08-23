@@ -32,8 +32,8 @@ public class OneCheckListService {
     *                              itemName "イチゴ"
     *                              isChecked false
     * */
-    public OneCheckListViewDTO findOneCheckList(Integer checkListId){
-        List<OneCheckListDTO> dto = repository.findOneCheckList(checkListId);
+    public OneCheckListViewDTO findOneCheckList(Integer checkListsId){
+        List<OneCheckListDTO> dto = repository.findOneCheckList(checkListsId);
         //dto.get(0)はよく使うので、変数に代入している。
         OneCheckListDTO one = dto.get(0);
         List<OneItemsViewDTO> items = new ArrayList<>();
