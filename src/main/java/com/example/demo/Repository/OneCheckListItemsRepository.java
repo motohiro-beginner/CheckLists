@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OneCheckListItemsRepository extends JpaRepository<OneCheckListItemsEntity,Integer> {
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("DELETE FROM OneCheckListItemsEntity o WHERE o.checkList.checkListsId = :id")
     Integer deleteItems(@Param("id") Integer id);
 }

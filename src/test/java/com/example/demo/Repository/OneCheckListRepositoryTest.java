@@ -4,6 +4,7 @@ import com.example.demo.DTO.OneCheckListDTO;
 import com.example.demo.Entity.OneCheckListCheckListsEntity;
 import com.example.demo.Entity.OneCheckListItemsEntity;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -44,6 +45,19 @@ public class OneCheckListRepositoryTest {
         iRepository.save(createItemsEntity(checkList2,"数学",false));
         List<OneCheckListDTO> result = repository.findOneCheckList(5);
         assertEquals(List.of(),result);
+    }
+    @Test
+    void deleteByCheckListsIdのテスト(){
+        OneCheckListCheckListsEntity checkList = createCheckListsEntity("買い物",LocalDate.of(2026,1,1));
+        repository.save(checkList);
+        iRepository.save(createItemsEntity(checkList,"りんご",true));
+        iRepository.save(createItemsEntity(checkList,"みかん",false));
+        OneCheckListCheckListsEntity checkList2 = createCheckListsEntity("勉強",LocalDate.of(2026,1,2));
+        repository.save(checkList2);
+        iRepository.save(createItemsEntity(checkList2,"国語",true));
+        iRepository.save(createItemsEntity(checkList2,"数学",false));
+        Integer result = repository.deleteByCheckListsId(checkList2.getCheckListsId());
+        assertEquals(1,result);
     }
     private OneCheckListCheckListsEntity createCheckListsEntity(String checkListsName, LocalDate createdAt){
         OneCheckListCheckListsEntity checkList = new OneCheckListCheckListsEntity();
