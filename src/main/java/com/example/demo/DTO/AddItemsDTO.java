@@ -13,4 +13,7 @@ public class AddItemsDTO {
     public boolean getIsChecked(){
         return isChecked;
     }
+    public void setIsChecked(boolean isChecked){
+        this.isChecked = isChecked;
+    }
 }
