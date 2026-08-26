@@ -37,6 +37,7 @@ export async function saveCheckList(/**@type {HTMLDivElement} */card){
         alert(input.caution.join("/n"));
         return;
     }
+    /*テストのためのコード
     console.log(checkListsId);
     console.log(checkListName);
     console.log(year);
@@ -46,7 +47,7 @@ export async function saveCheckList(/**@type {HTMLDivElement} */card){
         console.log(item.itemId);
         console.log(item.itemNames);
         console.log(item.isChecked);
-    })
+    })*/
     /*テストのため一時的にコメントアウトしている。
     const response = await fetch("/saveCheckList",{
         method: "POST",

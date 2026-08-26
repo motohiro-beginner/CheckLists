@@ -16,8 +16,6 @@ import { oneCheckListFakeFetch } from "../../test/oneCheckListFakeFetchJs.js";
  * @property {string} itemNames,
  * @property {boolean} isChecked
  */
-const deleteBtn = element(document,"#deleteBtn",HTMLButtonElement);
-const backBtn = element(document,"#backBtn",HTMLButtonElement);
 async function oneCheckList(){
 
     /*テストのため一時的にコメントアウトしている。

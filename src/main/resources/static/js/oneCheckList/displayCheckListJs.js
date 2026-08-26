@@ -16,9 +16,16 @@ import { element } from "./helperJs.js";
  */
 const container = element(document,".cardContainer",HTMLDivElement);
 const keepBtn = element(document,"#keepBtn",HTMLButtonElement);
+const deleteBtn = element(document,"#deleteBtn",HTMLButtonElement);
+const backBtn = element(document,"#backBtn",HTMLButtonElement);
+deleteBtn.addEventListener("click",() => {
+    deleteCheckList(card);
+});
+backBtn.addEventListener("click",() => {
+    //後でback関数を作る予定
+})
 const card = document.createElement("div");
 keepBtn.addEventListener("click",() => {
-        //後でchangeCheckListName関数を作る予定
         saveCheckList(card);
     });
 /**
@@ -64,7 +71,7 @@ keepBtn.addEventListener("click",() => {
  */
 /** displayCheckListは画面上に一つのチェックリストを表示するための関数であり、チェックリストの構成を作成する。*/
 export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkList){
-    console.log("displayCheckList開始");
+    //console.log("displayCheckList開始");
     card.classList.add("card");
     card.dataset.checkListsId = checkList.checkListsId;
     container.appendChild(card);
@@ -81,7 +88,7 @@ export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkLis
     createdAt.classList.add("createdAt");
     cardUpper.appendChild(createdAt);
     const ymd = checkList.createdAt.split("/",3);
-    console.log(ymd);
+    //console.log(ymd);
     
     const year = document.createElement("input");
     year.type = "text";
