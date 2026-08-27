@@ -1,11 +1,16 @@
 //@ts-check
 import { inputCheck } from "./inputCheckJs.js";
-import { element } from "./helperJs.js";
+import { element,allElement } from "./helperJs.js";
 /**
  * @typedef { Object } items
- * @property {string} itemId,
- * @property {string} itemNames,
- * @property {boolean} isChecked
+ * @property { string } itemId,
+ * @property { string } itemNames,
+ * @property { boolean } isChecked
+ */
+/**
+ * @typedef { Object } newItems
+ * @property { string } itemNames,
+ * @property { boolean } isChecked
  */
 /**changeCheckListNameはチェックリスト名が変更されたとき、変更された名前をバックエンド側に送るための関数である。 */
 export async function saveCheckList(/**@type {HTMLDivElement} */card){
@@ -14,30 +19,37 @@ export async function saveCheckList(/**@type {HTMLDivElement} */card){
     const year = element(card,".year",HTMLInputElement).value;
     const month = element(card,".month",HTMLInputElement).value;
     const day = element(card,".day",HTMLInputElement).value;
-    const cardRow = card.querySelectorAll(".cardRow");
+    const cardRow = allElement(card,".cardRow",HTMLDivElement);
     let items = 
     /**@type {items[]} */
     ([]);
     cardRow.forEach(row => {
-        //警告をなくすためにチェックをしている。
-        if(!(row instanceof HTMLDivElement)){
-            throw new Error("rowの型が一致しません。");
-        }
         const id = /**@type {string}*/(row.dataset.itemId);
         const name = element(row,".itemNames",HTMLInputElement).value;
-        const  isChecked = element(row,".itemCheckBox",HTMLInputElement).checked;
+        const isChecked = element(row,".itemCheckBox",HTMLInputElement).checked;
         items.push({
             itemId: id,
             itemNames: name,
             isChecked: isChecked
         });
     });
-    const input = inputCheck(checkListName,year,month,day,items);
+    const newCardRow = allElement(card,".newCardRow",HTMLDivElement);
+    let newItems =
+    /**@type {newItems[]} */
+    ([]);
+    newCardRow.forEach(row => {
+        const name = element(row,".itemNames",HTMLInputElement).value;
+        const isChecked = element(row,".itemCheckBox",HTMLInputElement).checked;
+        newItems.push({
+            itemNames: name,
+            isChecked: isChecked
+        });
+    });
+    const input = inputCheck(checkListName,year,month,day,items,newItems);
     if(input.problem){
         alert(input.caution.join("/n"));
         return;
     }
-    /*テストのためのコード
     console.log(checkListsId);
     console.log(checkListName);
     console.log(year);
@@ -47,7 +59,11 @@ export async function saveCheckList(/**@type {HTMLDivElement} */card){
         console.log(item.itemId);
         console.log(item.itemNames);
         console.log(item.isChecked);
-    })*/
+    })
+    newItems.forEach(item => {
+        console.log(item.itemNames);
+        console.log(item.isChecked);
+    })
     /*テストのため一時的にコメントアウトしている。
     const response = await fetch("/saveCheckList",{
         method: "POST",
@@ -58,6 +74,7 @@ export async function saveCheckList(/**@type {HTMLDivElement} */card){
             checkListsId,
             checkListName,
             items,
+            newItems,
             year,
             month,
             day

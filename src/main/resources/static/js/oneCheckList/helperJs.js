@@ -15,3 +15,20 @@ export function element(parent,selector,type){
     }
     return element;
 }
+/**
+ * @template {Element} T
+ * @param {ParentNode} parent
+ * @param {string} selector
+ * @param {new (...args:any[]) => T} type
+ * @returns {NodeListOf<T>} 
+ */
+//elementのquerySelectorAll版
+export function allElement(parent,selector,type){
+    const allElement = parent.querySelectorAll(selector);
+    allElement.forEach(element => {
+        if(!(element instanceof type)){
+        throw new Error(`${selector}の型が一致しません。`);
+      }
+    });
+    return /** @type {NodeListOf<T>} */(allElement);
+}

@@ -11,6 +11,7 @@ public class SaveCheckListDTO {
     private String checkListsId;
     private String checkListName;
     private List<SaveItemsDTO> items;
+    private List<NewItemsDTO> newItems;
     private String year;
     private String month;
     private String day;
@@ -33,6 +34,12 @@ public class SaveCheckListDTO {
     }
     public void setItems(List<SaveItemsDTO> items){
         this.items = items;
+    }
+    public List<NewItemsDTO> getNewItems(){
+        return newItems;
+    }
+    public void setNewItems(List<NewItemsDTO> newItems){
+        this.newItems = newItems;
     }
     public String getYear(){
         return year;

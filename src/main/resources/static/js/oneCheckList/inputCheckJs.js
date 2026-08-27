@@ -5,8 +5,13 @@
  * @property {string} itemNames,
  * @property {boolean} isChecked
  */
+/**
+ * @typedef {Object} newItems
+ * @property {string} itemNames,
+ * @property {boolean} isChecked
+ */
 //inputCheckは入力されたチェックリスト名、日付、項目に関するデータに問題がないかをチェックするための関数である。
-export function inputCheck(/**@type {string}*/checkListName,/**@type {string} */year,/**@type {string}*/month,/**@type {string}*/day,/**@type {items[]} */items){
+export function inputCheck(/**@type {string}*/checkListName,/**@type {string} */year,/**@type {string}*/month,/**@type {string}*/day,/**@type {items[]} */items,/**@type {newItems[]} */newItems){
     let caution = [];
     let problem = false;
     //チェックリストの名前が記入されているかを確かめる。
@@ -46,6 +51,13 @@ export function inputCheck(/**@type {string}*/checkListName,/**@type {string} */
         problem = true;
     }
     for(const item of items){
+        if(item.itemNames.trim() === ""){
+        caution.push("入力されていない項目があります。");
+        problem = true;
+        break;
+    }
+    };
+    for(const item of newItems){
         if(item.itemNames.trim() === ""){
         caution.push("入力されていない項目があります。");
         problem = true;
