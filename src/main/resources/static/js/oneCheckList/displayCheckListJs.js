@@ -1,5 +1,7 @@
 //@ts-check
 import { saveCheckList } from "./saveCheckListJs.js";
+import { deleteCheckList } from "./deleteCheckListJs.js";
+import { addItem } from "./addItemJs.js";
 import { element } from "./helperJs.js";
 /**
  * @typedef {Object} OneCheckListViewDTO
@@ -155,11 +157,9 @@ function checkListItems(/**@type {OneItemsViewDTO[]} */items,/**@type {HTMLDivEl
     addIcon.classList.add("material-symbols-outlined");
     addIcon.textContent = "add";
     addItemBtn.appendChild(addIcon);
-    /*テストのため一時的にコメントアウト
     addItemBtn.addEventListener("click",() => {
         addItem(cardLower);
     });
-    */
     lastRow.appendChild(addItemBtn);
     const deleteItemBtn = document.createElement("button");
     deleteItemBtn.classList.add("deleteItemBtn");
