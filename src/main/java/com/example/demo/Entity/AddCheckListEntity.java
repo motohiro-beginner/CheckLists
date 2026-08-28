@@ -3,6 +3,7 @@ package com.example.demo.Entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name= "check_lists")
@@ -36,5 +37,11 @@ public class AddCheckListEntity {
     }
     public void setCreatedAt(LocalDate createdAt){
         this.createdAt = createdAt;
+    }
+    public AddUserEntity getUserEntity(){
+        return user;
+    }
+    public void setUserEntity(AddUserEntity user) {
+        this.user = user;
     }
 }

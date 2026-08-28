@@ -24,12 +24,13 @@ public class AddCheckListController {
     ){
         try {
             if (session != null && session.getAttribute("userName") != null) {
-                service.addCheckList(dto);
+                service.addCheckList((String)session.getAttribute("userName"),dto);
+                return ResponseEntity.ok().build();
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ユーザー名が消失したたえ、ログイン画面に戻りました。");
             }
         }catch(RuntimeException e){
-            return ResponseEntity.badRequest().body("チェックリスト新規作成処理に失敗しました。");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }
