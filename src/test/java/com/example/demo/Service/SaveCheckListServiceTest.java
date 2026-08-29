@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.DTO.NewItemsDTO;
 import com.example.demo.DTO.SaveCheckListDTO;
 import com.example.demo.DTO.SaveItemsDTO;
 import com.example.demo.Entity.OneCheckListCheckListsEntity;
@@ -122,6 +123,12 @@ public class SaveCheckListServiceTest {
         SaveItemsDTO items = new SaveItemsDTO();
         items.setItemId(itemId);
         items.setItemNames(itemNames);
+        items.setIsChecked(isChecked);
+        dto.add(items);
+    }
+    private void createNewItemsDTO(List<NewItemsDTO> dto, String itemNames, boolean isChecked){
+        NewItemsDTO items = new NewItemsDTO();
+        items.setItemName(itemNames);
         items.setIsChecked(isChecked);
         dto.add(items);
     }

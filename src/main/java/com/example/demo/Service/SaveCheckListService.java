@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.DTO.NewItemsDTO;
 import com.example.demo.DTO.OneItemsViewDTO;
 import com.example.demo.DTO.SaveCheckListDTO;
 import com.example.demo.DTO.SaveItemsDTO;
@@ -50,6 +51,12 @@ public class SaveCheckListService {
                 oneItem.setItemName(item.getItemNames());
                 oneItem.setIsChecked(item.getIsChecked());
                 iRepository.save(oneItem);
+            }
+            for(NewItemsDTO item:dto.getNewItems()){
+                OneCheckListItemsEntity newItem = new OneCheckListItemsEntity();
+                newItem.setItemName(item.getItemName());
+                newItem.setIsChecked(item.getIsChecked());
+                iRepository.save(newItem);
             }
         }catch(DataAccessException e){
             //Serviceクラスの例外をControllerクラスに伝播する。
