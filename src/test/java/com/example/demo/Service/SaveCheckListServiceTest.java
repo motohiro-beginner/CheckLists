@@ -37,11 +37,14 @@ public class SaveCheckListServiceTest {
         List<SaveItemsDTO> itemDTO = new ArrayList<>();
         createItemsDTO(itemDTO,"1","リンゴ",true);
         createItemsDTO(itemDTO,"2","みかん",false);
+        List<NewItemsDTO> newItems = new ArrayList<>();
+        createNewItemsDTO(newItems,"いちご",true);
         createDTO(
                 dto,
                 "1",
                 "買い物",
                 itemDTO,
+                newItems,
                 "2026",
                 "1",
                 "1"
@@ -52,7 +55,7 @@ public class SaveCheckListServiceTest {
                 ArgumentCaptor.forClass(OneCheckListItemsEntity.class);
         service.updateColumns(dto);
         verify(repository).save(captor.capture());
-        verify(iRepository,times(2)).save(captor2.capture());
+        verify(iRepository,times(3)).save(captor2.capture());
         entityCheck(
                 captor.getValue(),
                 1,
@@ -71,6 +74,9 @@ public class SaveCheckListServiceTest {
                 "みかん",
                 false
         );
+        entityCheck3(values.get(2),
+                "いちご",
+                true);
     }
     @Test
     void 例外が発生した場合(){
@@ -88,11 +94,18 @@ public class SaveCheckListServiceTest {
                 "みかん",
                 false
         );
+        List<NewItemsDTO> newItemDTO = new ArrayList<>();
+        createNewItemsDTO(
+                newItemDTO,
+                "いちご",
+                true
+        );
         createDTO(
                 dto,
                 "1",
                 "買い物",
                 itemDTO,
+                newItemDTO,
                 "2026",
                 "1",
                 "1"
@@ -111,10 +124,11 @@ public class SaveCheckListServiceTest {
         );
         errorCheck(exception);
     }
-    private void createDTO(SaveCheckListDTO dto, String checkListsId, String checkListName, List<SaveItemsDTO> items,String year,String month,String day){
+    private void createDTO(SaveCheckListDTO dto, String checkListsId, String checkListName, List<SaveItemsDTO> items,List<NewItemsDTO> newItems,String year,String month,String day){
         dto.setCheckListsId(checkListsId);
         dto.setCheckListName(checkListName);
         dto.setItems(items);
+        dto.setNewItems(newItems);
         dto.setYear(year);
         dto.setMonth(month);
         dto.setDay(day);
@@ -139,6 +153,10 @@ public class SaveCheckListServiceTest {
     }
     private void entityCheck2(OneCheckListItemsEntity value,Integer itemId,String itemName,boolean isChecked){
         assertEquals(itemId,value.getItemId());
+        assertEquals(itemName,value.getItemName());
+        assertEquals(isChecked,value.getIsChecked());
+    }
+    private void entityCheck3(OneCheckListItemsEntity value,String itemName,boolean isChecked){
         assertEquals(itemName,value.getItemName());
         assertEquals(isChecked,value.getIsChecked());
     }

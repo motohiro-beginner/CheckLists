@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.DTO.NewItemsDTO;
 import com.example.demo.DTO.SaveCheckListDTO;
 import com.example.demo.DTO.SaveItemsDTO;
 import com.example.demo.Service.SaveCheckListService;
@@ -52,6 +53,12 @@ public class SaveCheckListControllerTest {
                              "isChecked": false
                             }
                             ],
+                            "newItems": [
+                            {
+                            "itemName": "いちご",
+                            "isChecked": true
+                            }
+                            ],
                             "year": "2026",
                             "month": "01",
                             "day": "01"
@@ -81,6 +88,12 @@ public class SaveCheckListControllerTest {
                     "みかん",
                     false
             );
+            List<NewItemsDTO> newItems = argumentDTO.getNewItems();
+            argumentCheck3(
+                    newItems.get(0),
+                    "いちご",
+                    true
+            );
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -104,6 +117,12 @@ public class SaveCheckListControllerTest {
                              "itemId": "2",
                              "itemNames": "みかん",
                              "isChecked": false
+                            }
+                            ],
+                            "newItems": [
+                            {
+                            "itemName": "いちご",
+                            "isChecked": true
                             }
                             ],
                             "year": "2026",
@@ -140,6 +159,12 @@ public class SaveCheckListControllerTest {
                              "itemId": "2",
                              "itemNames": "みかん",
                              "isChecked": false
+                            }
+                            ],
+                            "newItems": [
+                            {
+                            "itemName": "いちご",
+                            "isChecked": true
                             }
                             ],
                             "year": "2026",
@@ -180,6 +205,10 @@ public class SaveCheckListControllerTest {
     private void argumentCheck2(SaveItemsDTO dto,String itemId,String itemNames,boolean isChecked){
         assertEquals(itemId,dto.getItemId());
         assertEquals(itemNames,dto.getItemNames());
+        assertEquals(isChecked,dto.getIsChecked());
+    }
+    private void argumentCheck3(NewItemsDTO dto,String itemName,boolean isChecked){
+        assertEquals(itemName,dto.getItemName());
         assertEquals(isChecked,dto.getIsChecked());
     }
 }
