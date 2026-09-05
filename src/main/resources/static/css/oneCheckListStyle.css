@@ -227,7 +227,9 @@
     #deleteBtn .material-symbols-outlined,
     #backBtn .material-symbols-outlined,
     .addItemBtn .material-symbols-outlined,
-    .deleteItemBtn .material-symbols-outlined {
+    .deleteItemBtn .material-symbols-outlined,
+    .closeBtn .material-symbols-outlined,
+    .cancelBtn .material-symbols-outlined {
         font-size: 40px;
     }
     .card {
@@ -311,7 +313,9 @@
         border-bottom: 2px solid #d3d3d3;
     }
     .addItemBtn,
-    .deleteItemBtn {
+    .deleteItemBtn,
+    .closeBtn,
+    .cancelBtn {
         background-color: #f5f5f5;
         border: none;
     }

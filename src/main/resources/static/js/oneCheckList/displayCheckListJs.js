@@ -2,6 +2,7 @@
 import { saveCheckList } from "./saveCheckListJs.js";
 import { deleteCheckList } from "./deleteCheckListJs.js";
 import { addItem } from "./addItemJs.js";
+import { deleteItem } from "./deleteItemJs.js";
 import { element } from "./helperJs.js";
 /**
  * @typedef {Object} OneCheckListViewDTO
@@ -38,6 +39,7 @@ keepBtn.addEventListener("click",() => {
  * 　　　　　　　　　|項目　　　　　□|
  * 　　　　　　　　　|項目　　　　　□|
  * 　　　　　　　　　|項目　　　　　□|
+ * 　　　　　　　　　|     + -      |
  * 　　　　　　　　　ーーーーーーーーー
  * 
  * cardContainerタグの中は下のような構成にする。
@@ -62,14 +64,19 @@ keepBtn.addEventListener("click",() => {
  *                     ・
  * 　　　　　　　　　　　・
  * 　　　　　　　　　　　・
- *     <button>
+ *     <button class="addItemBtn">
  *       <span class="material-symbols-outlined">add</span>
- *     <button>
+ *     </button>
+ *     <button class="deleteItemBtn">
+ *       <span class="material-symbols-outlined">remove</span>
+ *     </button>
  *   </div>
  * </div>
  * </div>
  * チェックリスト名及び日付及び項目名のところはテキストボックスとなっており文字を入力して変更することができる。
  * チェックボックスをクリックしてチェックがついている状態にすることができる。
+ * addボタンを押すと新たな項目が追加される。
+ * deleteボタンを押すと項目の左にcloseボタンが追加され、それを押すと項目を削除できる。
  */
 /** displayCheckListは画面上に一つのチェックリストを表示するための関数であり、チェックリストの構成を作成する。*/
 export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkList){
@@ -167,11 +174,9 @@ function checkListItems(/**@type {OneItemsViewDTO[]} */items,/**@type {HTMLDivEl
     deleteIcon.classList.add("material-symbols-outlined");
     deleteIcon.textContent = "remove";
     deleteItemBtn.appendChild(deleteIcon);
-    /*テストのため一時的にコメントアウト
     deleteItemBtn.addEventListener("click",() => {
-        deleteItemBtn(cardLower);
+        deleteItem(cardLower);
     });
-    */
     lastRow.appendChild(deleteItemBtn);
     //保存ボタンを押したときに変更した内容を更新するように仕様を変更する。
 }
