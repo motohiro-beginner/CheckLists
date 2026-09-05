@@ -1,9 +1,6 @@
 package com.example.demo.Service;
 
-import com.example.demo.DTO.NewItemsDTO;
-import com.example.demo.DTO.OneItemsViewDTO;
-import com.example.demo.DTO.SaveCheckListDTO;
-import com.example.demo.DTO.SaveItemsDTO;
+import com.example.demo.DTO.*;
 import com.example.demo.Entity.OneCheckListCheckListsEntity;
 import com.example.demo.Entity.OneCheckListItemsEntity;
 import com.example.demo.Repository.OneCheckListItemsRepository;
@@ -12,6 +9,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SaveCheckListService {
@@ -57,6 +56,18 @@ public class SaveCheckListService {
                 newItem.setItemName(item.getItemName());
                 newItem.setIsChecked(item.getIsChecked());
                 iRepository.save(newItem);
+            }
+            //データベースに保存されているとある項目の情報がdtoの中に無かった場合、その項目を削除する。
+            //具体的にはデータベースから取得したitemIdとdtoの中のitemIdを突き合わせる。
+            List<Integer> oldItems = iRepository.findItemIdByCheckListsId(Integer.parseInt(dto.getCheckListsId()));
+            List<Integer> someItemId = new ArrayList<>();
+            for(SaveItemsDTO saveDTO:dto.getItems()){
+                someItemId.add(Integer.parseInt(saveDTO.getItemId()));
+            }
+            for(Integer oldItem:oldItems){
+                if(!someItemId.contains(oldItem)){
+                    iRepository.deleteItemsByItemId(oldItem);
+                }
             }
         }catch(DataAccessException e){
             //Serviceクラスの例外をControllerクラスに伝播する。

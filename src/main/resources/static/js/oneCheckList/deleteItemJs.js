@@ -17,6 +17,16 @@ export function deleteItem(/**@type { HTMLDivElement } */cardLower){
             deleteRow(/**@type { HTMLDivElement }*/(row));
         });
     });
+    const newCardRow = allElement(cardLower,".newCardRow",HTMLDivElement);
+    newCardRow.forEach(row => {
+        const closeBtn = document.createElement("button");
+        closeBtn.classList.add("closeBtn");
+        const closeIcon = document.createElement("span");
+        closeIcon.classList.add("material-symbols-outlined");
+        closeIcon.textContent = "close";
+        closeBtn.appendChild(closeIcon);
+        row.prepend(closeBtn);
+    })
     const lastRow = element(cardLower,".lastRow",HTMLDivElement);
     const cancelBtn = document.createElement("button");
     cancelBtn.classList.add("cancelBtn");
@@ -25,10 +35,21 @@ export function deleteItem(/**@type { HTMLDivElement } */cardLower){
     cancelIcon.textContent = "cancel";
     cancelBtn.appendChild(cancelIcon);
     lastRow.appendChild(cancelBtn);
+    cancelBtn.addEventListener("click",() => {
+        cancelDelete(cardLower);
+    });
 }
 /**deleteRowはクリックされたcloseアイコンに対応する項目を削除するメソッドである。
  */
 function deleteRow(/**@type { HTMLDivElement } */cardRow){
     cardRow.remove();
-
+}
+function cancelDelete(/**@type { HTMLDivElement } */cardLower){
+    const cardRow = allElement(cardLower,".cardRow",HTMLDivElement);
+    cardRow.forEach(row => {
+        const closeBtn = element(row,".closeBtn",HTMLButtonElement);
+        closeBtn.remove();
+    });
+    const cancelBtn = element(cardLower,".cancelBtn",HTMLButtonElement);
+    cancelBtn.remove();
 }
