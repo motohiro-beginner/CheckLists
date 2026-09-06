@@ -53,9 +53,14 @@ public class SaveCheckListServiceTest {
                 ArgumentCaptor.forClass(OneCheckListCheckListsEntity.class);
         ArgumentCaptor<OneCheckListItemsEntity> captor2 =
                 ArgumentCaptor.forClass(OneCheckListItemsEntity.class);
+        ArgumentCaptor<Integer> captor3 =
+                ArgumentCaptor.forClass(Integer.class);
+        when(iRepository.findItemIdByCheckListsId(1))
+                .thenReturn(List.of(1,2,3,4));
         service.updateColumns(dto);
         verify(repository).save(captor.capture());
         verify(iRepository,times(3)).save(captor2.capture());
+        verify(iRepository,times(2)).deleteItemsByItemId(captor3.capture());
         entityCheck(
                 captor.getValue(),
                 1,
@@ -77,6 +82,8 @@ public class SaveCheckListServiceTest {
         entityCheck3(values.get(2),
                 "いちご",
                 true);
+        List<Integer> someItemId = captor3.getAllValues();
+        entityCheck4(someItemId,List.of(3,4));
     }
     @Test
     void 例外が発生した場合(){
@@ -159,6 +166,11 @@ public class SaveCheckListServiceTest {
     private void entityCheck3(OneCheckListItemsEntity value,String itemName,boolean isChecked){
         assertEquals(itemName,value.getItemName());
         assertEquals(isChecked,value.getIsChecked());
+    }
+    private void entityCheck4(List<Integer> someItemId,List<Integer> someCorrectItemId2){
+        for(int i=0;i<someItemId.size();i++){
+            assertEquals(someItemId.get(i),someCorrectItemId2.get(i));
+        }
     }
     private void errorCheck(RuntimeException e){
         assertEquals("データの保存に失敗しました。",e.getMessage());

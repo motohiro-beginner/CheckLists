@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,6 +41,48 @@ public class OneCheckListItemsRepositoryTest {
         afterExistCheck(items3);
         afterExistCheck(items4);
     }
+    @Test
+    void findItemIdByCheckListsIdのテスト(){
+        OneCheckListCheckListsEntity checkList = new OneCheckListCheckListsEntity();
+        saveCheckListsEntity(checkList,"買い物",LocalDate.of(2026,1,1));
+        OneCheckListItemsEntity items = new OneCheckListItemsEntity();
+        saveItemsEntity(items,"りんご",true,checkList);
+        OneCheckListItemsEntity items2 = new OneCheckListItemsEntity();
+        saveItemsEntity(items2,"みかん",false,checkList);
+        OneCheckListCheckListsEntity checkList2 = new OneCheckListCheckListsEntity();
+        saveCheckListsEntity(checkList2,"勉強",LocalDate.of(2026,1,2));
+        OneCheckListItemsEntity items3 = new OneCheckListItemsEntity();
+        saveItemsEntity(items3,"数学",true,checkList2);
+        OneCheckListItemsEntity items4 = new OneCheckListItemsEntity();
+        saveItemsEntity(items4,"国語",false,checkList2);
+        List<Integer> result = iRepository.findItemIdByCheckListsId(checkList.getCheckListsId());
+        findCheck(result,List.of(items.getItemId(),items2.getItemId()));
+    }
+    @Test
+    void deleteItemsByItemIdのテスト(){
+        OneCheckListCheckListsEntity checkList = new OneCheckListCheckListsEntity();
+        saveCheckListsEntity(checkList,"買い物",LocalDate.of(2026,1,1));
+        OneCheckListItemsEntity items = new OneCheckListItemsEntity();
+        saveItemsEntity(items,"りんご",true,checkList);
+        OneCheckListItemsEntity items2 = new OneCheckListItemsEntity();
+        saveItemsEntity(items2,"みかん",false,checkList);
+        OneCheckListCheckListsEntity checkList2 = new OneCheckListCheckListsEntity();
+        saveCheckListsEntity(checkList2,"勉強",LocalDate.of(2026,1,2));
+        OneCheckListItemsEntity items3 = new OneCheckListItemsEntity();
+        saveItemsEntity(items3,"数学",true,checkList2);
+        OneCheckListItemsEntity items4 = new OneCheckListItemsEntity();
+        saveItemsEntity(items4,"国語",false,checkList2);
+        beforeCheck(items);
+        beforeCheck(items2);
+        beforeCheck(items3);
+        beforeCheck(items4);
+        Integer result = iRepository.deleteItemsByItemId(items.getItemId());
+        assertEquals(1,result);
+        afterNoneCheck(items);
+        afterExistCheck(items2);
+        afterExistCheck(items3);
+        afterExistCheck(items4);
+    }
     private void saveCheckListsEntity(OneCheckListCheckListsEntity checkList,String checkListsName,LocalDate createdAt){
         checkList.setCheckListsName(checkListsName);
         checkList.setCreatedAt(createdAt);
@@ -66,6 +109,10 @@ public class OneCheckListItemsRepositoryTest {
         Optional<OneCheckListItemsEntity> after =
                 iRepository.findById(items.getItemId());
         assertTrue(after.isPresent());
-
+    }
+    private void findCheck(List<Integer> result,List<Integer> correct){
+        for(int i=0;i<result.size();i++){
+            assertEquals(result.get(i),correct.get(i));
+        }
     }
 }
