@@ -12,6 +12,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class AddCheckListService {
     private final AddUserRepository userRepository;
@@ -29,7 +32,7 @@ public class AddCheckListService {
             AddUserEntity user = userRepository.findByUserName(userName);
             AddCheckListEntity checkList = new AddCheckListEntity();
             checkList.setCheckListName(dto.getCheckListName());
-            checkList.setCreatedAt(dto.getCreatedAt());
+            checkList.setCreatedAt(LocalDate.parse(dto.getCreatedAt(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
             checkList.setUserEntity(user);
             checkListRepository.save(checkList);
             for (AddItemsDTO items : dto.getItems()) {

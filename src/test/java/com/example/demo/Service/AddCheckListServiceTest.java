@@ -38,7 +38,7 @@ public class AddCheckListServiceTest {
         createItemsDTO(items,"りんご",true);
         createItemsDTO(items,"みかん",false);
         AddCheckListDTO dto = new AddCheckListDTO();
-        createDTO(dto,"買い物",items,LocalDate.of(2026,1,1));
+        createDTO(dto,"買い物",items,"2026/01/01");
         AddUserEntity user = createUserEntity("abcdefg","qwerty");
         when(userRepository.findByUserName("abcdefg"))
                 .thenReturn(user);
@@ -53,7 +53,7 @@ public class AddCheckListServiceTest {
         List<AddItemsEntity> fruit = captor2.getAllValues();
         resultCheck(shopping,fruit,"買い物",LocalDate.of(2026,1,1),List.of("りんご","みかん"),List.of(true,false));
     }
-    private void createDTO(AddCheckListDTO dto, String checkListName, List<AddItemsDTO> items, LocalDate createdAt){
+    private void createDTO(AddCheckListDTO dto, String checkListName, List<AddItemsDTO> items,String createdAt){
         dto.setCheckListName(checkListName);
         dto.setItems(items);
         dto.setCreatedAt(createdAt);

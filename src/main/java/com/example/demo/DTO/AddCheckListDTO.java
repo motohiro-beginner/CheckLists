@@ -6,7 +6,7 @@ import java.util.List;
 public class AddCheckListDTO {
     private String checkListName;
     private List<AddItemsDTO> items;
-    private LocalDate createdAt;
+    private String createdAt;
     public AddCheckListDTO(){}
     public String getCheckListName(){
         return checkListName;
@@ -20,10 +20,10 @@ public class AddCheckListDTO {
     public void setItems(List<AddItemsDTO> items){
         this.items = List.copyOf(items);
     }
-    public LocalDate getCreatedAt(){
+    public String getCreatedAt(){
         return createdAt;
     }
-    public void setCreatedAt(LocalDate createdAt){
+    public void setCreatedAt(String createdAt){
         this.createdAt = createdAt;
     }
 }
