@@ -26,6 +26,9 @@ export function deleteItem(/**@type { HTMLDivElement } */cardLower){
         closeIcon.textContent = "close";
         closeBtn.appendChild(closeIcon);
         row.prepend(closeBtn);
+        closeBtn.addEventListener("click",() => {
+            deleteRow(/**@type { HTMLDivElement }*/(row));
+        });
     })
     const lastRow = element(cardLower,".lastRow",HTMLDivElement);
     const cancelBtn = document.createElement("button");
@@ -44,9 +47,15 @@ export function deleteItem(/**@type { HTMLDivElement } */cardLower){
 function deleteRow(/**@type { HTMLDivElement } */cardRow){
     cardRow.remove();
 }
+/**cancelDeleteはcancelボタンが押された時にcloseボタンを削除して通常の状態に戻すためのメソッドである。 */
 function cancelDelete(/**@type { HTMLDivElement } */cardLower){
     const cardRow = allElement(cardLower,".cardRow",HTMLDivElement);
     cardRow.forEach(row => {
+        const closeBtn = element(row,".closeBtn",HTMLButtonElement);
+        closeBtn.remove();
+    });
+    const newCardRow = allElement(cardLower,".newCardRow",HTMLDivElement);
+    newCardRow.forEach(row => {
         const closeBtn = element(row,".closeBtn",HTMLButtonElement);
         closeBtn.remove();
     });
