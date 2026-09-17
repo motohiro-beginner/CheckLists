@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +14,25 @@
             <span class="material-symbols-outlined">undo</span>
         </button>
     </div>
-    <div class="cardContainer"></div>
+    <div class="newCheckListContainer">
+        <div class="nameColumn">
+            <div class="checkListLabel"></div>
+            <input class="checkListName"></input>
+        </div>
+        <div class="createdAtColumn">
+            <div class="yearLabel"></div>
+            <input class=year type="text"></input>
+            <div class="monthLabel"></div>
+            <input class="month" type="text"></input>
+            <div class="dayLabel"></div>
+            <input class="day"></input>
+        </div>
+        <div class="itemColumns">
+        </div>
+        <button class="saveBtn">作成</button>
+    </div>
+    <script src="js/addCheckList/addCheckListJs.js" type="module"></script>
+    <script src="js/addCheckList/saveCheckListJs.js" type="module"></script>
 </div>
 </body>
 </html>
