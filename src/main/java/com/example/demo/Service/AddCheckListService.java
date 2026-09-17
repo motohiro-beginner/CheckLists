@@ -44,8 +44,6 @@ public class AddCheckListService {
             }
         }catch(DataAccessException e){
             throw new RuntimeException("チェックリスト新規作成処理に失敗しました。");
-        }catch(RuntimeException e){
-            throw new RuntimeException("チェックリスト新規作成処理に失敗しました。");
         }
     }
 }

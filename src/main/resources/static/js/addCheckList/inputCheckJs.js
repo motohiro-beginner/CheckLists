@@ -49,5 +49,8 @@ export function inputCheck(checkListName,year,month,day,items){
         }
     }
     alert(caution.join("\n"));
-    return problem;
+    return {
+        "problem": problem,
+        "caution": caution
+    };
 }
