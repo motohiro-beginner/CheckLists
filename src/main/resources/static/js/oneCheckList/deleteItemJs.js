@@ -1,4 +1,5 @@
 //@ts-check
+import { addItem } from "./addItemJs.js";
 import { element,allElement } from "./helperJs.js";
 /**deleteItemはクリックされた項目を削除できるようにするメソッドである。
  * 具体的には項目名の左に削除ボタンを追加する。
@@ -41,6 +42,11 @@ export function deleteItem(/**@type { HTMLDivElement } */cardLower){
     cancelBtn.addEventListener("click",() => {
         cancelDelete(cardLower);
     });
+    //削除処理中に追加ボタンと削除ボタンを押されたら問題が発生するので削除する。
+    const addItemBtn = element(cardLower,".addItemBtn",HTMLButtonElement);
+    addItemBtn.remove();
+    const deleteItemBtn = element(cardLower,".deleteItemBtn",HTMLButtonElement);
+    deleteItemBtn.remove();
 }
 /**deleteRowはクリックされたcloseアイコンに対応する項目を削除するメソッドである。
  */
@@ -61,4 +67,26 @@ function cancelDelete(/**@type { HTMLDivElement } */cardLower){
     });
     const cancelBtn = element(cardLower,".cancelBtn",HTMLButtonElement);
     cancelBtn.remove();
+    //削除していた追加ボタンと削除ボタンを再び表示する。
+    const lastRow = element(cardLower,".lastRow",HTMLDivElement);
+    const addItemBtn = document.createElement("button");
+    addItemBtn.classList.add("addItemBtn");
+    const addIcon = document.createElement("span");
+    addIcon.classList.add("material-symbols-outlined");
+    addIcon.textContent = "add";
+    addItemBtn.appendChild(addIcon);
+    addItemBtn.addEventListener("click",() => {
+        addItem(cardLower);
+    });
+    lastRow.appendChild(addItemBtn);
+    const deleteItemBtn = document.createElement("button");
+    deleteItemBtn.classList.add("deleteItemBtn");
+    const deleteIcon = document.createElement("span");
+    deleteIcon.classList.add("material-symbols-outlined");
+    deleteIcon.textContent = "remove";
+    deleteItemBtn.appendChild(deleteIcon);
+    deleteItemBtn.addEventListener("click",() => {
+        deleteItem(cardLower);
+    });
+    lastRow.appendChild(deleteItemBtn);
 }
