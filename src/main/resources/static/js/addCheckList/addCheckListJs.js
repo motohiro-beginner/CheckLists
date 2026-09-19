@@ -34,6 +34,7 @@ function createCheckList(){
     });
     addAndDelete.appendChild(addBtn);
     const addIcon = document.createElement("span");
+    addIcon.textContent = "add";
     addIcon.classList.add("material-symbols-outlined");
     addBtn.appendChild(addIcon);
     const deleteBtn = document.createElement("button");
@@ -44,6 +45,7 @@ function createCheckList(){
     })
     addAndDelete.appendChild(deleteBtn);
     const deleteIcon = document.createElement("span");
+    deleteIcon.textContent = "remove";
     deleteIcon.classList.add("material-symbols-outlined");
     deleteBtn.appendChild(deleteIcon);
 }
