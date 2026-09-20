@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -52,6 +53,30 @@ public class AddCheckListServiceTest {
         verify(itemRepository, times(items.size())).save(captor2.capture());
         List<AddItemsEntity> fruit = captor2.getAllValues();
         resultCheck(shopping,fruit,"買い物",LocalDate.of(2026,1,1),List.of("りんご","みかん"),List.of(true,false));
+    }
+    @Test
+    void 項目名が５０文字を超えていた場合(){
+        List<AddItemsDTO> items = new ArrayList<>();
+        createItemsDTO(items,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",true);
+        createItemsDTO(items,"みかん",false);
+        AddCheckListDTO dto = new AddCheckListDTO();
+        createDTO(dto,"買い物",items,"2026/01/01");
+        AddUserEntity user = createUserEntity("abcdefg","qwerty");
+        when(userRepository.findByUserName("abcdefg"))
+                .thenReturn(user);
+        assertThrows(RuntimeException.class, () -> service.addCheckList("abcdefg",dto));
+    }
+    @Test
+    void チェックリスト名が５０文字を超えていた場合(){
+        List<AddItemsDTO> items = new ArrayList<>();
+        createItemsDTO(items,"りんご",true);
+        createItemsDTO(items,"みかん",false);
+        AddCheckListDTO dto = new AddCheckListDTO();
+        createDTO(dto,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",items,"2026/01/01");
+        AddUserEntity user = createUserEntity("abcdefg","qwerty");
+        when(userRepository.findByUserName("abcdefg"))
+                .thenReturn(user);
+        assertThrows(RuntimeException.class, () -> service.addCheckList("abcdefg",dto));
     }
     private void createDTO(AddCheckListDTO dto, String checkListName, List<AddItemsDTO> items,String createdAt){
         dto.setCheckListName(checkListName);

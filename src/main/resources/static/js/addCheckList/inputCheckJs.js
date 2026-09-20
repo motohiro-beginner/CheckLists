@@ -16,6 +16,10 @@ export function inputCheck(checkListName,year,month,day,items){
         caution.push("チェックリスト名を入力してください。");
         problem = true;
     }
+    if(checkListName.length > 50){
+        caution.push("チェックリスト名は50文字以内で入力してください。");
+        problem = true;
+    }
     if((year.trim() === "")||(month.trim() === "")||(day.trim() === "")){
         caution.push("年月日を入力してください。");
         problem = true;
@@ -46,6 +50,10 @@ export function inputCheck(checkListName,year,month,day,items){
             caution.push("全ての項目名に入力してください。");
             problem = true;
             break;
+        }
+        if(item.length > 50){
+            caution.push("項目名は50文字以内で入力してください。");
+            problem = true;
         }
     }
     alert(caution.join("\n"));
