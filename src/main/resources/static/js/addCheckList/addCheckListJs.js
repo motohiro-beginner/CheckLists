@@ -1,4 +1,6 @@
 //@ts-check
+import { addItem } from "./addItemJs.js";
+import { deleteItem } from "./deleteItemJs.js";
 import { element } from "./helperJs.js";
 /**createAddCheckListはnewCheckListContainerをもとにitemColumnタグを追加して
  * チェックリスト新規作成画面を作る関数である。
@@ -29,8 +31,7 @@ function createCheckList(){
     const addBtn = document.createElement("button");
     addBtn.classList.add("addBtn");
     addBtn.addEventListener("click",() => {
-        //後でaddItemを作成する予定
-        //addItem(itemColumns);
+        addItem(itemColumns);
     });
     addAndDelete.appendChild(addBtn);
     const addIcon = document.createElement("span");
@@ -40,8 +41,7 @@ function createCheckList(){
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("deleteBtn");
     deleteBtn.addEventListener("click",() => {
-        //後でdeleteItemを作成する予定
-        //deleteItem();
+        deleteItem(itemColumns);
     })
     addAndDelete.appendChild(deleteBtn);
     const deleteIcon = document.createElement("span");
