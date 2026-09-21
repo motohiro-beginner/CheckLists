@@ -19,6 +19,10 @@ export function inputCheck(/**@type {string}*/checkListName,/**@type {string} */
         caution.push("チェックリスト名を入力してください。");
         problem = true;
     }
+    if(checkListName > 50){
+        caution.push("チェックリスト名は50文字以内にしてください。");
+        problem = true;
+    }
     const now = new Date();
     const yearRegex = /^[1-9]\d{3}$/;
     const monthRegex = /^(0?[1-9]|1[0-2])$/;
@@ -55,15 +59,22 @@ export function inputCheck(/**@type {string}*/checkListName,/**@type {string} */
         caution.push("入力されていない項目があります。");
         problem = true;
         break;
+        }
     }
-    };
+    for(const item of items) {
+        if (item.itemNames.length > 50) {
+            caution.push("項目名は50文字以内にしてください。");
+            problem = true;
+            break;
+        }
+    }
     for(const item of newItems){
         if(item.itemNames.trim() === ""){
-        caution.push("入力されていない項目があります。");
-        problem = true;
-        break;
+            caution.push("入力されていない項目があります。");
+            problem = true;
+            break;
+        }
     }
-    };
     return {
         caution: caution,
         problem: problem
