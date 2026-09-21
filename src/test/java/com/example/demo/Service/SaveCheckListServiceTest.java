@@ -129,7 +129,55 @@ public class SaveCheckListServiceTest {
                 RuntimeException.class,
                 () -> service.updateColumns(dto)
         );
-        errorCheck(exception);
+        errorCheck(exception,"データの保存に失敗しました。");
+    }
+    @Test
+    void チェックリスト名が50文字を超えていた場合(){
+        SaveCheckListDTO dto = new SaveCheckListDTO();
+        List<SaveItemsDTO> itemDTO = new ArrayList<>();
+        createItemsDTO(itemDTO,"1","リンゴ",true);
+        createItemsDTO(itemDTO,"2","みかん",false);
+        List<NewItemsDTO> newItems = new ArrayList<>();
+        createNewItemsDTO(newItems,"いちご",true);
+        createDTO(
+                dto,
+                "1",
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                itemDTO,
+                newItems,
+                "2026",
+                "1",
+                "1"
+        );
+        RuntimeException exception = assertThrows(
+                RuntimeException.class,
+                () -> service.updateColumns(dto)
+        );
+        errorCheck(exception,"チェックリスト名は50文字以内にしてください。");
+    }
+    @Test
+    void 項目名が50文字を超えていた場合(){
+        SaveCheckListDTO dto = new SaveCheckListDTO();
+        List<SaveItemsDTO> itemDTO = new ArrayList<>();
+        createItemsDTO(itemDTO,"1","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",true);
+        createItemsDTO(itemDTO,"2","みかん",false);
+        List<NewItemsDTO> newItems = new ArrayList<>();
+        createNewItemsDTO(newItems,"いちご",true);
+        createDTO(
+                dto,
+                "1",
+                "買い物",
+                itemDTO,
+                newItems,
+                "2026",
+                "1",
+                "1"
+        );
+        RuntimeException exception = assertThrows(
+                RuntimeException.class,
+                () -> service.updateColumns(dto)
+        );
+        errorCheck(exception,"項目名は50文字以内にしてください。");
     }
     private void createDTO(SaveCheckListDTO dto, String checkListsId, String checkListName, List<SaveItemsDTO> items,List<NewItemsDTO> newItems,String year,String month,String day){
         dto.setCheckListsId(checkListsId);
@@ -172,7 +220,7 @@ public class SaveCheckListServiceTest {
             assertEquals(someItemId.get(i),someCorrectItemId2.get(i));
         }
     }
-    private void errorCheck(RuntimeException e){
-        assertEquals("データの保存に失敗しました。",e.getMessage());
+    private void errorCheck(RuntimeException e,String message){
+        assertEquals(message,e.getMessage());
     }
 }

@@ -35,6 +35,11 @@ public class SaveCheckListService {
             Integer checkListsId = Integer.parseInt(dto.getCheckListsId());
             checkList.setCheckListsId(checkListsId);
             checkList.setCheckListsName(dto.getCheckListName());
+            //チェックリスト名が５０文字以内かをチェックする。javascriptでもチェックを行っているが、
+            //念のためここでもチェックする。
+            if(dto.getCheckListName().length() > 50){
+                throw new IllegalArgumentException("チェックリスト名は50文字以内にしてください。");
+            }
             //DTOではStringで受け取った日付をLocalDateに変換する。
             Integer year = Integer.parseInt(dto.getYear());
             Integer month = Integer.parseInt(dto.getMonth());
@@ -44,6 +49,11 @@ public class SaveCheckListService {
             repository.save(checkList);
             //チェックリストに含まれる各項目を保存する。
             for (SaveItemsDTO item : dto.getItems()) {
+                //項目名が５０文字以内かをチェックする。javascriptでもチェックを行っているが、
+                //念のためここでもチェックする。
+                if(item.getItemNames().length() > 50){
+                    throw new IllegalArgumentException("項目名は50文字以内にしてください。");
+                }
                 OneCheckListItemsEntity oneItem = new OneCheckListItemsEntity();
                 Integer itemId = Integer.parseInt(item.getItemId());
                 oneItem.setItemId(itemId);
@@ -72,6 +82,8 @@ public class SaveCheckListService {
         }catch(DataAccessException e){
             //Serviceクラスの例外をControllerクラスに伝播する。
             throw new RuntimeException("データの保存に失敗しました。");
+        }catch(IllegalArgumentException e){
+            throw new RuntimeException(e.getMessage());
         }
     }
 }
