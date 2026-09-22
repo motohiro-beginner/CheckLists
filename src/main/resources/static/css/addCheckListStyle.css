@@ -50,14 +50,18 @@
         background-color: #f5f5f5;
         font-size: clamp(0.5rem,5vw,1rem);
         color: rgba(0,0,0,0.5);
-        width: clamp(2rem,7.5vw,2.5rem);
+        width: 3rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
     .month,
     .day {
         background-color: #f5f5f5;
         font-size: clamp(0.5rem,5vw,1rem);
         color: rgba(0,0,0,0.5);
-        width: clamp(0.5rem,7.5vw,1rem);
+        width: 1.5rem;
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
     .yearLabel,
     .monthLabel,
@@ -66,9 +70,17 @@
         color: rgba(0,0,0,0.5);
         margin-left: 3px;
         margin-right: 3px;
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
     .itemColumns {
+        display: flex;
+        justify-content: center;
         margin-bottom: 10px;
+    }
+    .addAndDelete {
+        display: flex;
+        justify-content: center;
     }
     .cardRow {
         display: flex;

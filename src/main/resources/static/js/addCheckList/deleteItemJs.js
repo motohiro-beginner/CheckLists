@@ -2,6 +2,24 @@
 import { addItem } from "./addItemJs.js";
 import { element,allElement } from "./helperJs.js";
 /**deleteItemは項目を削除するためのcloseボタン及び削除を取り消すためのcancelボタンを出現させるための関数である。 */
+/** 
+ * 下のコメントは削除画面のタグ構成である。
+*   <div class="itemColumns">
+ *     <div class="cardRow">
+ *        <input type="button" class="closeBtn"><span class="material-symbols-outlined">close</span>
+ *        <input class="itemName"type="text"></input>
+ *     </div>
+ *     <div class="cardRow">
+ *        <input type="button" class="closeBtn"><span class="material-symbols-outlined">close</span>
+ *        <input class="itemName"type="text"></input>
+ *     </div>
+ *                //closeBtnを押すとそのcloseBtnを持っているcardRowが丸ごと削除される。
+ *     <div class="addAndDelete">
+ *        <input type="button" class="cancelBtn"><span class="material-symbols-outlined">cancel</span></input>
+ *                //cancelBtnを押すと通常画面に戻る。
+ *     </div>
+ *   </div>
+ */
 /**
  * @param { HTMLDivElement } itemColumns
  */
@@ -30,17 +48,20 @@ export function deleteItem(itemColumns){
             deleteRow(row);
         })
     });
+    //削除画面のときにaddBtnやdeleteBtnが押されると都合が悪いためaddBtnとdeleteBtnを削除する。
     const addBtn = element(itemColumns,".addBtn",HTMLButtonElement);
     addBtn.remove();
     const deleteBtn = element(itemColumns,".deleteBtn",HTMLButtonElement);
     deleteBtn.remove();
 }
+//closeボタンが押されたときに該当する項目を削除する関数
 /**
  * @param {HTMLDivElement} row
  */
 function deleteRow(row){
     row.remove();
 }
+//cancelボタンが押されたときに削除ボタンを取り消して通常画面に戻す関数
 /**
  * @param {HTMLDivElement} itemColumns 
  */
@@ -51,9 +72,8 @@ function deleteCancel(itemColumns){
     });
     const cancelBtn = element(itemColumns,".cancelBtn",HTMLButtonElement);
     cancelBtn.remove();
+    //削除していたaddBtnとdeleteBtnを再び表示する。
     const addAndDelete = element(itemColumns,".addAndDelete",HTMLDivElement);
-    addAndDelete.classList.add("addAndDelete");
-    itemColumns.appendChild(addAndDelete);
     const addBtn = document.createElement("button");
     addBtn.classList.add("addBtn");
     addBtn.addEventListener("click",() => {
