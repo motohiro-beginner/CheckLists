@@ -1,30 +1,36 @@
 //@ts-check
-import { addItem } from "./addItemJs.js";
+import { addItem,itemFontSize } from "./addItemJs.js";
 import { deleteItem } from "./deleteItemJs.js";
 import { element } from "./helperJs.js";
-/**createAddCheckListはnewCheckListContainerをもとにitemColumnタグを追加して
+/**createAddCheckListはitemColumnタグをもとに複数のタグを追加して
  * チェックリスト新規作成画面を作る関数である。
- * nameColumnタグとcreatedAtColumnタグはhtmlで定義されている。
- * newCheckListContainerの中身
- * <div class="newCheckListContainer">
- *   <div class="nameColumn">
- *     <div class="checkListLabel"></div>
- *     <input class="checkListName"></input>
- *   </div>
- *   <div class="createdAtColumn">
- *     <div class="createdAtLabel"></div>
- *     <input class=""createdAt" type="text"></input>
- *   </div>
+ * iteColumns以外の部分ははhtmlで定義されている。
+ * 下のコメントはcreateAddCheckListで作られるタグの構成である。
  *   <div class="itemColumns">
+ *     <div class="cardRow">
+ *        <input class="itemName"type="text"></input>
+ *     </div>
+ *                //cardRowはユーザーによって追加,削除される。
  *     <div class="addAndDelete">
  *       <button class="addBtn"><span class="material-symbols-outlined">add</span></button>
  *       <button class="deleteBtn"><span class="material-symbols-outlined">delete</span></button>
+ *                //addBtnとdeleteBtnのボタンをそれぞれ押すと追加,削除が行われる。
  *     </div>
  *   </div>
- * </div>
 */
 function createCheckList(){
     const itemColumns = element(document,".itemColumns",HTMLDivElement);
+    //最初の画面では一つだけ項目の入力欄を表示する。
+    const cardRow = document.createElement("div");
+    cardRow.classList.add("cardRow");
+    const itemName = document.createElement("input");
+    itemName.classList.add("itemName");
+    itemName.type = "text";
+    itemName.addEventListener("input",() =>{
+        itemFontSize(itemName);
+    });
+    cardRow.appendChild(itemName);
+    itemColumns.appendChild(cardRow);
     const addAndDelete = document.createElement("div");
     addAndDelete.classList.add("addAndDelete");
     itemColumns.appendChild(addAndDelete);

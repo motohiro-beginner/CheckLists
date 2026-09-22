@@ -1,4 +1,5 @@
 //@ts-check
+import { element } from "./helperJs.js";
 /**addItemはitemColumnsに項目名を入力する欄を追加する関数である。 */
 /**
  * @param { HTMLDivElement } itemColumns
@@ -6,7 +7,8 @@
 export function addItem(itemColumns){
     const cardRow = document.createElement("div");
     cardRow.classList.add("cardRow");
-    itemColumns.prepend(cardRow);
+    const addAndDelete = element(itemColumns,".addAndDelete",HTMLDivElement);
+    itemColumns.insertBefore(cardRow,addAndDelete);
     const itemName = document.createElement("input");
     itemName.type = "text";
     itemName.classList.add("itemName");
@@ -21,7 +23,7 @@ export function addItem(itemColumns){
 /**
  * @param {HTMLDivElement} itemName
  */
-function itemFontSize(itemName){
+export function itemFontSize(itemName){
     const width = itemName.clientWidth;
     const length = itemName.textContent.length;
     let fontSize = width/length*1.8;
