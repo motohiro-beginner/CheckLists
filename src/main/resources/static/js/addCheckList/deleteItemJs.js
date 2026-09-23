@@ -66,7 +66,7 @@ function deleteRow(row){
  * @param {HTMLDivElement} itemColumns 
  */
 function deleteCancel(itemColumns){
-    const sumCloseBtn = allElement(itemColumns,".closeBtn",HTMLDivElement);
+    const sumCloseBtn = allElement(itemColumns,".closeBtn",HTMLButtonElement);
     sumCloseBtn.forEach(closeBtn=>{
         closeBtn.remove();
     });
