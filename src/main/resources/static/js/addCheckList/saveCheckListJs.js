@@ -21,7 +21,9 @@ async function saveCheckList(){
     const checkResult = inputCheck(checkListName,year,month,day,itemName);
     if(checkResult.problem){
         alert(checkResult.caution.join("\n"));
+        return;
     }
+    /** テストのため一時的にコメントアウトしている。
     const response = await fetch("/addCheckList", {
         method: "POST",
         headers: {
@@ -35,6 +37,7 @@ async function saveCheckList(){
             itemName
         })
     });
+    */
     const result = await response.json();
     if(result.ok){
         //後でinitialization()を作る予定

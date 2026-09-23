@@ -24,6 +24,7 @@
     }
     .newCheckListContainer {
         margin-left: 10px;
+        margin-right: 10px;
     }
     .nameColumn {
         border-bottom: 2px solid #d3d3d3;
@@ -51,6 +52,7 @@
         font-size: clamp(0.5rem,5vw,1rem);
         color: rgba(0,0,0,0.5);
         width: 3rem;
+        height: 30px;
         margin-top: 5px;
         margin-bottom: 5px;
     }
@@ -60,6 +62,7 @@
         font-size: clamp(0.5rem,5vw,1rem);
         color: rgba(0,0,0,0.5);
         width: 1.5rem;
+        height: 30px;
         margin-top: 5px;
         margin-bottom: 5px;
     }
@@ -74,27 +77,37 @@
         margin-bottom: 5px;
     }
     .itemColumns {
-        display: flex;
+        display: block;
         justify-content: center;
         margin-bottom: 10px;
     }
+    .itemLabel {
+        color: rgba(0,0,0,0.5);
+    }
     .addAndDelete {
         display: flex;
+        width: 100%;
         justify-content: center;
+        margin: 0 auto;
+        border-bottom: 2px solid #d3d3d3;
     }
     .cardRow {
         display: flex;
+        width: 100%;
         justify-content: center;
+        margin: 0 auto;
         border-bottom: 2px solid #d3d3d3;
     }
     .itemName {
         /**itemNameの文字サイズはjsにて決める。*/
         background-color: #f5f5f5;
         overflow-wrap: anywhere;
-        width: 80%;
+        width: 95%;
+        height: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         margin-top: 5px;
         margin-bottom: 5px;
-        height: 20px;
     }
     #backBtn,
     .saveBtn,
@@ -104,14 +117,16 @@
     .cancelBtn {
         background-color: white;
         border: none;
-        padding: 15px 20px;
+        cursor: hand;
     }
     #backBtn .material-symbols-outlined,
-    .saveBtn .material-symbols-outlined,
     .addBtn .material-symbols-outlined,
     .deleteBtn .material-symbols-outlined,
     .closeBtn .material-symbols-outlined,
     .cancelBtn .material-symbols-outlined {
         font-size: 40px;
+    }
+    .saveBtn .material-symbols-outlined{
+        font-size: 80px;
     }
 }
