@@ -22,6 +22,9 @@
     .essentialLabel {
         color: red !important;
     }
+    .supplementLabel {
+        margin-left: 5px;
+    }
     .newCheckListContainer {
         margin-left: 10px;
         margin-right: 10px;
@@ -41,6 +44,12 @@
         margin-top: 5px;
         margin-bottom: 5px;
         padding: 10px;
+    }
+    .createdAtLabel {
+        font-size: clamp(0.5rem,5vw,1rem);
+        color: rgba(0,0,0,0.5);
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
     .createdAtColumn {
         display: flex;
@@ -82,7 +91,10 @@
         margin-bottom: 10px;
     }
     .itemLabel {
+        font-size: clamp(0.5rem,5vw,1rem);
         color: rgba(0,0,0,0.5);
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
     .addAndDelete {
         display: flex;

@@ -43,7 +43,15 @@ async function saveCheckList(){
     const response = await okFakeFetch();
     const result = await response.json();
     if(result.ok){
+        //テスト用
         console.log("通信成功");
+        console.log(checkListName);
+        console.log(year);
+        console.log(month);
+        console.log(day);
+        for(const item of items){
+            console.log(item);
+        }
         //後でinitialization()を作る予定
         //initialization()
     }else{
