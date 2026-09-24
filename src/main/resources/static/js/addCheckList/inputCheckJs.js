@@ -45,18 +45,35 @@ export function inputCheck(checkListName,year,month,day,items){
         caution.push("実在しない日付が入力されています。");
         problem = true;
     }
+    /**入力された日付が過去の値でないかをチェックする。 */
+    const now = new Date();
+    if(
+    (now.getFullYear() > Number(year)) ||
+    ((now.getFullYear() === Number(year)) && (now.getMonth() + 1 > Number(month))) ||
+    ((now.getFullYear() === Number(year)) && (now.getMonth() + 1 === Number(month)) && (now.getDate() > Number(day)))
+    ){
+        caution.push("チェックリストに入力する日付に過去の日付を入力しないでください。");
+        problem = true;
+    }
+    //50文字を超える項目名がないかをチェックする。
+    for(const item of items){
+        if(item.length > 50){
+            caution.push("項目名は50文字以内で入力してください。");
+            problem = true;
+            break;
+        }
+    }
+    //空白の項目名がないかをチェックする。
     for(const item of items){
         if(item.trim() === ""){
             caution.push("全ての項目名に入力してください。");
             problem = true;
             break;
         }
-        if(item.length > 50){
-            caution.push("項目名は50文字以内で入力してください。");
-            problem = true;
-        }
     }
-    alert(caution.join("\n"));
+    if(problem){
+        alert(caution.join("\n"));
+    }
     return {
         "problem": problem,
         "caution": caution

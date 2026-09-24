@@ -31,20 +31,14 @@ public class AddCheckListService {
         try {
             AddUserEntity user = userRepository.findByUserName(userName);
             AddCheckListEntity checkList = new AddCheckListEntity();
-            if(dto.getCheckListName().length() > 50){
-                throw new IllegalArgumentException("チェックリスト名は50文字以内にしてください。");
-            }
             checkList.setCheckListName(dto.getCheckListName());
             checkList.setCreatedAt(LocalDate.parse(dto.getCreatedAt(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
             checkList.setUserEntity(user);
             checkListRepository.save(checkList);
             for (AddItemsDTO items : dto.getItems()) {
-                if(items.getItemName().length() > 50){
-                    throw new IllegalArgumentException("項目名は50文字以内にしてください。");
-                }
                 AddItemsEntity item = new AddItemsEntity();
                 item.setItemName(items.getItemName());
-                item.setIsChecked(items.getIsChecked());
+                item.setIsChecked(false);
                 item.setCheckList(checkList);
                 itemRepository.save(item);
             }

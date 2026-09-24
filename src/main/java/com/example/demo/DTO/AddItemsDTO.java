@@ -1,6 +1,11 @@
 package com.example.demo.DTO;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class AddItemsDTO {
+    @NotBlank
+    @Size(max = 50)
     private String itemName;
     private boolean isChecked;
     public AddItemsDTO(){}
