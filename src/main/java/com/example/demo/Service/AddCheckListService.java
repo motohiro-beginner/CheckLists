@@ -13,7 +13,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.DateTimeException;
 
 @Service
 public class AddCheckListService {
@@ -32,7 +32,11 @@ public class AddCheckListService {
             AddUserEntity user = userRepository.findByUserName(userName);
             AddCheckListEntity checkList = new AddCheckListEntity();
             checkList.setCheckListName(dto.getCheckListName());
-            checkList.setCreatedAt(LocalDate.parse(dto.getCreatedAt(), DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+            Integer year = Integer.parseInt(dto.getYear());
+            Integer month = Integer.parseInt(dto.getMonth());
+            Integer day = Integer.parseInt(dto.getDay());
+            LocalDate createdAt = LocalDate.of(year,month,day);
+            checkList.setCreatedAt(createdAt);
             checkList.setUserEntity(user);
             checkListRepository.save(checkList);
             for (AddItemsDTO items : dto.getItems()) {
@@ -46,6 +50,8 @@ public class AddCheckListService {
             throw new RuntimeException("チェックリスト新規作成処理に失敗しました。");
         }catch(IllegalArgumentException e){
             throw new RuntimeException(e.getMessage());
+        }catch(DateTimeException e){
+            throw new RuntimeException("実在しない日付が入力されています。");
         }
     }
 }

@@ -36,10 +36,10 @@ public class AddCheckListServiceTest {
     @Test
     void 問題なく実行できた場合(){
         List<AddItemsDTO> items = new ArrayList<>();
-        createItemsDTO(items,"りんご",true);
-        createItemsDTO(items,"みかん",false);
+        createItemsDTO(items,"りんご");
+        createItemsDTO(items,"みかん");
         AddCheckListDTO dto = new AddCheckListDTO();
-        createDTO(dto,"買い物",items,"2026/01/01");
+        createDTO(dto,"買い物","2026","10","1",items);
         AddUserEntity user = createUserEntity("abcdefg","qwerty");
         when(userRepository.findByUserName("abcdefg"))
                 .thenReturn(user);
@@ -52,15 +52,15 @@ public class AddCheckListServiceTest {
                 ArgumentCaptor.forClass(AddItemsEntity.class);
         verify(itemRepository, times(items.size())).save(captor2.capture());
         List<AddItemsEntity> fruit = captor2.getAllValues();
-        resultCheck(shopping,fruit,"買い物",LocalDate.of(2026,1,1),List.of("りんご","みかん"),List.of(true,false));
+        resultCheck(shopping,fruit,"買い物",LocalDate.of(2026,10,1),List.of("りんご","みかん"));
     }
     @Test
     void 項目名が５０文字を超えていた場合(){
         List<AddItemsDTO> items = new ArrayList<>();
-        createItemsDTO(items,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",true);
-        createItemsDTO(items,"みかん",false);
+        createItemsDTO(items,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        createItemsDTO(items,"みかん");
         AddCheckListDTO dto = new AddCheckListDTO();
-        createDTO(dto,"買い物",items,"2026/01/01");
+        createDTO(dto,"買い物","2026","10","01",items);
         AddUserEntity user = createUserEntity("abcdefg","qwerty");
         when(userRepository.findByUserName("abcdefg"))
                 .thenReturn(user);
@@ -69,24 +69,25 @@ public class AddCheckListServiceTest {
     @Test
     void チェックリスト名が５０文字を超えていた場合(){
         List<AddItemsDTO> items = new ArrayList<>();
-        createItemsDTO(items,"りんご",true);
-        createItemsDTO(items,"みかん",false);
+        createItemsDTO(items,"りんご");
+        createItemsDTO(items,"みかん");
         AddCheckListDTO dto = new AddCheckListDTO();
-        createDTO(dto,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",items,"2026/01/01");
+        createDTO(dto,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","2026","10","1",items);
         AddUserEntity user = createUserEntity("abcdefg","qwerty");
         when(userRepository.findByUserName("abcdefg"))
                 .thenReturn(user);
         assertThrows(RuntimeException.class, () -> service.addCheckList("abcdefg",dto));
     }
-    private void createDTO(AddCheckListDTO dto, String checkListName, List<AddItemsDTO> items,String createdAt){
+    private void createDTO(AddCheckListDTO dto, String checkListName,String year,String month,String day, List<AddItemsDTO> items){
         dto.setCheckListName(checkListName);
+        dto.setYear(year);
+        dto.setMonth(month);
+        dto.setDay(day);
         dto.setItems(items);
-        dto.setCreatedAt(createdAt);
     }
-    private void createItemsDTO(List<AddItemsDTO> dto,String itemName,boolean isChecked){
+    private void createItemsDTO(List<AddItemsDTO> dto,String itemName){
         AddItemsDTO item = new AddItemsDTO();
         item.setItemName(itemName);
-        item.setIsChecked(isChecked);
         dto.add(item);
     }
     private AddUserEntity createUserEntity(String userName, String password){
@@ -95,12 +96,12 @@ public class AddCheckListServiceTest {
         user.setPassword(password);
         return user;
     }
-    private void resultCheck(AddCheckListEntity checkList,List<AddItemsEntity> items,String checkListName,LocalDate createdAt,List<String> itemName,List<Boolean> isChecked){
+    private void resultCheck(AddCheckListEntity checkList,List<AddItemsEntity> items,String checkListName,LocalDate createdAt,List<String> itemName){
         assertEquals(checkListName,checkList.getCheckListName());
         assertEquals(createdAt,checkList.getCreatedAt());
         for(int i = 0;i<items.size();i++){
             assertEquals(itemName.get(i),items.get(i).getItemName());
-            assertEquals(isChecked.get(i),items.get(i).getIsChecked());
+            assertEquals(false,items.get(i).getIsChecked());
         }
     }
 }
