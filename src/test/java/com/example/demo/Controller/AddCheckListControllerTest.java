@@ -42,31 +42,31 @@ public class AddCheckListControllerTest {
                     .content("""
                              {
                              "checkListName": "買い物",
+                             "year": "2026",
+                             "month": "10",
+                             "day": "1",
                              "items": [
                              {
-                             "itemName": "りんご",
-                             "isChecked": true
+                             "itemName": "りんご"
                              },
                              {
-                             "itemName": "みかん",
-                             "isChecked": false
+                             "itemName": "みかん"
                              }
-                             ],
-                             "createdAt": "2026/01/01"
+                             ]
                              }
                              """))
                     .andExpect(status().isOk());
             verify(service).addCheckList(userName.capture(),dto.capture());
             AddCheckListDTO correctDTO = new AddCheckListDTO();
             correctDTO.setCheckListName("買い物");
+            correctDTO.setYear("2026");
+            correctDTO.setMonth("10");
+            correctDTO.setDay("1");
             AddItemsDTO itemsDTO = new AddItemsDTO();
             itemsDTO.setItemName("りんご");
-            itemsDTO.setIsChecked(true);
             AddItemsDTO itemsDTO2 = new AddItemsDTO();
             itemsDTO2.setItemName("みかん");
-            itemsDTO2.setIsChecked(false);
             correctDTO.setItems(List.of(itemsDTO,itemsDTO2));
-            correctDTO.setCreatedAt("2026/01/01");
             argumentCheck(
                     userName.getValue(),
                     dto.getValue(),
@@ -139,8 +139,9 @@ public class AddCheckListControllerTest {
         assertEquals(dto.getCheckListName(),correctDTO.getCheckListName());
         for(int i=0;i<dto.getItems().size();i++){
             assertEquals(dto.getItems().get(i).getItemName(),correctDTO.getItems().get(i).getItemName());
-            assertEquals(dto.getItems().get(i).getIsChecked(),correctDTO.getItems().get(i).getIsChecked());
         }
-        assertEquals(dto.getCreatedAt(),correctDTO.getCreatedAt());
+        assertEquals(dto.getYear(),correctDTO.getYear());
+        assertEquals(dto.getMonth(),correctDTO.getMonth());
+        assertEquals(dto.getDay(),correctDTO.getDay());
     }
 }
