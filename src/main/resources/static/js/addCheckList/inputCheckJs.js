@@ -51,9 +51,6 @@ export function inputCheck(checkListName,year,month,day,items){
             !(checkDate.getMonth() === monthNum-1) ||
             !(checkDate.getDate() === dayNum)
         ){
-            console.log(!(checkDate.getFullYear() === yearNum));
-            console.log(!(checkDate.getMonth() === monthNum-1));
-            console.log(!(checkDate.getDate() === dayNum));
             caution.push("実在しない日付が入力されています。");
             problem = true;
         }
