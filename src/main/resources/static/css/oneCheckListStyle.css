@@ -10,13 +10,14 @@
         width: 100vw;
         height: 100vh;
         background-color: white;
+        flex-shrink: 0;
     }
     #upper {
         display: flex;
         justify-content: space-between;
     }
     #title {
-        font-size: clamp(1.5rem,7.5vw,2rem);
+        font-size: clamp(1rem,7.5vw,1.5rem);
         margin-left: 10px;
     }
     #keepBtn,
@@ -24,12 +25,14 @@
     #backBtn {
         background-color: white;
         border: none;
-        padding: 15px 20px;
-        margin: 10px;
+        padding: 5px 10px;
+        margin: 5px;
     }
     #keepBtn .material-symbols-outlined,
     #deleteBtn .material-symbols-outlined,
-    #backBtn .material-symbols-outlined,
+    #backBtn .material-symbols-outlined {
+        font-size: 40px;
+    }
     .addItemBtn .material-symbols-outlined,
     .deleteItemBtn .material-symbols-outlined,
     .closeBtn .material-symbols-outlined,
@@ -37,7 +40,7 @@
         font-size: 40px;
     }
     .card {
-        width: 580px;
+        width: 90%;
         background-color: #f5f5f5;
         border: 2px solid #f5f5f5;
         box-shadow: 2px 2px 4px;
@@ -52,7 +55,10 @@
         border-bottom: 2px solid #d3d3d3;
     }
     .checkListName {
+        background-color: #f5f5f5;
         font-size: clamp(1rem, 7.5vw, 1.5rem);
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
     .createdAt {
         display: flex;
@@ -167,7 +173,10 @@
         border-bottom: 2px solid #d3d3d3;
     }
     .checkListName {
+        background-color: #f5f5f5;
         font-size: clamp(1rem, 7.5vw, 1.5rem);
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
     .createdAt {
         display: flex;
@@ -269,7 +278,7 @@
     .card {
         width: 580px;
         background-color: #f5f5f5;
-        border: 2px 2px 4px;
+        border: 2px solid #f5f5f5;
         box-shadow: 2px 2px 4px;
         border-radius: 5px;
         margin-top: 10px;
