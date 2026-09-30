@@ -179,6 +179,82 @@ public class SaveCheckListServiceTest {
         );
         errorCheck(exception,"項目名は50文字以内にしてください。");
     }
+    @Test
+    void 入力する日付が過去の日付だった場合(){
+        SaveCheckListDTO dto = new SaveCheckListDTO();
+        List<SaveItemsDTO> itemDTO = new ArrayList<>();
+        createItemsDTO(
+                itemDTO,
+                "1",
+                "リンゴ",
+                true
+        );
+        createItemsDTO(
+                itemDTO,
+                "2",
+                "みかん",
+                false
+        );
+        List<NewItemsDTO> newItemDTO = new ArrayList<>();
+        createNewItemsDTO(
+                newItemDTO,
+                "いちご",
+                true
+        );
+        createDTO(
+                dto,
+                "1",
+                "買い物",
+                itemDTO,
+                newItemDTO,
+                "2026",
+                "1",
+                "1"
+        );
+        RuntimeException exception = assertThrows(
+                RuntimeException.class,
+                () -> service.updateColumns(dto)
+        );
+        errorCheck(exception,"チェックリストに入力する日付に過去の日付を入力しないでください。");
+    }
+    @Test
+    void 入力された日付が実在しない日付だった場合(){
+        SaveCheckListDTO dto = new SaveCheckListDTO();
+        List<SaveItemsDTO> itemDTO = new ArrayList<>();
+        createItemsDTO(
+                itemDTO,
+                "1",
+                "リンゴ",
+                true
+        );
+        createItemsDTO(
+                itemDTO,
+                "2",
+                "みかん",
+                false
+        );
+        List<NewItemsDTO> newItemDTO = new ArrayList<>();
+        createNewItemsDTO(
+                newItemDTO,
+                "いちご",
+                true
+        );
+        createDTO(
+                dto,
+                "1",
+                "買い物",
+                itemDTO,
+                newItemDTO,
+                "2026",
+                "9",
+                "31"
+        );
+        RuntimeException exception = assertThrows(
+                RuntimeException.class,
+                () -> service.updateColumns(dto)
+        );
+        errorCheck(exception,"実在しない日付が入力されています。");
+    }
     private void createDTO(SaveCheckListDTO dto, String checkListsId, String checkListName, List<SaveItemsDTO> items,List<NewItemsDTO> newItems,String year,String month,String day){
         dto.setCheckListsId(checkListsId);
         dto.setCheckListName(checkListName);

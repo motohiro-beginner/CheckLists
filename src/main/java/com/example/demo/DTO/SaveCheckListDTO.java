@@ -2,6 +2,7 @@ package com.example.demo.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -15,14 +16,18 @@ public class SaveCheckListDTO {
     @Pattern(regexp = "^[1-9][0-9]*$")
     private String checkListsId;
     @NotBlank
-    @Pattern(regexp = "^[0-9][a-z][A-Z]+$")
+    @Size(max = 50)
     private String checkListName;
-    @NotBlank
-    @Pattern(regexp = "^[0-9][a-z][A-Z]+$")
     private List<SaveItemsDTO> items;
     private List<NewItemsDTO> newItems;
+    @NotBlank
+    @Pattern(regexp = "^[1-9]\\d{3}$")
     private String year;
+    @NotBlank
+    @Pattern(regexp = "^0[1-9]|1[0-2]$")
     private String month;
+    @NotBlank
+    @Pattern(regexp = "^(0[1-9]|1[0-9]|2[0-9]|3[0-1])$")
     private String day;
     public SaveCheckListDTO(){
     }
