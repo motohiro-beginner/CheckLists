@@ -19,7 +19,7 @@ export function inputCheck(/**@type {string}*/checkListName,/**@type {string} */
         caution.push("チェックリスト名を入力してください。");
         problem = true;
     }
-    if(checkListName > 50){
+    if(checkListName.length > 50){
         caution.push("チェックリスト名は50文字以内にしてください。");
         problem = true;
     }
@@ -27,33 +27,40 @@ export function inputCheck(/**@type {string}*/checkListName,/**@type {string} */
     const yearRegex = /^[1-9]\d{3}$/;
     const monthRegex = /^(0?[1-9]|1[0-2])$/;
     const dayRegex = /^(0?[1-9]|1[0-9]|2[0-9]|3[0-1])$/;
-    //入力された日付がyyyy/MM/ddという形式になっているかを確かめる。
-    if(!yearRegex.test(year) || !monthRegex.test(month) || !dayRegex.test(day)){
-        caution.push("2026/01/01 このように日付を入力してください。");
+    const regex = /^[0-9]+$/;
+    if(!(regex.test(year)) || !(regex.test(month)) || !(regex.test(day))){
+        caution.push("半角数字で入力してください。");
         problem = true;
+    }else{
+        //入力された日付がyyyy/MM/ddという形式になっているかを確かめる。
+        if(!yearRegex.test(year) || !monthRegex.test(month) || !dayRegex.test(day)){
+            caution.push("2026/01/01 このように日付を入力してください。");
+            problem = true;
+        }
+        const yearNum = Number(year);
+        const monthNum = Number(month);
+        const dayNum = Number(day);
+        //入力された日付が実在する日付かどうかを確かめる。
+        const checkDate = new Date(yearNum,monthNum-1,dayNum);
+        if(
+            !(checkDate.getFullYear() === yearNum) ||
+            !(checkDate.getMonth() === monthNum-1) ||
+            !(checkDate.getDate() === dayNum)
+        ){
+            caution.push("実在しない日付が入力されています。");
+            problem = true;
+        }
+        //入力された日付が現在よりも過去の時刻でないかをチェックしている。
+        if(
+            (now.getFullYear()>Number(year)) || 
+        (now.getFullYear() === Number(year) && now.getMonth() + 1>Number(month)) || 
+        ((now.getFullYear() === Number(year)) && (now.getMonth() === Number(month)) && (now.getDate()>Number(day))))
+        {
+            caution.push("チェックリストに入力する日付に過去の日付を入力しないでください。");
+            problem = true;
+        }
     }
-    const yearNum = Number(year);
-    const monthNum = Number(month);
-    const dayNum = Number(day);
-    //入力された日付が実在する日付かどうかを確かめる。
-    const checkDate = new Date(yearNum,monthNum-1,dayNum);
-    if(
-        !(checkDate.getFullYear() === yearNum) ||
-        !(checkDate.getMonth() === monthNum-1) ||
-        !(checkDate.getDate() === dayNum)
-    ){
-        caution.push("実在しない日付が入力されています。");
-        problem = true;
-    }
-    //入力された日付が現在よりも過去の時刻でないかをチェックしている。
-    if(
-        (now.getFullYear()>Number(year)) || 
-    (now.getFullYear() === Number(year) && now.getMonth() + 1>Number(month)) || 
-    ((now.getFullYear() === Number(year)) && (now.getMonth() === Number(month)) && (now.getDate()>Number(day))))
-    {
-        caution.push("チェックリストに入力する日付に過去の日付を入力しないでください。");
-        problem = true;
-    }
+    
     for(const item of items){
         if(item.itemNames.trim() === ""){
         caution.push("入力されていない項目があります。");

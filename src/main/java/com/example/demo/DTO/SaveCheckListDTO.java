@@ -1,5 +1,8 @@
 package com.example.demo.DTO;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 import java.util.List;
 
 /*SaveCheckListDTOはfetch通信で引数を受け取るために用意したDTOである。
@@ -8,8 +11,14 @@ import java.util.List;
 * itemsはそのチェックリストidを外部キーに持つ項目表の行の情報
 * year,month,dayはチェックリストの列の日付の情報を格納している。*/
 public class SaveCheckListDTO {
+    @NotBlank
+    @Pattern(regexp = "^[1-9][0-9]*$")
     private String checkListsId;
+    @NotBlank
+    @Pattern(regexp = "^[0-9][a-z][A-Z]+$")
     private String checkListName;
+    @NotBlank
+    @Pattern(regexp = "^[0-9][a-z][A-Z]+$")
     private List<SaveItemsDTO> items;
     private List<NewItemsDTO> newItems;
     private String year;
