@@ -36,12 +36,17 @@ public class AddCheckListService {
             Integer month = Integer.parseInt(dto.getMonth());
             Integer day = Integer.parseInt(dto.getDay());
             LocalDate createdAt = LocalDate.of(year,month,day);
+            LocalDate nowDate = LocalDate.now();
+            if(createdAt.isBefore(nowDate)){
+                throw new IllegalArgumentException("チェックリストに入力する日付に過去の日付を入力しないでください。");
+            }
             checkList.setCreatedAt(createdAt);
             checkList.setUserEntity(user);
             checkListRepository.save(checkList);
             for (AddItemsDTO items : dto.getItems()) {
                 AddItemsEntity item = new AddItemsEntity();
                 item.setItemName(items.getItemName());
+                //最初は項目にチェックがされていない状態にするのでfalseにしている。
                 item.setIsChecked(false);
                 item.setCheckList(checkList);
                 itemRepository.save(item);
