@@ -78,6 +78,36 @@ public class AddCheckListServiceTest {
                 .thenReturn(user);
         assertThrows(RuntimeException.class, () -> service.addCheckList("abcdefg",dto));
     }
+    @Test
+    void 入力された日付が過去の日付だった場合(){
+        List<AddItemsDTO> items = new ArrayList<>();
+        createItemsDTO(items,"りんご");
+        createItemsDTO(items,"みかん");
+        AddCheckListDTO dto = new AddCheckListDTO();
+        createDTO(dto,"買い物","2026","1","1",items);
+        AddUserEntity user = createUserEntity("abcdefg","qwerty");
+        when(userRepository.findByUserName("abcdefg"))
+                .thenReturn(user);
+        RuntimeException exception = assertThrows(
+                RuntimeException.class,
+                () -> service.addCheckList("abcdefg",dto));
+        errorCheck(exception,"チェックリストに入力する日付に過去の日付を入力しないでください。");
+    }
+    @Test
+    void 入力された日付が実在しない日付だった場合(){
+        List<AddItemsDTO> items = new ArrayList<>();
+        createItemsDTO(items,"りんご");
+        createItemsDTO(items,"みかん");
+        AddCheckListDTO dto = new AddCheckListDTO();
+        createDTO(dto,"買い物","2026","9","31",items);
+        AddUserEntity user = createUserEntity("abcdefg","qwerty");
+        when(userRepository.findByUserName("abcdefg"))
+                .thenReturn(user);
+        RuntimeException exception = assertThrows(
+                RuntimeException.class,
+                () -> service.addCheckList("abcdefg",dto));
+        errorCheck(exception,"実在しない日付が入力されています。");
+    }
     private void createDTO(AddCheckListDTO dto, String checkListName,String year,String month,String day, List<AddItemsDTO> items){
         dto.setCheckListName(checkListName);
         dto.setYear(year);
@@ -103,5 +133,8 @@ public class AddCheckListServiceTest {
             assertEquals(itemName.get(i),items.get(i).getItemName());
             assertEquals(false,items.get(i).getIsChecked());
         }
+    }
+    private void errorCheck(RuntimeException exception,String errorMessage){
+        assertEquals(exception.getMessage(),errorMessage);
     }
 }
