@@ -25,7 +25,6 @@ async function saveCheckList(){
         alert(checkResult.caution.join("\n"));
         return;
     }
-    /** テストのため一時的にコメントアウトしている。
     const response = await fetch("/addCheckList", {
         method: "POST",
         headers: {
@@ -39,9 +38,6 @@ async function saveCheckList(){
             items
         })
     });
-    */
-   //テストのために一時的にokFakeFetchに差し替えている。
-    const response = await okFakeFetch();
     const result = await response.json();
     if(result.ok){
         //テスト用
