@@ -1,6 +1,7 @@
 //@ts-check
 import { element,allElement } from "./helperJs.js";
 import { inputCheck } from "./inputCheckJs.js";
+import { initialization } from "./InitializationCheckListJs.js";
 import { okFakeFetch } from "../test/addCheckListFakeFetchJs.js";
 const saveBtn = element(document,".saveBtn",HTMLButtonElement);
 saveBtn.addEventListener("click",() => {
@@ -52,8 +53,7 @@ async function saveCheckList(){
         for(const item of items){
             console.log(item);
         }
-        //後でinitialization()を作る予定
-        //initialization()
+        initialization()
     }else{
         alert(result.join("\n"));
     }

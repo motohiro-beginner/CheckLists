@@ -56,3 +56,11 @@ function createCheckList(){
     deleteBtn.appendChild(deleteIcon);
 }
 createCheckList();
+element(document,"#backBtn",HTMLButtonElement).addEventListener("click",()=>{
+    tableTransition();
+});
+async function tableTransition(){
+    await fetch("/tableTransition",{
+        method: "GET"
+    });
+}
