@@ -10,5 +10,4 @@ function createAddCheckList(){
     createdAt.type = "text";
     createdAt.classList.add("createdAt");
     newCheckListContainer.appendChild(createdAt);
-    
 }
