@@ -64,7 +64,6 @@ export async function saveCheckList(/**@type {HTMLDivElement} */card){
         console.log(item.itemNames);
         console.log(item.isChecked);
     })
-    /*テストのため一時的にコメントアウトしている。
     const response = await fetch("/saveCheckList",{
         method: "POST",
         headers: {
@@ -79,5 +78,5 @@ export async function saveCheckList(/**@type {HTMLDivElement} */card){
             month,
             day
         })
-    });*/
+    });
 }

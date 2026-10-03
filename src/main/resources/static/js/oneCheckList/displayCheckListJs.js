@@ -25,7 +25,7 @@ deleteBtn.addEventListener("click",() => {
     deleteCheckList(card);
 });
 backBtn.addEventListener("click",() => {
-    //後でback関数を作る予定
+    tableTransition();
 })
 const card = document.createElement("div");
 keepBtn.addEventListener("click",() => {
@@ -79,7 +79,7 @@ keepBtn.addEventListener("click",() => {
  * deleteボタンを押すと項目の左にcloseボタンが追加され、それを押すと項目を削除できる。
  */
 /** displayCheckListは画面上に一つのチェックリストを表示するための関数であり、チェックリストの構成を作成する。*/
-export async function displayCheckList(/**@type {OneCheckListViewDTO} */checkList){
+export function displayCheckList(/**@type {OneCheckListViewDTO} */checkList){
     //console.log("displayCheckList開始");
     card.classList.add("card");
     card.dataset.checkListsId = checkList.checkListsId;
@@ -187,4 +187,9 @@ function itemFontSize(/**@type {HTMLDivElement} */itemName){
     let fontSize = width/length*1.8;
     fontSize = Math.max(12,Math.min(fontSize,16));
     itemName.style.fontSize = `${fontSize}px`;
+}
+export async function tableTransition(){
+    await fetch("/tableTransition",{
+        method: "GET"
+    });
 }

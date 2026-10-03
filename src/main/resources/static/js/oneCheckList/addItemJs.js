@@ -1,6 +1,6 @@
 //@ts-check
 //addItemは+ボタンを押されたときに新しい項目を追加するメソッドである。
-export async function addItem(/**@type {HTMLDivElement} */cardLower){
+export function addItem(/**@type {HTMLDivElement} */cardLower){
     /*チェックリストの最後の項目は　+ -　(項目を追加する記号と項目を削除する記号)となっている。
     その項目の一つ前に新しい項目を追加する。*/
     const newCardRow = document.createElement("div");

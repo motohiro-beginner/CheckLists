@@ -17,8 +17,6 @@ import { oneCheckListFakeFetch } from "../../test/oneCheckListFakeFetchJs.js";
  * @property {boolean} isChecked
  */
 async function oneCheckList(){
-
-    /*テストのため一時的にコメントアウトしている。
     const id = window.location.pathname.split("/").pop();
     const response = await fetch(`showOneCheckList/${id}`, {
         method: "POST",
@@ -27,8 +25,6 @@ async function oneCheckList(){
         },
         body: JSON.stringify({})
     });
-    */
-   const response = await oneCheckListFakeFetch();
     if(response.ok){
         /**@type {OneCheckListViewDTO} */
         const checkList = await response.json();
