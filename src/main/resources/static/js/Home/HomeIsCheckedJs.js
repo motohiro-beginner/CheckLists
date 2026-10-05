@@ -17,6 +17,17 @@ export async function checkItem(/**@type {HTMLInputElement}*/ItemCheckBox){
             itemId: itemId
         })
     });
+    if(response.status === 401){
+        const result = await response.json();
+        alert(result);
+        await fetch("/logOut", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+                },
+            body: JSON.stringify({})
+        });
+    }
     if(!response.ok){
         const result = await response.json();
         alert(result);
