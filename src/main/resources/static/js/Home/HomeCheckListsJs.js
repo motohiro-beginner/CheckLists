@@ -23,7 +23,6 @@ if(!(container instanceof HTMLDivElement)){
 async function HomeCheckLists(){
     //console.log("HomeCheckLists開始");
     container.classList.remove("notFoundText");
-    /*テストのためにfakeFetchにさしかえている。
     container.classList.remove("notFoundText");
     const response = await fetch("/home", {
         method: "POST",
@@ -32,8 +31,6 @@ async function HomeCheckLists(){
         },
         body: JSON.stringify({})
     });
-    */
-    const response = await notFoundFakeFetch();
     //console.log("notFoundFakeFetch開始");
     let checkLists = null;
     if(response.status === 400){

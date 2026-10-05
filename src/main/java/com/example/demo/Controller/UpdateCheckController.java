@@ -25,15 +25,15 @@ public class UpdateCheckController {
             return ResponseEntity.ok().build();
         }catch(IllegalArgumentException e){
             e.getMessage();
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }catch(RuntimeException e){
             e.printStackTrace();
             System.out.println("コードに誤りがあります。");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }catch(Exception e){
             e.printStackTrace();
             System.out.println("Exception発生");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("原因不明のエラーが発生したため、更新処理が失敗しました。");
         }
     }
 }

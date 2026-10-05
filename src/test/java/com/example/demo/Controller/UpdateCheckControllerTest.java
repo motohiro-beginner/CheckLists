@@ -56,4 +56,26 @@ public class UpdateCheckControllerTest {
             e.printStackTrace();
         }
     }
+    @Test
+    void RuntimeExceptionが発生した場合(){
+        try{
+            CheckDTO dto = new CheckDTO();
+            dto.setIsChecked(true);
+            dto.setItemId(1);
+            doThrow(new RuntimeException("更新処理に失敗しました。"))
+                    .when(service).saveIsChecked(any(CheckDTO.class));
+            //saveIsCheckedが実行されたときにRuntimeExceptionを投げる。
+            mvc.perform(post("/updateCheck")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                    "isChecked":true,
+                                    "itemId":1
+                                    }
+                                    """))
+                    .andExpect(status().isBadRequest());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

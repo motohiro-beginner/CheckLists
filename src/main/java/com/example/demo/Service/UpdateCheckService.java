@@ -4,6 +4,8 @@ import com.example.demo.DTO.CheckDTO;
 import com.example.demo.Entity.HomeCheckListsItemsEntity;
 import com.example.demo.Repository.HomeItemsRepository;
 import jakarta.transaction.Transactional;
+
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,9 +20,13 @@ public class UpdateCheckService {
     * ユーザーがチェックボックスに印をつけたら、true、ついていなければfalseに更新する。*/
     @Transactional
     public void saveIsChecked(CheckDTO dto) throws IllegalArgumentException{
-        HomeCheckListsItemsEntity item = repository.findById(dto.getItemId())
-                .orElseThrow(() -> new IllegalArgumentException("指定されたitemIdが見つかりません。"));
-        item.setIsChecked(dto.getIsChecked());
-        repository.save(item);
+        try{
+            HomeCheckListsItemsEntity item = repository.findById(dto.getItemId())
+                    .orElseThrow(() -> new IllegalArgumentException("指定されたitemIdが見つかりません。"));
+            item.setIsChecked(dto.getIsChecked());
+            repository.save(item);
+        }catch(DataAccessException e){
+            throw new RuntimeException("更新処理に失敗しました。");
+        }
     }
 }
