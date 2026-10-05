@@ -19,7 +19,7 @@ public class UpdateCheckService {
     /*saveIsCheckedはユーザーがつけた項目に対するチェックを更新するためのメソッドである。
     * ユーザーがチェックボックスに印をつけたら、true、ついていなければfalseに更新する。*/
     @Transactional
-    public void saveIsChecked(CheckDTO dto) throws IllegalArgumentException{
+    public void saveIsChecked(String userName,CheckDTO dto) throws IllegalArgumentException{
         try{
             HomeCheckListsItemsEntity item = repository.findById(dto.getItemId())
                     .orElseThrow(() -> new IllegalArgumentException("指定されたitemIdが見つかりません。"));

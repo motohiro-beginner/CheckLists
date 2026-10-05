@@ -2,7 +2,9 @@ package com.example.demo.Controller;
 
 import com.example.demo.DTO.CheckDTO;
 import com.example.demo.Service.UpdateCheckService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,11 +20,16 @@ public class UpdateCheckController {
     * 具体的にはユーザーがとある項目にチェックを付けたり外したりしたら、その情報をfetch通信で受け取り、saveIsCheckedを呼び出す。*/
     @PostMapping("/updateCheck")
     public ResponseEntity<?> updateCheck(
-            @Valid @RequestBody CheckDTO dto
+            @Valid @RequestBody CheckDTO dto,
+            HttpSession session
     ){
         try{
-            service.saveIsChecked(dto);
-            return ResponseEntity.ok().build();
+            if(session != null&&session.getAttribute("userName") != null) {
+                service.saveIsChecked((String) session.getAttribute("userName"), dto);
+                return ResponseEntity.ok().build();
+            }else{
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ユーザー情報が消失したためログイン画面に戻りました。");
+            }
         }catch(IllegalArgumentException e){
             e.getMessage();
             return ResponseEntity.badRequest().body(e.getMessage());
