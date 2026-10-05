@@ -18,6 +18,7 @@ export async function checkItem(/**@type {HTMLInputElement}*/ItemCheckBox){
         })
     });
     if(!response.ok){
-        alert("ユーザーが項目につけたチェックの情報の更新に失敗しました。");
+        const result = await response.json();
+        alert(result);
     }
 }
