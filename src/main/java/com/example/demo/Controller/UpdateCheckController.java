@@ -31,14 +31,11 @@ public class UpdateCheckController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ユーザー情報が消失したためログイン画面に戻りました。");
             }
         }catch(IllegalArgumentException e){
-            e.getMessage();
             return ResponseEntity.badRequest().body(e.getMessage());
         }catch(RuntimeException e){
-            e.printStackTrace();
             System.out.println("コードに誤りがあります。");
             return ResponseEntity.badRequest().body(e.getMessage());
         }catch(Exception e){
-            e.printStackTrace();
             System.out.println("Exception発生");
             return ResponseEntity.badRequest().body("原因不明のエラーが発生したため、更新処理が失敗しました。");
         }

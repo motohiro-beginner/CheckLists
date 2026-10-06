@@ -4,7 +4,6 @@ import io.micrometer.common.lang.NonNull;
 import jakarta.validation.constraints.Pattern;
 
 public class CheckDTO {
-    @NonNull 
     private boolean isChecked;
     @Pattern (regexp = "^[1-9][0-9]*$")
     private Integer itemId;
