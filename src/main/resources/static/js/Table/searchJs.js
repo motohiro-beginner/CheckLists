@@ -1,6 +1,7 @@
 //@ts-check
 import { checkListsTable } from "./checkListsTableJs.js";
 import { searchNotFound } from "./checkListsTableJs.js";
+import { inputCheck } from "./inputCheckJs.js";
 import { searchResultFetch, searchResultFetchNoContent } from "../../test/tableFakeFetchJs.js";
 const searchNameInput =
 /**@type { HTMLInputElement } */
@@ -62,6 +63,11 @@ async function search(){
     const yearSearch = yearSearchInput.value;
     const monthSearch = monthSearchInput.value;
     const daySearch = daySearchInput.value;
+    const checkResult = inputCheck(searchName,yearSearch,monthSearch,daySearch);
+    if(checkResult.problem){
+        alert(checkResult.caution.join("\n"));
+        return;
+    }
     /*テストのためfakeFetchJs.jsの関数に差し替えている。
     const response = await fetch("/search", {
         method: "POST",

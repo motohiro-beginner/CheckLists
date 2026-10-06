@@ -1,126 +1,275 @@
 @charset "utf-8";
-.upper {
-    display: flex;
-    justify-content: space-between;
+@media(max-width: 449px){
+    .upper {
+        display: flex;
+        justify-content: space-between;
+    }
+    #title {
+        font-size: 1.5rem;
+    }
+    #addBtn {
+        font-size: 40px;
+        border: none;
+        outline: none;
+        background-color: white;
+        cursor: pointer;
+    }
+    .searchGroup {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    #search {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+    .searchBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 50px;
+    }
+    .searchLabel {
+        margin-left: 5px;
+    }
+    #searchName {
+        font-size: 1rem;
+        height: 25px;
+        width: 300px;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+    #yearSearch {
+        font-size: 1rem;
+        width: 60px;
+        height: 25px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+    #monthSearch {
+        font-size: 1rem;
+        width: 30px;
+        height: 25px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+    #daySearch {
+        font-size: 1rem;
+        width: 30px;
+        height: 25px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+    .dateLabel {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    #dateSearchGroup {
+        display: flex;
+        justify-content: center;
+    }
+    #searchBtn {
+        border: none;
+        background: white;
+        cursor: pointer;
+        margin-left: 10px;
+        margin-bottom: 50px;
+    }
+    .material-symbols-outlined{
+        font-size: 30px !important;
+    }
+    .cardContainer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+        gap: 20px;
+    }
+    .card {
+        width: 300px;
+        background-color: #f5f5f5;
+        border: 2px solid #f5f5f5;
+        box-shadow: 2px 2px 4px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .cardUpper {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 5px;
+        border-bottom: 2px solid #d3d3d3;
+    }
+    .checkListName {
+        font-size: 1rem;
+    }
+    .createdAt {
+        font-size: 0.75rem;
+        color: rgba(0,0,0,0.5);
+    }
+    .cardLower {
+        margin-left: 5px;
+    }
+    .cardRow {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 2px solid #d3d3d3;
+    }
+    .itemName {
+        /*font-sizeはjavascriptにて決定される。8px以上12px以下*/
+        overflow-wrap: anywhere;
+        width: 80%;
+    }
+    .isChecked {
+        width: 20px;
+    }
+    .cardContainer.notFoundText {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .notFoundMessage {
+        color: #808080;
+    }
 }
-#addBtn {
-    font-size: 5rem;
-    border: none;
-    outline: none;
-    background-color: white;
-    cursor: pointer;
-}
-.searchGroup {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-#search {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-.searchBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 50px;
-}
-.searchLabel {
-    margin-left: 5px;
-}
-#searchName {
-    font-size: 1rem;
-    height: 25px;
-    width: 300px;
-}
-#yearSearch {
-    font-size: 1rem;
-    width: 60px;
-    height: 25px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-#monthSearch {
-    font-size: 1rem;
-    width: 30px;
-    height: 25px;
-    margin-left: 5px;
-    margin-right: 5px
-}
-#daySearch {
-    font-size: 1rem;
-    width: 30px;
-    height: 25px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-.dateLabel {
-    width: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-#dateSearchGroup {
-    display: flex;
-    justify-content: center;
-}
-#searchBtn {
-    border: none;
-    background: white;
-    cursor: pointer;
-    margin-left: 10px;
-    margin-bottom: 50px;
-}
-.material-symbols-outlined{
-    font-size: 50px !important;
-}
-.cardContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
-    gap: 20px;
-}
-.card {
-    width: 400px;
-    background-color: #f5f5f5;
-    border: 2px solid #f5f5f5;
-    box-shadow: 2px 2px 4px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.cardUpper {
-    display: flex;
-    justify-content: space-between;
-    margin-left: 5px;
-    border-bottom: 2px solid #d3d3d3;
-}
-.checkListName {
-    font-size: 1rem;
-}
-.createdAt {
-    font-size: 0.75rem;
-    color: rgba(0,0,0,0.5);
-}
-.cardLower {
-    margin-left: 5px;
-}
-.cardRow {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 2px solid #d3d3d3;
-}
-.itemName {
-    /*font-sizeはjavascriptにて決定される。8px以上12px以下*/
-    overflow-wrap: anywhere;
-    width: 80%;
-}
-.isChecked {
-    width: 30px;
-}
-.cardContainer.notFoundText {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.notFoundMessage {
-    color: #808080;
+@media(min-width: 450px){
+    .upper {
+        display: flex;
+        justify-content: space-between;
+    }
+    #title {
+        font-size: 2rem;
+    }
+    #addBtn {
+        font-size: 5rem;
+        border: none;
+        outline: none;
+        background-color: white;
+        cursor: pointer;
+    }
+    .searchGroup {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    #search {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+    .searchBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 50px;
+    }
+    .searchLabel {
+        margin-left: 5px;
+    }
+    #searchName {
+        font-size: 1rem;
+        height: 25px;
+        width: 300px;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+    #yearSearch {
+        font-size: 1rem;
+        width: 60px;
+        height: 25px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+    #monthSearch {
+        font-size: 1rem;
+        width: 30px;
+        height: 25px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+    #daySearch {
+        font-size: 1rem;
+        width: 30px;
+        height: 25px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+    .dateLabel {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    #dateSearchGroup {
+        display: flex;
+        justify-content: center;
+    }
+    #searchBtn {
+        border: none;
+        background: white;
+        cursor: pointer;
+        margin-left: 10px;
+        margin-bottom: 50px;
+    }
+    .material-symbols-outlined{
+        font-size: 50px !important;
+    }
+    .cardContainer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+        gap: 20px;
+    }
+    .card {
+        width: 400px;
+        background-color: #f5f5f5;
+        border: 2px solid #f5f5f5;
+        box-shadow: 2px 2px 4px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .cardUpper {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 5px;
+        border-bottom: 2px solid #d3d3d3;
+    }
+    .checkListName {
+        font-size: 1rem;
+    }
+    .createdAt {
+        font-size: 0.75rem;
+        color: rgba(0,0,0,0.5);
+    }
+    .cardLower {
+        margin-left: 5px;
+    }
+    .cardRow {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 2px solid #d3d3d3;
+    }
+    .itemName {
+        /*font-sizeはjavascriptにて決定される。8px以上12px以下*/
+        overflow-wrap: anywhere;
+        width: 80%;
+    }
+    .isChecked {
+        width: 30px;
+    }
+    .cardContainer.notFoundText {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .notFoundMessage {
+        color: #808080;
+    }
 }

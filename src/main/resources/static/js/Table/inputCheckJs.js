@@ -1,5 +1,5 @@
 //@ts-check
-/**inputCheckは入力された情報に問題がないかをチェックする関数である。 */
+/**inputCheckは検索されたときに入力された情報に問題がないかをチェックする関数である。 */
 /**
  * @param {string} searchName
  * @param {string} yearSearch
@@ -45,10 +45,10 @@ export function inputCheck(searchName,yearSearch,monthSearch,daySearch){
             problem = true;
         }
     }
-    if(yearSearch.trim() != "" && monthSearch.trim() != "" && daySearch.trim() != ""){
-        const yearNum = Number(yearSearch);
+    const yearNum = Number(yearSearch);
         const monthNum = Number(monthSearch);
         const dayNum = Number(daySearch);
+    if(regex.test(yearSearch) && regex.test(monthSearch) && regex.test(daySearch)){  
         const checkDate = new Date(yearNum,monthNum-1,dayNum);
         if(
             !(checkDate.getFullYear() === yearNum) ||
@@ -57,6 +57,19 @@ export function inputCheck(searchName,yearSearch,monthSearch,daySearch){
         ){
             caution.push("実在しない日付が入力されています。");
             problem = true;
+        }else if(
+            (monthNum === 2 && dayNum > 29)||
+            (monthNum === 4 && dayNum > 30)||
+            (monthNum === 6 && dayNum > 30)||
+            (monthNum === 9 && dayNum > 30)||
+            (monthNum === 11 && dayNum > 30)
+        ){
+            caution.push("実在しない日付が入力されています。");
+            problem = true;
         }
     }
+    return {
+        caution: caution,
+        problem: problem
+    };
 }

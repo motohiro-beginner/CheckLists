@@ -26,7 +26,7 @@ async function table(){
     });
     */
    //console.log("1");
-    const response =  await tableFakeFetchNoContent();
+    const response =  await tableFakeFetch();
    //console.log("2");
     if(response.status === 400){
         //セッション情報が何等かの理由でなかった時に400となる。その時にログイン画面に遷移する。
