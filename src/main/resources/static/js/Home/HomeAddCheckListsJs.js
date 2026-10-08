@@ -72,8 +72,8 @@ function addItems(/**@type {HomeItemsViewDTO[]}*/items,/**@type {HTMLDivElement}
                 const cardRow = document.createElement("div");
                 cardRow.classList.add("cardRow");
                 //cardRowにはチェックリストの項目とそれに対応するチェックボックスが入る。
-                cardRow.dataset.itemId = item.itemId;
                 const item = document.createElement("div");
+                cardRow.dataset.itemId = item.itemId;
                 item.classList.add("item");
                 item.textContent = items.itemNames;
                 //itemFontSizeにはitemの項目の文字の大きさを調整する関数である。
