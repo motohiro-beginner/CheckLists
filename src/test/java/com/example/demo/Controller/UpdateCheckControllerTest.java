@@ -29,6 +29,7 @@ public class UpdateCheckControllerTest {
             /*
             mvc.perform(post("/updateCheck")
                             .contentType(MediaType.APPLICATION_JSON)
+                            .sessionAttr("userName","abcdefg")
                             .content("""
                                     {
                                     "isChecked":true,
@@ -41,10 +42,11 @@ public class UpdateCheckControllerTest {
             dto.setIsChecked(true);
             dto.setItemId(1);
             doThrow(new IllegalArgumentException("指定されたitemIdが見つかりません。"))
-                    .when(service).saveIsChecked(any(CheckDTO.class));
+                    .when(service).saveIsChecked("abcdefg",any(CheckDTO.class));
             //saveIsCheckedが実行されたときにIllegalArgumentExceptionを投げる。
             mvc.perform(post("/updateCheck")
                             .contentType(MediaType.APPLICATION_JSON)
+                            .sessionAttr("userName","abcdefg")
                             .content("""
                                     {
                                     "isChecked":true,
@@ -63,7 +65,7 @@ public class UpdateCheckControllerTest {
             dto.setIsChecked(true);
             dto.setItemId(1);
             doThrow(new RuntimeException("更新処理に失敗しました。"))
-                    .when(service).saveIsChecked(any(CheckDTO.class));
+                    .when(service).saveIsChecked("abcdefg",any(CheckDTO.class));
             //saveIsCheckedが実行されたときにRuntimeExceptionを投げる。
             mvc.perform(post("/updateCheck")
                             .contentType(MediaType.APPLICATION_JSON)
