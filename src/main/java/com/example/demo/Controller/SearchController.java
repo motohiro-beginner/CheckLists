@@ -24,15 +24,19 @@ public class SearchController {
             @Valid @RequestBody TableSearchDTO dto,
             HttpSession session
     ){
-        if((session != null)&&(session.getAttribute("userName") != null)){
-            if(service.existsBySearchedCheckLists((String)session.getAttribute("userName"),dto)) {
-                List<TableViewDTO> checkList = service.findSearchedCheckLists((String) session.getAttribute("userName"),dto);
-                return ResponseEntity.ok().body(checkList);
-            }else{
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        try {
+            if ((session != null) && (session.getAttribute("userName") != null)) {
+                if (service.existsBySearchedCheckLists((String) session.getAttribute("userName"), dto)) {
+                    List<TableViewDTO> checkList = service.findSearchedCheckLists((String) session.getAttribute("userName"), dto);
+                    return ResponseEntity.ok().body(checkList);
+                } else {
+                    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+                }
+            } else {
+                return ResponseEntity.badRequest().body("ユーザー名が消失したためログイン画面に戻りました。");
             }
-        }else{
-            return ResponseEntity.badRequest().body("ユーザー名が消失したためログイン画面に戻りました。");
+        }catch(RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

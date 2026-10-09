@@ -45,10 +45,10 @@ export function inputCheck(searchName,yearSearch,monthSearch,daySearch){
             problem = true;
         }
     }
-    const yearNum = Number(yearSearch);
+    if(yearRegex.test(yearSearch) && monthRegex.test(monthSearch) && dayRegex.test(daySearch)){
+        const yearNum = Number(yearSearch);
         const monthNum = Number(monthSearch);
         const dayNum = Number(daySearch);
-    if(regex.test(yearSearch) && regex.test(monthSearch) && regex.test(daySearch)){  
         const checkDate = new Date(yearNum,monthNum-1,dayNum);
         if(
             !(checkDate.getFullYear() === yearNum) ||
@@ -57,14 +57,48 @@ export function inputCheck(searchName,yearSearch,monthSearch,daySearch){
         ){
             caution.push("実在しない日付が入力されています。");
             problem = true;
-        }else if(
-            (monthNum === 2 && dayNum > 29)||
-            (monthNum === 4 && dayNum > 30)||
-            (monthNum === 6 && dayNum > 30)||
-            (monthNum === 9 && dayNum > 30)||
-            (monthNum === 11 && dayNum > 30)
+        }
+    }else if(monthRegex.test(monthSearch) && dayRegex.test(daySearch)){
+        const monthNum = Number(monthSearch);
+        const dayNum = Number(daySearch);
+        if(
+        (monthNum === 2 && dayNum > 29)||
+        (monthNum === 4 && dayNum > 30)||
+        (monthNum === 6 && dayNum > 30)||
+        (monthNum === 9 && dayNum > 30)||
+        (monthNum === 11 && dayNum > 30)
         ){
             caution.push("実在しない日付が入力されています。");
+            problem = true;
+        }
+    }
+    //入力された日付が過去の日付かどうかをチェックする。
+    if(regex.test(yearSearch) && regex.test(monthSearch) && regex.test(daySearch)){
+        const yearNum = Number(yearSearch);
+        const monthNum = Number(monthSearch);
+        const dayNum = Number(daySearch);
+        if(
+        (now.getFullYear() > Number(yearNum)) ||
+        ((now.getFullYear() === Number(yearNum)) && (now.getMonth() + 1 > Number(monthNum))) ||
+        ((now.getFullYear() === Number(yearNum)) && (now.getMonth() + 1 === Number(monthNum)) && (now.getDate() > Number(dayNum)))
+        ){
+            caution.push("チェックリストに入力する日付に過去の日付を入力しないでください。");
+            problem = true;
+        }
+    }else if(regex.test(yearSearch) && regex.test(monthSearch)){
+        const yearNum = Number(yearSearch);
+        const monthNum = Number(monthSearch);
+        if(
+        (now.getFullYear() > Number(yearNum)) ||
+        (now.getFullYear() === Number(yearNum) && (now.getMonth() + 1 > Number(monthNum)))
+        ){
+            caution.push("チェックリストに入力する日付に過去の日付を入力しないでください。");
+            problem = true;
+        }
+    }else if(regex.test(yearSearch)){
+        const yearNum = Number(yearSearch);
+        if(now.getFullYear() > Number(yearNum)){
+            caution.push("チェックリストに入力する日付に過去の日付を入力しないでください。");
             problem = true;
         }
     }

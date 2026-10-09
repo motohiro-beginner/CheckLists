@@ -7,6 +7,8 @@ import com.example.demo.DTO.TableViewDTO;
 import com.example.demo.Repository.TableRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,66 +50,92 @@ public class SearchService {
      *                              isChecked false
      * */
     public List<TableViewDTO> findSearchedCheckLists(String userName,TableSearchDTO searchDto){
-        //%という文字列がキーワードに含まれていた場合、%の前に\を挿入する。
-        StringBuilder sb = new StringBuilder();
-        sb.append(searchDto.getSearchName());
-        for(int i=0;i<sb.length();i++){
-            if('%' == sb.charAt(i)){
-                sb.insert(i,"\\");
+        try {
+            //%という文字列がキーワードに含まれていた場合、%の前に\を挿入する。
+            StringBuilder sb = new StringBuilder();
+            sb.append(searchDto.getSearchName());
+            for (int i = 0; i < sb.length(); i++) {
+                if ('%' == sb.charAt(i)) {
+                    sb.insert(i, "\\");
+                }
             }
-        }
 
-        String keyword = null;
-        //値が何も入っていいないときは%をくっつけない。
-        if(searchDto.getSearchName() != null){
-            //部分一致検索なのでワイルドカードの%を両端につける。
-            keyword = "%" + searchDto.getSearchName() + "%";
-        }
-        Integer year = null;
-        Integer month = null;
-        Integer day = null;
-        //これらのif文はInteger.parseIntの中の変数がnullだった場合にエラーになるのを防ぐために書いている。
-        if(searchDto.getYearSearch() != null) {
-            year = Integer.parseInt(searchDto.getYearSearch());
-        }
-        if(searchDto.getMonthSearch() != null) {
-            month = Integer.parseInt(searchDto.getMonthSearch());
-        }
-        if(searchDto.getDaySearch() != null) {
-            day = Integer.parseInt(searchDto.getDaySearch());
-        }
-        List<TableDTO> dto = repository.findSearchedCheckLists(userName,keyword,year,month,day);
-        //これ以降はTableServiceのList<TableDTO>からList<TableViewDTO>に変換する部分と同じである。
-        List<TableViewDTO> viewDto = new ArrayList<>();
-        //checkListsId及びitemIdはJavaScriptに情報を送る関係でString型にする。
-        String checkListsId = null;
-        String checkListsName = null;
-        List<TableItemsViewDTO> items = new ArrayList<>();
-        String createdAt = null;
-        String prev = null;
-        for (TableDTO column : dto) {
-            if (prev == null) {
-                //最初の繰り返しのときにこの部分を実行する。
-                checkListsId = column.getCheckListsId().toString();
-                checkListsName = column.getCheckListsName();
-                createdAt = column.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-                items.add(new TableItemsViewDTO(column.getItemId().toString(),column.getItemNames(), column.getIsChecked()));
-            } else if (!(prev.equals(column.getCheckListsName()))) {
-                //checkListsNameの名前が変わったタイミングでTableViewDTOを作り、viewDtoに代入する。
-                viewDto.add(new TableViewDTO(checkListsId,checkListsName, items, createdAt));
-                checkListsId = column.getCheckListsId().toString();
-                checkListsName = column.getCheckListsName();
-                items = new ArrayList<>();
-                items.add(new TableItemsViewDTO(column.getItemId().toString(),column.getItemNames(), column.getIsChecked()));
-                createdAt = column.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-            } else {
-                //itemsには一つのチェックリストの項目が入る。一つのチェックリストに１つ以上の項目が入る。
-                items.add(new TableItemsViewDTO(column.getItemId().toString(),column.getItemNames(), column.getIsChecked()));
+            String keyword = null;
+            //値が何も入っていいないときは%をくっつけない。
+            if (searchDto.getSearchName() != null) {
+                //部分一致検索なのでワイルドカードの%を両端につける。
+                keyword = "%" + searchDto.getSearchName() + "%";
             }
-            prev = column.getCheckListsName();
+            Integer year = null;
+            Integer month = null;
+            Integer day = null;
+            //これらのif文はInteger.parseIntの中の変数がnullだった場合にエラーになるのを防ぐために書いている。
+            if (searchDto.getYearSearch() != null) {
+                year = Integer.parseInt(searchDto.getYearSearch());
+            }
+            if (searchDto.getMonthSearch() != null) {
+                month = Integer.parseInt(searchDto.getMonthSearch());
+            }
+            if (searchDto.getDaySearch() != null) {
+                day = Integer.parseInt(searchDto.getDaySearch());
+            }
+            //実在しない日付が入力されていないかをチェックする。
+            if (
+                year != null &&
+                month != null &&
+                day != null
+            ) {
+                LocalDate date = LocalDate.of(year, month, day);
+            }else if(
+                month != null &&
+                day != null
+            ){
+                if(
+                        (month == 2 && day > 29) ||
+                        (month == 4 && day > 30) ||
+                        (month == 6 && day > 30) ||
+                        (month == 9 && day > 30) ||
+                        (month == 11 && day > 30)
+                ){
+                    throw new RuntimeException("実在しない日付が入力されています。");
+                }
+            }
+
+            List<TableDTO> dto = repository.findSearchedCheckLists(userName, keyword, year, month, day);
+            //これ以降はTableServiceのList<TableDTO>からList<TableViewDTO>に変換する部分と同じである。
+            List<TableViewDTO> viewDto = new ArrayList<>();
+            //checkListsId及びitemIdはJavaScriptに情報を送る関係でString型にする。
+            String checkListsId = null;
+            String checkListsName = null;
+            List<TableItemsViewDTO> items = new ArrayList<>();
+            String createdAt = null;
+            String prev = null;
+            for (TableDTO column : dto) {
+                if (prev == null) {
+                    //最初の繰り返しのときにこの部分を実行する。
+                    checkListsId = column.getCheckListsId().toString();
+                    checkListsName = column.getCheckListsName();
+                    createdAt = column.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                    items.add(new TableItemsViewDTO(column.getItemId().toString(), column.getItemNames(), column.getIsChecked()));
+                } else if (!(prev.equals(column.getCheckListsName()))) {
+                    //checkListsNameの名前が変わったタイミングでTableViewDTOを作り、viewDtoに代入する。
+                    viewDto.add(new TableViewDTO(checkListsId, checkListsName, items, createdAt));
+                    checkListsId = column.getCheckListsId().toString();
+                    checkListsName = column.getCheckListsName();
+                    items = new ArrayList<>();
+                    items.add(new TableItemsViewDTO(column.getItemId().toString(), column.getItemNames(), column.getIsChecked()));
+                    createdAt = column.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                } else {
+                    //itemsには一つのチェックリストの項目が入る。一つのチェックリストに１つ以上の項目が入る。
+                    items.add(new TableItemsViewDTO(column.getItemId().toString(), column.getItemNames(), column.getIsChecked()));
+                }
+                prev = column.getCheckListsName();
+            }
+            viewDto.add(new TableViewDTO(checkListsId, checkListsName, items, createdAt));
+            return viewDto;
+        }catch(DateTimeException e){
+            throw new RuntimeException("実在しない日付が入力されています。");
         }
-        viewDto.add(new TableViewDTO(checkListsId,checkListsName, items, createdAt));
-        return viewDto;
     }
     public boolean existsBySearchedCheckLists(String userName,TableSearchDTO searchDTO){
         StringBuilder sb = new StringBuilder();

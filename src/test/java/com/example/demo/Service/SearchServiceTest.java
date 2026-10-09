@@ -27,14 +27,14 @@ public class SearchServiceTest {
     SearchService service;
     List<TableDTO> dto = new ArrayList<>();
     @Test
-    void findSearchedCheckListsTest(){
+    void チェックリスト名年月日が入力されていた場合(){
         LocalDate date1 = LocalDate.of(2026,1,1);
         LocalDate date2 = LocalDate.of(2026,1,2);
         createDto(1,"買い物",1,"リンゴ",true,date1);
         createDto(1,"買い物",2,"みかん",false,date1);
-        when(repository.findSearchedCheckLists("abcdefg","%買い物%",2026,1,1))
+        when(repository.findSearchedCheckLists("abcdefg","%買い物%",2026,11,1))
                 .thenReturn(dto);
-        TableSearchDTO search = new TableSearchDTO("買い物","2026","1","1");
+        TableSearchDTO search = new TableSearchDTO("買い物","2026","11","1");
 
         List<TableViewDTO> view = service.findSearchedCheckLists("abcdefg",search);
 
@@ -47,7 +47,11 @@ public class SearchServiceTest {
                             dto.getCheckListsName().equals("勉強")
                         ))
         );
-        /*テストデータ2
+    }
+    @Test
+    void チェックリスト名のみが入力されていた場合(){
+        LocalDate date1 = LocalDate.of(2026,1,1);
+        LocalDate date2 = LocalDate.of(2026,1,2);
         createDto(1,"買い物",1,"リンゴ",true,date1);
         createDto(1,"買い物",2,"みかん",false,date1);
         createDto(2,"勉強",3,"国語",true,date2);
@@ -64,8 +68,9 @@ public class SearchServiceTest {
 
         ItemsEquals(shopping.getItems().get(0),"1","リンゴ",true);
         ItemsEquals(shopping.getItems().get(1),"2","みかん",false);
-         */
-        /*テストデータ3
+    }
+    @Test
+    void 検索のときに何も入力されていなかった場合(){
         createDto(1,"買い物",1,"リンゴ",true,date1);
         createDto(1,"買い物",2,"みかん",false,date1);
         createDto(2,"勉強",3,"国語",true,date2);
@@ -86,7 +91,6 @@ public class SearchServiceTest {
         ItemsEquals(shopping.getItems().get(1),"2","みかん",false);
         ItemsEquals(study.getItems().get(0),"3","国語",true);
         ItemsEquals(study.getItems().get(1),"4","数学",false);
-         */
     }
     //テスト用データをすぐにつくるためのメソッド
     private void createDto(Integer checkListsId, String checkListsName, Integer itemId, String itemNames, boolean isChecked, LocalDate createdAt){
