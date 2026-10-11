@@ -1,5 +1,5 @@
 //@ts-check
-import { newRegistrationFakeFetch } from "../test/newRegistrationHandlers.js";
+import { newRegistrationFakeFetch } from "../../test/newRegistrationHandlers.js";
 const userNameText =
 /**@type {HTMLInputElement} */
 (document.querySelector("#userNameText"));
