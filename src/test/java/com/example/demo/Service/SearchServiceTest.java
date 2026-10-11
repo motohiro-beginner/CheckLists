@@ -15,8 +15,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,8 +28,8 @@ public class SearchServiceTest {
     List<TableDTO> dto = new ArrayList<>();
     @Test
     void チェックリスト名年月日が入力されていた場合(){
-        LocalDate date1 = LocalDate.of(2026,1,1);
-        LocalDate date2 = LocalDate.of(2026,1,2);
+        LocalDate date1 = LocalDate.of(2026,11,1);
+        LocalDate date2 = LocalDate.of(2026,11,2);
         createDto(1,"買い物",1,"リンゴ",true,date1);
         createDto(1,"買い物",2,"みかん",false,date1);
         when(repository.findSearchedCheckLists("abcdefg","%買い物%",2026,11,1))
@@ -39,7 +39,7 @@ public class SearchServiceTest {
         List<TableViewDTO> view = service.findSearchedCheckLists("abcdefg",search);
 
         TableViewDTO shopping =view.get(0);
-        checkListsEquals(shopping,"1","買い物","2026/01/01");
+        checkListsEquals(shopping,"1","買い物","2026/11/01");
         ItemsEquals(shopping.getItems().get(0),"1","リンゴ",true);
         assertFalse(
                 view.stream()
@@ -50,8 +50,8 @@ public class SearchServiceTest {
     }
     @Test
     void チェックリスト名のみが入力されていた場合(){
-        LocalDate date1 = LocalDate.of(2026,1,1);
-        LocalDate date2 = LocalDate.of(2026,1,2);
+        LocalDate date1 = LocalDate.of(2026,11,1);
+        LocalDate date2 = LocalDate.of(2026,11,2);
         createDto(1,"買い物",1,"リンゴ",true,date1);
         createDto(1,"買い物",2,"みかん",false,date1);
         createDto(2,"勉強",3,"国語",true,date2);
@@ -64,13 +64,15 @@ public class SearchServiceTest {
 
         TableViewDTO shopping = view.get(0);
 
-        checkListsEquals(shopping,"1","買い物","2026/01/01");
+        checkListsEquals(shopping,"1","買い物","2026/11/01");
 
         ItemsEquals(shopping.getItems().get(0),"1","リンゴ",true);
         ItemsEquals(shopping.getItems().get(1),"2","みかん",false);
     }
     @Test
     void 検索のときに何も入力されていなかった場合(){
+        LocalDate date1 = LocalDate.of(2026,11,1);
+        LocalDate date2 = LocalDate.of(2026,11,2);
         createDto(1,"買い物",1,"リンゴ",true,date1);
         createDto(1,"買い物",2,"みかん",false,date1);
         createDto(2,"勉強",3,"国語",true,date2);
@@ -84,13 +86,33 @@ public class SearchServiceTest {
         TableViewDTO shopping = view.get(0);
         TableViewDTO study = view.get(1);
 
-        checkListsEquals(shopping,"1","買い物","2026/01/01");
-        checkListsEquals(study,"2","勉強","2026/01/02");
+        checkListsEquals(shopping,"1","買い物","2026/11/01");
+        checkListsEquals(study,"2","勉強","2026/11/02");
 
         ItemsEquals(shopping.getItems().get(0),"1","リンゴ",true);
         ItemsEquals(shopping.getItems().get(1),"2","みかん",false);
         ItemsEquals(study.getItems().get(0),"3","国語",true);
         ItemsEquals(study.getItems().get(1),"4","数学",false);
+    }
+    @Test
+    void 過去の日付が入力されていた場合(){
+        TableSearchDTO search = new TableSearchDTO(null,"2026","01","01");
+        RuntimeException exception = assertThrows(RuntimeException.class,() ->
+        {
+            service.findSearchedCheckLists("abcdefg",search);
+        }
+        );
+        exceptionCheck(exception.getMessage(),"チェックリストに入力する日付に過去の日付を入力しないでください。");
+    }
+    @Test
+    void 実在しない日付が入力されていた場合(){
+        TableSearchDTO search = new TableSearchDTO(null,"2026","11","31");
+        RuntimeException exception = assertThrows(RuntimeException.class,() ->
+                {
+                    service.findSearchedCheckLists("abcdefg",search);
+                }
+        );
+        exceptionCheck(exception.getMessage(),"実在しない日付が入力されています。");
     }
     //テスト用データをすぐにつくるためのメソッド
     private void createDto(Integer checkListsId, String checkListsName, Integer itemId, String itemNames, boolean isChecked, LocalDate createdAt){
@@ -107,5 +129,8 @@ public class SearchServiceTest {
         assertEquals(itemId,items.getItemId());
         assertEquals(itemName,items.getItemName());
         assertEquals(isChecked,items.getIsChecked());
+    }
+    private void exceptionCheck(String exception,String actualMessage){
+        assertEquals(exception,actualMessage);
     }
 }

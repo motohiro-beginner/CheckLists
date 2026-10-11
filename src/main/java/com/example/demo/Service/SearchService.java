@@ -100,7 +100,21 @@ public class SearchService {
                     throw new RuntimeException("実在しない日付が入力されています。");
                 }
             }
-
+            //過去の日付が入力されていないかをチェックする。
+            LocalDate now = LocalDate.now();
+            if(
+            year != null &&
+            month != null &&
+            day != null
+            ){
+                if(
+                (now.getYear() > year) ||
+                ((now.getYear() == year) && (now.getMonthValue() > month)) ||
+                ((now.getYear() == year) && (now.getMonthValue() == month) && (now.getDayOfMonth() > day))
+                ){
+                    throw new RuntimeException("チェックリストに入力する日付に過去の日付を入力しないでください。");
+                }
+            }
             List<TableDTO> dto = repository.findSearchedCheckLists(userName, keyword, year, month, day);
             //これ以降はTableServiceのList<TableDTO>からList<TableViewDTO>に変換する部分と同じである。
             List<TableViewDTO> viewDto = new ArrayList<>();

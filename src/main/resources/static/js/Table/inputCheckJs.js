@@ -73,7 +73,8 @@ export function inputCheck(searchName,yearSearch,monthSearch,daySearch){
         }
     }
     //入力された日付が過去の日付かどうかをチェックする。
-    if(regex.test(yearSearch) && regex.test(monthSearch) && regex.test(daySearch)){
+    const now = new Date();
+    if(yearRegex.test(yearSearch) && monthRegex.test(monthSearch) && dayRegex.test(daySearch)){
         const yearNum = Number(yearSearch);
         const monthNum = Number(monthSearch);
         const dayNum = Number(daySearch);
