@@ -1,5 +1,5 @@
 //@ts-check
-import { LoginFakeFetch } from "../test/LoginHandlers.js";
+import { LoginFakeFetch } from "../../test/LoginHandlers.js";
 const userNameText =
 /** @type {HTMLInputElement} */
 (document.querySelector("#userNameText"));
