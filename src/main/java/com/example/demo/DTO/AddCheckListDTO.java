@@ -3,6 +3,7 @@ package com.example.demo.DTO;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -22,6 +23,7 @@ public class AddCheckListDTO {
     @Pattern(regexp = "^(0[1-9]|1[0-9]|2[0-9]|3[0-1])$")
     private String day;
     @NotNull
+    @Valid
     private List<AddItemsDTO> items;
     public AddCheckListDTO(){}
     public String getCheckListName(){
