@@ -25,7 +25,7 @@ public class SaveCheckListController {
         try {
             //セッション情報がなかったら、ログイン画面に戻る。
             if((session != null) && (session.getAttribute("userName") != null)) {
-                service.updateColumns(dto);
+                service.updateColumns((String)session.getAttribute("userName"),dto);
                 return ResponseEntity.ok().build();
             }else{
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("ユーザー名が消失したため、ログイン画面に戻りました。");

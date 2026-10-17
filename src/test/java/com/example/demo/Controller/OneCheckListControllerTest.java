@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,7 +31,7 @@ public class OneCheckListControllerTest {
             items.add(createItemsDTO("1", "りんご", true));
             items.add(createItemsDTO("2", "みかん", false));
             OneCheckListViewDTO list = createDTO("1", "買い物", items, "2026/01/01");
-            when(service.findOneCheckList(1))
+            when(service.findOneCheckList(1,"abcdefg"))
                     .thenReturn(list);
             mvc.perform(post("/showOneCheckList/{checkListsId}", 1)
                             .contentType(MediaType.APPLICATION_JSON)
@@ -47,7 +48,7 @@ public class OneCheckListControllerTest {
             items.add(createItemsDTO("1", "りんご", true));
             items.add(createItemsDTO("2", "みかん", false));
             OneCheckListViewDTO list = createDTO("1", "買い物", items, "2026/01/01");
-            when(service.findOneCheckList(1))
+            when(service.findOneCheckList(1,"abcdefg"))
                     .thenReturn(list);
             mvc.perform(post("/showOneCheckList/{checkListsId}", 1)
                             .contentType(MediaType.APPLICATION_JSON))
@@ -55,6 +56,19 @@ public class OneCheckListControllerTest {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    @Test
+    void RuntimeExceptionが発生した場合() throws Exception{
+        List<OneItemsViewDTO> items = new ArrayList<>();
+        items.add(createItemsDTO("1", "りんご", true));
+        items.add(createItemsDTO("2", "みかん", false));
+        OneCheckListViewDTO list = createDTO("1", "買い物", items, "2026/01/01");
+        doThrow(new RuntimeException("参照するチェックリストにアクセスする権限がありません。チェックリストIDを改ざんしましたね?"))
+                .when(service)
+                        .findOneCheckList(1,"abcdefg");
+        mvc.perform(post("/showOneCheckList/{checkListsId}", 1)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
     private OneCheckListViewDTO createDTO(String checkListId, String checkListName, List<OneItemsViewDTO> items, String createdAt){
         return new OneCheckListViewDTO(checkListId,checkListName,items,createdAt);

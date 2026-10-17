@@ -55,6 +55,7 @@ public class SaveCheckListServiceTest {
                 ArgumentCaptor.forClass(OneCheckListItemsEntity.class);
         ArgumentCaptor<Integer> captor3 =
                 ArgumentCaptor.forClass(Integer.class);
+        when(repository.existsByCheckListIdAndUserName(1,"abcdefg"))
         when(iRepository.findItemIdByCheckListsId(1))
                 .thenReturn(List.of(1,2,3,4));
         service.updateColumns(dto);

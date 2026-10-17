@@ -32,7 +32,10 @@ public class OneCheckListService {
     *                              itemName "イチゴ"
     *                              isChecked false
     * */
-    public OneCheckListViewDTO findOneCheckList(Integer checkListsId){
+    public OneCheckListViewDTO findOneCheckList(Integer checkListsId,String userName){
+        if(repository.existsByCheckListIdAndUserName(checkListsId,userName) <= 0){
+            throw new RuntimeException("参照するチェックリストにアクセスする権限がありません。チェックリストIDを改ざんしましたね?");
+        }
         List<OneCheckListDTO> dto = repository.findOneCheckList(checkListsId);
         //dto.get(0)はよく使うので、変数に代入している。
         OneCheckListDTO one = dto.get(0);

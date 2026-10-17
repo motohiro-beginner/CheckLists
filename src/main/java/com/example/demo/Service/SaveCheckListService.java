@@ -22,8 +22,11 @@ public class SaveCheckListService {
         this.iRepository = iRepository;
     }
     /*updateColumnsはユーザーが変更したチェックリスト名、日付、項目名、チェックがついているか否かの情報をデータベースに更新するためのメソッドである。*/
-    public void updateColumns(SaveCheckListDTO dto){
+    public void updateColumns(String userName,SaveCheckListDTO dto){
         try {
+            if(repository.existsByCheckListIdAndUserName(Integer.parseInt(dto.getCheckListsId()),userName) <= 0){
+                throw new RuntimeException("参照するチェックリストにアクセスする権限がありません。チェックリストIDを改ざんしましたね?");
+            }
             //チェックリスト本体を保存する。
             OneCheckListCheckListsEntity checkList = new OneCheckListCheckListsEntity();
             /*テスト用コード

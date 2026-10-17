@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface OneCheckListRepository extends JpaRepository<OneCheckListCheckListsEntity,Integer> {
-    //該当するcheckListIdの列を取り出すためのメソッドである。
+    //該当するcheckListIdの列を取り出すためのメソッドである。最初にチェックリストを表示するときにこの変数が呼び出される。
     @Query("""
            SELECT new com.example.demo.DTO.OneCheckListDTO(c.checkListsId,c.checkListsName,i.itemId,i.itemName,i.isChecked,c.createdAt)
            FROM OneCheckListCheckListsEntity c
@@ -19,5 +19,8 @@ public interface OneCheckListRepository extends JpaRepository<OneCheckListCheckL
            WHERE c.checkListsId = :checkListsId
            """)
     List<OneCheckListDTO> findOneCheckList(@Param("checkListsId") Integer checkListsId);
+    //チェックリストそのものを削除するために使う。チェックリスト削除ボタンが押されたときに呼び出される。
     Integer deleteByCheckListsId(Integer id);
+    //該当するcheckListIdかつ該当するuserNameの列を取り出すためのメソッド
+    Integer existsByCheckListIdAndUserName(Integer checkListsId,String userName);
 }

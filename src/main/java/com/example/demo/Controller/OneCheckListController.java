@@ -21,12 +21,16 @@ public class OneCheckListController {
             @PathVariable Integer checkListsId,
             HttpSession session
     ){
-        //セッション情報が消失していた場合、badRequestを送り、ログイン画面に戻る。
-        if(session != null && session.getAttribute("userName") != null) {
-            OneCheckListViewDTO view = service.findOneCheckList(checkListsId);
-            return ResponseEntity.ok(view);
-        }else{
-            return ResponseEntity.badRequest().body("ユーザー名が消失したため、ログイン画面に戻りました。");
+        try {
+            //セッション情報が消失していた場合、badRequestを送り、ログイン画面に戻る。
+            if (session != null && session.getAttribute("userName") != null) {
+                OneCheckListViewDTO view = service.findOneCheckList(checkListsId, (String) session.getAttribute("userName"));
+                return ResponseEntity.ok(view);
+            } else {
+                return ResponseEntity.badRequest().body("ユーザー名が消失したため、ログイン画面に戻りました。");
+            }
+        }catch(RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }
