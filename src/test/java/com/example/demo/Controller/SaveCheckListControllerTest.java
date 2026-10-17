@@ -32,8 +32,10 @@ public class SaveCheckListControllerTest {
     @Test
     void 問題なく更新できた場合(){
         try{
-            ArgumentCaptor<SaveCheckListDTO> captor =
+            ArgumentCaptor<SaveCheckListDTO> dtoCaptor =
                     ArgumentCaptor.forClass(SaveCheckListDTO.class);
+            ArgumentCaptor<String> userNameCaptor =
+                    ArgumentCaptor.forClass(String.class);
             mvc.perform(post("/saveCheckListName")
                     .contentType(MediaType.APPLICATION_JSON)
                     .sessionAttr("userName","abcdefg")
@@ -65,8 +67,8 @@ public class SaveCheckListControllerTest {
                             }
                             """))
                             .andExpect(status().isOk());
-            verify(service).updateColumns(captor.capture());
-            SaveCheckListDTO argumentDTO = captor.getValue();
+            verify(service).updateColumns(userNameCaptor.capture(),dtoCaptor.capture());
+            SaveCheckListDTO argumentDTO = dtoCaptor.getValue();
             argumentCheck(
                     argumentDTO,
                     "1",
@@ -94,6 +96,8 @@ public class SaveCheckListControllerTest {
                     "いちご",
                     true
             );
+            String userName = userNameCaptor.getValue();
+            assertEquals(userName,"abcdefg");
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -141,7 +145,7 @@ public class SaveCheckListControllerTest {
         try{
             doThrow(new RuntimeException("データの保存に失敗しました。"))
                     .when(service)
-                    .updateColumns(any(SaveCheckListDTO.class));
+                    .updateColumns(any(String.class),any(SaveCheckListDTO.class));
             mvc.perform(post("/saveCheckListName")
                     .contentType(MediaType.APPLICATION_JSON)
                     .sessionAttr("userName","abcdefg")

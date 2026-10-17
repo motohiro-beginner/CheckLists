@@ -46,8 +46,8 @@ public class SaveCheckListServiceTest {
                 itemDTO,
                 newItems,
                 "2026",
-                "1",
-                "1"
+                "11",
+                "01"
         );
         ArgumentCaptor<OneCheckListCheckListsEntity> captor =
                 ArgumentCaptor.forClass(OneCheckListCheckListsEntity.class);
@@ -56,9 +56,10 @@ public class SaveCheckListServiceTest {
         ArgumentCaptor<Integer> captor3 =
                 ArgumentCaptor.forClass(Integer.class);
         when(repository.existsByCheckListIdAndUserName(1,"abcdefg"))
+                .thenReturn(1);
         when(iRepository.findItemIdByCheckListsId(1))
                 .thenReturn(List.of(1,2,3,4));
-        service.updateColumns(dto);
+        service.updateColumns("abcdefg",dto);
         verify(repository).save(captor.capture());
         verify(iRepository,times(3)).save(captor2.capture());
         verify(iRepository,times(2)).deleteItemsByItemId(captor3.capture());
@@ -66,7 +67,7 @@ public class SaveCheckListServiceTest {
                 captor.getValue(),
                 1,
                 "買い物",
-                LocalDate.of(2026,1,1)
+                LocalDate.of(2026,11,1)
         );
         List<OneCheckListItemsEntity> values = captor2.getAllValues();
         entityCheck2(
@@ -115,8 +116,8 @@ public class SaveCheckListServiceTest {
                 itemDTO,
                 newItemDTO,
                 "2026",
-                "1",
-                "1"
+                "11",
+                "01"
         );
         doThrow(new DataAccessException("DBエラー"){})
                 .when(repository)
@@ -124,14 +125,15 @@ public class SaveCheckListServiceTest {
                         argThat(entity ->
                                 entity.getCheckListsId() == 1 &&
                                 entity.getCheckListsName().equals("買い物") &&
-                                entity.getCreatedAt().equals(LocalDate.of(2026,1,1)))
+                                entity.getCreatedAt().equals(LocalDate.of(2026,11,1)))
                 );
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> service.updateColumns(dto)
+                () -> service.updateColumns("abcdefg",dto)
         );
         errorCheck(exception,"データの保存に失敗しました。");
     }
+    //このテストは行わない。SaveCheckListServiceではチェックリスト名の文字数をチェックしていない。
     @Test
     void チェックリスト名が50文字を超えていた場合(){
         SaveCheckListDTO dto = new SaveCheckListDTO();
@@ -147,15 +149,18 @@ public class SaveCheckListServiceTest {
                 itemDTO,
                 newItems,
                 "2026",
-                "1",
+                "11",
                 "1"
         );
+        when(repository.existsByCheckListIdAndUserName(1,"abcdefg"))
+                .thenReturn(1);
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> service.updateColumns(dto)
+                () -> service.updateColumns("abcdefg",dto)
         );
         errorCheck(exception,"チェックリスト名は50文字以内にしてください。");
     }
+    //このテストは行わない。SaveCheckListServiceでは項目名の文字数をチェックしていない。
     @Test
     void 項目名が50文字を超えていた場合(){
         SaveCheckListDTO dto = new SaveCheckListDTO();
@@ -171,12 +176,12 @@ public class SaveCheckListServiceTest {
                 itemDTO,
                 newItems,
                 "2026",
-                "1",
+                "11",
                 "1"
         );
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> service.updateColumns(dto)
+                () -> service.updateColumns("abcdefg",dto)
         );
         errorCheck(exception,"項目名は50文字以内にしてください。");
     }
@@ -214,7 +219,7 @@ public class SaveCheckListServiceTest {
         );
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> service.updateColumns(dto)
+                () -> service.updateColumns("abcdefg",dto)
         );
         errorCheck(exception,"チェックリストに入力する日付に過去の日付を入力しないでください。");
     }
@@ -252,7 +257,7 @@ public class SaveCheckListServiceTest {
         );
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> service.updateColumns(dto)
+                () -> service.updateColumns("abcdefg",dto)
         );
         errorCheck(exception,"実在しない日付が入力されています。");
     }
