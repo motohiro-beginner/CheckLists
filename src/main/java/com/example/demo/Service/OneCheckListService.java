@@ -4,6 +4,7 @@ import com.example.demo.DTO.OneCheckListDTO;
 import com.example.demo.DTO.OneCheckListViewDTO;
 import com.example.demo.DTO.OneItemsViewDTO;
 import com.example.demo.Repository.OneCheckListRepository;
+import com.example.demo.Repository.OneCheckListUserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
@@ -12,9 +13,11 @@ import java.util.List;
 
 @Service
 public class OneCheckListService {
-    private OneCheckListRepository repository;
-    public OneCheckListService(OneCheckListRepository repository){
-        this.repository =repository;
+    private OneCheckListUserRepository uRepository;
+    private OneCheckListRepository cRepository;
+    public OneCheckListService(OneCheckListUserRepository uRepository,OneCheckListRepository cRepository){
+        this.uRepository = uRepository;
+        this.cRepository = cRepository;
     }
     /*findOneCheckListは該当するcheckListIdに一致するチェックリストの情報を渡すメソッドである。
     * 渡すチェックリストは１つである。
@@ -33,10 +36,10 @@ public class OneCheckListService {
     *                              isChecked false
     * */
     public OneCheckListViewDTO findOneCheckList(Integer checkListsId,String userName){
-        if(repository.existsByCheckListIdAndUserName(checkListsId,userName) <= 0){
+        if(uRepository.existsByCheckListIdAndUserName(checkListsId,userName) <= 0){
             throw new RuntimeException("参照するチェックリストにアクセスする権限がありません。チェックリストIDを改ざんしましたね?");
         }
-        List<OneCheckListDTO> dto = repository.findOneCheckList(checkListsId);
+        List<OneCheckListDTO> dto = cRepository.findOneCheckList(checkListsId);
         //dto.get(0)はよく使うので、変数に代入している。
         OneCheckListDTO one = dto.get(0);
         List<OneItemsViewDTO> items = new ArrayList<>();

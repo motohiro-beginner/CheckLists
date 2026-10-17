@@ -21,6 +21,4 @@ public interface OneCheckListRepository extends JpaRepository<OneCheckListCheckL
     List<OneCheckListDTO> findOneCheckList(@Param("checkListsId") Integer checkListsId);
     //チェックリストそのものを削除するために使う。チェックリスト削除ボタンが押されたときに呼び出される。
     Integer deleteByCheckListsId(Integer id);
-    //該当するcheckListIdかつ該当するuserNameの列を取り出すためのメソッド
-    Integer existsByCheckListIdAndUserName(Integer checkListsId,String userName);
 }

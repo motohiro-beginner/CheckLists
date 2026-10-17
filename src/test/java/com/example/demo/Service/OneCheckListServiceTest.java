@@ -4,6 +4,7 @@ import com.example.demo.DTO.OneCheckListDTO;
 import com.example.demo.DTO.OneCheckListViewDTO;
 import com.example.demo.DTO.OneItemsViewDTO;
 import com.example.demo.Repository.OneCheckListRepository;
+import com.example.demo.Repository.OneCheckListUserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,6 +22,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class OneCheckListServiceTest {
     @Mock
+    OneCheckListUserRepository uRepository;
+    @Mock
     OneCheckListRepository repository;
     @InjectMocks
     OneCheckListService service;
@@ -29,6 +32,8 @@ public class OneCheckListServiceTest {
         List<OneCheckListDTO> dto = new ArrayList<>();
         createDTO(dto,1,"買い物",1,"りんご",true,LocalDate.of(2026,1,1));
         createDTO(dto,1,"買い物",2,"みかん",false,LocalDate.of(2026,1,1));
+        when(uRepository.existsByCheckListIdAndUserName(1,"abcdefg"))
+                .thenReturn(1);
         when(repository.findOneCheckList(1))
                 .thenReturn(dto);
         OneCheckListViewDTO result = service.findOneCheckList(1,"abcdefg");
@@ -47,7 +52,7 @@ public class OneCheckListServiceTest {
         List<OneCheckListDTO> dto = new ArrayList<>();
         createDTO(dto,1,"買い物",1,"りんご",true,LocalDate.of(2026,1,1));
         createDTO(dto,1,"買い物",2,"みかん",false,LocalDate.of(2026,1,1));
-                when(repository.existsByCheckListIdAndUserName(1,"abcdefg"))
+                when(uRepository.existsByCheckListIdAndUserName(1,"abcdefg"))
                         .thenReturn(0);
         RuntimeException exception = assertThrows(RuntimeException.class,() -> {
             service.findOneCheckList(1,"abcdefg");

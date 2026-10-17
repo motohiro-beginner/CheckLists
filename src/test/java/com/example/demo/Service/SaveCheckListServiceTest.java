@@ -7,6 +7,7 @@ import com.example.demo.Entity.OneCheckListCheckListsEntity;
 import com.example.demo.Entity.OneCheckListItemsEntity;
 import com.example.demo.Repository.OneCheckListItemsRepository;
 import com.example.demo.Repository.OneCheckListRepository;
+import com.example.demo.Repository.OneCheckListUserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -25,6 +26,8 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class SaveCheckListServiceTest {
+    @Mock
+    OneCheckListUserRepository uRepository;
     @Mock
     OneCheckListRepository repository;
     @Mock
@@ -55,7 +58,7 @@ public class SaveCheckListServiceTest {
                 ArgumentCaptor.forClass(OneCheckListItemsEntity.class);
         ArgumentCaptor<Integer> captor3 =
                 ArgumentCaptor.forClass(Integer.class);
-        when(repository.existsByCheckListIdAndUserName(1,"abcdefg"))
+        when(uRepository.existsByCheckListIdAndUserName(1,"abcdefg"))
                 .thenReturn(1);
         when(iRepository.findItemIdByCheckListsId(1))
                 .thenReturn(List.of(1,2,3,4));
@@ -119,6 +122,8 @@ public class SaveCheckListServiceTest {
                 "11",
                 "01"
         );
+        when(uRepository.existsByCheckListIdAndUserName(1,"abcdefg"))
+                .thenReturn(1);
         doThrow(new DataAccessException("DBエラー"){})
                 .when(repository)
                 .save(
@@ -152,7 +157,7 @@ public class SaveCheckListServiceTest {
                 "11",
                 "1"
         );
-        when(repository.existsByCheckListIdAndUserName(1,"abcdefg"))
+        when(uRepository.existsByCheckListIdAndUserName(1,"abcdefg"))
                 .thenReturn(1);
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
@@ -217,7 +222,7 @@ public class SaveCheckListServiceTest {
                 "1",
                 "1"
         );
-        when(repository.existsByCheckListIdAndUserName(1,"abcdefg"))
+        when(uRepository.existsByCheckListIdAndUserName(1,"abcdefg"))
                 .thenReturn(1);
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
@@ -257,7 +262,7 @@ public class SaveCheckListServiceTest {
                 "9",
                 "31"
         );
-        when(repository.existsByCheckListIdAndUserName(1,"abcdefg"))
+        when(uRepository.existsByCheckListIdAndUserName(1,"abcdefg"))
                 .thenReturn(1);
         RuntimeException exception = assertThrows(
                 RuntimeException.class,

@@ -18,6 +18,9 @@ public class OneCheckListCheckListsEntity {
     private LocalDate createdAt;
     @OneToMany(mappedBy = "checkList")
     private List<OneCheckListItemsEntity> items;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private OneCheckListUserEntity user;
     public Integer getCheckListsId(){
         return checkListsId;
     }

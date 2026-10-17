@@ -5,6 +5,7 @@ import com.example.demo.Entity.OneCheckListCheckListsEntity;
 import com.example.demo.Entity.OneCheckListItemsEntity;
 import com.example.demo.Repository.OneCheckListItemsRepository;
 import com.example.demo.Repository.OneCheckListRepository;
+import com.example.demo.Repository.OneCheckListUserRepository;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +16,18 @@ import java.util.List;
 
 @Service
 public class SaveCheckListService {
-    private OneCheckListRepository repository;
+    private OneCheckListUserRepository uRepository;
+    private OneCheckListRepository cRepository;
     private OneCheckListItemsRepository iRepository;
-    public SaveCheckListService(OneCheckListRepository repository,OneCheckListItemsRepository iRepository){
-        this.repository = repository;
+    public SaveCheckListService(OneCheckListUserRepository uRepository,OneCheckListRepository cRepository,OneCheckListItemsRepository iRepository){
+        this.uRepository = uRepository;
+        this.cRepository = cRepository;
         this.iRepository = iRepository;
     }
     /*updateColumnsはユーザーが変更したチェックリスト名、日付、項目名、チェックがついているか否かの情報をデータベースに更新するためのメソッドである。*/
     public void updateColumns(String userName,SaveCheckListDTO dto){
         try {
-            if(repository.existsByCheckListIdAndUserName(Integer.parseInt(dto.getCheckListsId()),userName) <= 0){
+            if(uRepository.existsByCheckListIdAndUserName(Integer.parseInt(dto.getCheckListsId()),userName) <= 0){
                 throw new RuntimeException("参照するチェックリストにアクセスする権限がありません。チェックリストIDを改ざんしましたね?");
             }
             //チェックリスト本体を保存する。
@@ -50,7 +53,7 @@ public class SaveCheckListService {
                 throw new IllegalArgumentException("チェックリストに入力する日付に過去の日付を入力しないでください。");
             }
             checkList.setCreatedAt(saveDate);
-            repository.save(checkList);
+            cRepository.save(checkList);
             //チェックリストに含まれる各項目を保存する。
             for (SaveItemsDTO item : dto.getItems()) {
                 OneCheckListItemsEntity oneItem = new OneCheckListItemsEntity();
