@@ -217,6 +217,8 @@ public class SaveCheckListServiceTest {
                 "1",
                 "1"
         );
+        when(repository.existsByCheckListIdAndUserName(1,"abcdefg"))
+                .thenReturn(1);
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
                 () -> service.updateColumns("abcdefg",dto)
@@ -255,6 +257,8 @@ public class SaveCheckListServiceTest {
                 "9",
                 "31"
         );
+        when(repository.existsByCheckListIdAndUserName(1,"abcdefg"))
+                .thenReturn(1);
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
                 () -> service.updateColumns("abcdefg",dto)
