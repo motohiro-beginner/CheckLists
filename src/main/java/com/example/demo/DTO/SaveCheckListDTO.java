@@ -1,5 +1,6 @@
 package com.example.demo.DTO;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -18,7 +19,9 @@ public class SaveCheckListDTO {
     @NotBlank
     @Size(max = 50)
     private String checkListName;
+    @Valid
     private List<SaveItemsDTO> items;
+    @Valid
     private List<NewItemsDTO> newItems;
     @NotBlank
     @Pattern(regexp = "^[1-9]\\d{3}$")

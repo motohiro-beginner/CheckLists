@@ -60,7 +60,10 @@ export function inputCheck(/**@type {string}*/checkListName,/**@type {string} */
             problem = true;
         }
     }
-    
+    if(items === null && newItems === null){
+        caution.push("更新後のチェックリストに項目がありません。");
+        problem = true;
+    }
     for(const item of items){
         if(item.itemNames.trim() === ""){
         caution.push("入力されていない項目があります。");

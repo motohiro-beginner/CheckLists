@@ -17,6 +17,7 @@ public interface OneCheckListRepository extends JpaRepository<OneCheckListCheckL
            FROM OneCheckListCheckListsEntity c
            JOIN c.items i
            WHERE c.checkListsId = :checkListsId
+           ORDER BY i.itemId
            """)
     List<OneCheckListDTO> findOneCheckList(@Param("checkListsId") Integer checkListsId);
     //チェックリストそのものを削除するために使う。チェックリスト削除ボタンが押されたときに呼び出される。

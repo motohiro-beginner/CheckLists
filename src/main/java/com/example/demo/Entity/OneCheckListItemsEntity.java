@@ -34,6 +34,9 @@ public class OneCheckListItemsEntity {
     public void setIsChecked(boolean isChecked){
         this.isChecked = isChecked;
     }
+    public OneCheckListCheckListsEntity getCheckList(){
+        return checkList;
+    }
     public void setCheckListsEntity(OneCheckListCheckListsEntity checkList){
         this.checkList = checkList;
     }

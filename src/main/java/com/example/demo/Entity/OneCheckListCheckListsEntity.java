@@ -39,5 +39,10 @@ public class OneCheckListCheckListsEntity {
     public void setCreatedAt(LocalDate createdAt){
         this.createdAt = createdAt;
     }
-
+    public OneCheckListUserEntity getUser(){
+        return user;
+    }
+    public void setUser(OneCheckListUserEntity user){
+        this.user = user;
+    }
 }
