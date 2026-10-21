@@ -54,7 +54,7 @@ public class SaveCheckListService {
             }
             checkList.setCreatedAt(saveDate);
             cRepository.save(checkList);
-            if((dto.getItems() == null) && (dto.getNewItems() == null)){
+            if((dto.getItems().isEmpty()) && (dto.getNewItems().isEmpty())){
                 throw new IllegalArgumentException("更新後のチェックリストに項目がありません。");
             }
             //チェックリストに含まれる各項目を保存する。

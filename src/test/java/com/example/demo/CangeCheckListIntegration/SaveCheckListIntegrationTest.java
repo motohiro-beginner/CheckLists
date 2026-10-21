@@ -249,6 +249,46 @@ public class SaveCheckListIntegrationTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("更新後のチェックリストに項目がありません。"));
     }
+    @Test
+    void 実在しない日付が入力されていた場合() throws Exception{
+        List<Integer> someId = setRepository();
+        mvc.perform(post("/saveCheckListName")
+                        .sessionAttr("userName","abcdefg")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                        {
+                            "checkListsId": "%s",
+                                "checkListName": "買い物",
+                                "items": [
+                                    {
+                                    "itemId": "%s",
+                                    "itemNames": "りんご",
+                                    "isChecked": true
+                                    },
+                                    {
+                                    "itemId": "%s",
+                                    "itemNames": "みかん",
+                                    "isChecked": false
+                                    }
+                                ],
+                                "newItems": [
+                                    {
+                                    "itemName": "いちご",
+                                    "isChecked": true
+                                    }
+                                ],
+                                "year": "2026",
+                                "month": "11",
+                                "day": "31"
+                        }
+                        """.formatted(
+                                someId.get(0),
+                                someId.get(1),
+                                someId.get(2)
+                        )))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("実在しない日付が入力されています。"));
+    }
     private List<Integer> setRepository(){
         OneCheckListUserEntity user = new OneCheckListUserEntity();
         user.setUserName("abcdefg");
