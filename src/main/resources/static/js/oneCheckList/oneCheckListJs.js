@@ -25,6 +25,8 @@ async function oneCheckList(){
         },
         body: JSON.stringify({})
     });
+    //テストのためのコード
+    //const response = await oneCheckListFakeFetch();
     if(response.ok){
         /**@type {OneCheckListViewDTO} */
         const checkList = await response.json();
